@@ -29,7 +29,10 @@ def home():
 @app.route("/", methods=['GET'])
 def about():
     return render_template('GetEmp.html')
-
+    
+@app.route("/about", methods=['POST'])
+def about():
+    return render_template('www.tarc.edu.my')
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():

@@ -31,7 +31,7 @@ def about():
     return render_template('www.tarc.edu.my')
 
 
-@app.route("/getemp", methods=['POST'])
+@app.route("/fetchdata", methods=['POST'])
 def GetEmp():
     emp_id = request.form['emp_id']
     select_sql = "SELECT * FROM employee WHERE emp_id = %s"

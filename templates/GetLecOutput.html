@@ -1,41 +1,159 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Edit hello Employee Information</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style>
+        body {
+            margin: 0px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        nav {
+            display: flex;
+            top: 0;
+            right: 0;
+            background-color: #1f1f1f;
+            padding: 15px;
+            justify-content: space-between;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #b9b9b9;
+            font-size: 16px;
+            margin-left: 20px;
+            /* Add margin to space out the links */
+            transition: color 0.3s;
+            /* Smooth color transition on hover */
+        }
+
+        .form {
+            width: 100%;
+            display: flex;
+            padding: 5px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .form .form-label {
+            width: 40%;
+            font-weight: bold;
+            text-align: left;
+            padding-right: 20px;
+        }
+
+        .btn {
+            font-size: 14px;
+        }
+
+        .panel-main {
+            border: 1px solid #ddd;
+			border-radius: 5px;
+			margin: 20px 0px;
+			width: 400px;
+			display: block;
+			position: relative;
+			left: 450px;
+        }
+
+        .panel-main .panel-header {
+            background-color: #f5f5f5;
+            color: #333;
+            border-color: #ddd;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        i {
+            font-family: "Font Awesome";
+        }
+
+        #students th {
+            padding: 5px 0px;
+            text-align: left;
+            background-color: #333;
+            color: white;
+        }
+
+        #students td, #students th {
+            padding: 5px;
+        }
+
+        #students tr:nth-child(even){background-color: #f2f2f2;}
+        #students tr:hover {background-color: #ddd;}
+    </style>
 </head>
-<center>
-	<font color="black" size="5" style="font-family: avenir">
 
-		<h1 style="color: DodgerBlue">Employee Information</h1>
+<body>
+    <nav>
+        <div class="homeNav">
+            <a href="#">Home</a>
+        </div>
+        <div class="otherNav">
+            <a href="#">Log Out</a>
+        </div>
+    </nav>
 
-		<body bgcolor="lightgrey">
-			
-		<form action="/editlec" autocomplete="on" method = "POST" enctype="multipart/form-data">
+    <div style="margin: 20px 100px; padding: 10px;">
 
-			
+        <h2 style="font-weight: 500;">Welcome : {{ name }}</h2>
+        <hr>
 
-		  		Lecturer ID:<br> {{ id}} <input style="height:25px;font-size:14pt;color:grey;" name="lec_id" value="{{ id}}"  type="hidden"><br><br>
+        <!-- LECTURER INFORMATION -->
+        <div class="panel-main">
+            <div class="panel-header">
+                <div>Edit Profile</div>
+            </div>
+            <div style="padding: 15px; width: 500px;">
+				<div>
+					<form action="/editlec" autocomplete="on" method = "POST" enctype="multipart/form-data"></form>
+						<div class="form">
+							<input  type="hidden" value="{{ id }}" name="lec_id" autofocus size="40">
 
-				Password:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="password" value="{{ psw}}" ><br><br>
+							<input  type="hidden" name="password" value="{{ psw}}" >		  		    		  		        		  		       		  		        
 
-		  		Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="name" value="{{ name}}" ><br><br>
+							<input type=hidden name="lec_image_file"  value="{{ image_url}}"> <br><br>
+							
+							<div class="form-label">Name</div>
+							<div class="form-data"><input  type="text" name="name" value="{{ name}}" ></div>
+						</div>
+						<div class="form">
+							<div class="form-label">Gender</div>
+							<div class="form-data"><input  type="text" name="gender" value="{{ gender}}" ></div>
+						</div>
+						<div class="form">
+							<div class="form-label">Email</div>
+							<div class="form-data"> <input  type="text" name="email" value="{{ email}}" ></div>
+						</div>
+						<div class="form">
+							<div class="form-label">Expertise</div>
+							<div class="form-data"><input  type="text" name="expertise" value="{{ expertise}}" ></div>
+						</div>
+						<br><br><button type="submit" style="background: grey; height: 45px; width: 180px; color: white; size: 3; font:oblique;">BACK</button>
+						<button type="submit" style="background: grey; height: 45px; width: 180px; color: white; size: 3; font:oblique;">UPDATE DATABASE</button>
+					</form>
+                </div>
+            </div>
+        </div>
+        
+        <hr>
+        <footer>
+            <p>© 2023 - TAR UMT FOCS ITP</p>
+        </footer>
+    </div>
 
-		  		Gender:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="gender" value="{{ gender}}" ><br><br>
 
-		  		Email:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="email" value="{{ email}}" ><br><br>
+    <script src="/bundles/bootstrap?v=lescQEuG5u4jd-GcVDBcbpUOSyTDIg0Kk9zHDX55GCw1"></script>
+</body>
 
-		  		Expertis:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="expertis" value="{{ expertis}}" ><br><br>
-
-		  		Image: <input type=file name="lec_image_file" style="height:25px;font-size:14pt;color:grey;" value="{{ image_url}}"> <br><br>
-
-		  		<button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">UPDATE DATABASE</button>
-
-			</form>
-			
-
-		</body>
-
-	</font>
-</center>
 </html>
-

@@ -80,6 +80,7 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
+@app.route("/getemp", methods=['GET'])
 def GetEmp(emp_id):
     select_sql = "SELECT * FROM employee "
     cursor = db_conn.cursor()

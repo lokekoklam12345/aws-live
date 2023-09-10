@@ -26,9 +26,9 @@ def home():
     return render_template('AddEmp.html')
 
 
-@app.route("/about", methods=['POST'])
+@app.route("/", methods=['GET'])
 def about():
-    return render_template('www.tarc.edu.my')
+    return render_template('GetEmp.html')
 
 
 @app.route("/addemp", methods=['POST'])

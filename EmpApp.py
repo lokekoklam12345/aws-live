@@ -117,7 +117,7 @@ def GetEmp():
     finally:
         cursor.close()
         
-     return render_template('EditEmp.html', id=emp_id ,f_name=first_name, l_name=last_name , skill=pri_skill , loc=location )
+     return render_template('EditEmp.html' )
 
 
 if __name__ == '__main__':

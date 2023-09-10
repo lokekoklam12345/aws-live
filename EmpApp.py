@@ -94,7 +94,7 @@ def UpdateEmp():
     expertis = request.form['expertis']
     lec_image_file = request.files['lec_image_file']
 
-    update_sql = "UPDATE lecturer SET password=%s, name=%s, gender=%s, email=%s, expertis=%s WHERE lectId=%s"
+    update_sql = "UPDATE lecturer SET password=%s, name=%s, gender=%s, email=%s, expertise=%s WHERE lectId=%s"
     cursor = db_conn.cursor()
 
     if lec_image_file.filename == "":

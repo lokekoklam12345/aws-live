@@ -109,7 +109,8 @@ def GetEmp():
         }
 
         return emp_details
-
+ return render_template('AddEmpOutput.html')
+    
     except Exception as e:
         return str(e)
 

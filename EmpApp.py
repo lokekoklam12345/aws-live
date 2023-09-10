@@ -80,6 +80,39 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
+def GetEmp(emp_id):
+    select_sql = "SELECT * FROM employee "
+    cursor = db_conn.cursor()
+
+    try:
+        cursor.execute(select_sql, (emp_id,))
+        employee = cursor.fetchone()
+
+        if not employee:
+            return "Employee not found"
+
+        emp_id = employee[0]
+        first_name = employee[1]
+        last_name = employee[2]
+        pri_skill = employee[3]
+        location = employee[4]
+
+        # You can return the employee details or use them as needed
+        emp_details = {
+            "emp_id": emp_id,
+            "first_name": first_name,
+            "last_name": last_name,
+            "pri_skill": pri_skill,
+            "location": location
+        }
+
+        return emp_details
+
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

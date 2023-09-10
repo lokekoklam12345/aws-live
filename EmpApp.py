@@ -150,12 +150,15 @@ def LecLoginPage():
 
 @app.route("/loginlec", methods=['GET','POST'])
 def LoginLec():
+
+    
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
 
         select_sql = "SELECT * FROM lecturer WHERE email = %s AND password = %s"
         cursor = db_conn.cursor()
+
 
         try:
             cursor.execute(select_sql, (email,password,))

@@ -73,7 +73,7 @@ def GetEmp():
                 "image_url": response
             }
 
-            return render_template('GetEmpOutput.html',image_url=response,id=lec_id ,psw=passowrd, name=name , email=email , expertis =expertis,gender=gender )
+            return render_template('GetLecOutput.html',image_url=response,id=lec_id ,psw=passowrd, name=name , email=email , expertis =expertis,gender=gender )
 
         except Exception as e:
             return str(e)

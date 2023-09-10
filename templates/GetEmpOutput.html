@@ -9,28 +9,27 @@
 		<h1 style="color: DodgerBlue">Employee Information</h1>
 
 		<body bgcolor="lightgrey">
+			
+		<form action="/editemp" autocomplete="on" method = "POST" enctype="multipart/form-data">
 
-			<form>
+			
 
-				<div>
+		  		Employee ID:<br> <input style="height:25px;font-size:14pt; color:grey;" type="number" name="emp_id" value="id"  autofocus size="40"><br><br>
 
-			  		Employee ID:<br> {{ id }} <br><br>
+		  		First Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="first_name" value="fname" ><br><br>
 
-			  		First Name:<br> {{ fname }} <br><br>
+		  		Last Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="last_name" value="lname" ><br><br>
 
-			  		Last Name:<br> {{ lname }} <br><br>
+		  		Primary Skills:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="pri_skill" value="interest" ><br><br>
 
-			  		Primary Interest:<br> {{ interest }} <br><br>
+		  		Location:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="location" value="location" ><br><br>
 
-			  		Location:<br> {{ location }} <br><br>
+		  		Image: <input type=file name="emp_image_file" style="height:25px;font-size:14pt;color:grey;" value="image_url"> <br><br>
 
-			  		Image URL: <br> {{ image_url }} <br><br>
-
-			  		<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" formaction="http://3.134.115.108:80/getemp">RESET</button><br><br>
-
-			  	</div>
+		  		<button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">UPDATE DATABASE</button>
 
 			</form>
+			
 
 		</body>
 

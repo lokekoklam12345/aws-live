@@ -156,7 +156,7 @@ def LoginLec():
         email = request.form['email']
         password = request.form['password']
 
-        select_sql = "SELECT * FROM lecturer WHERE email = %s AND password = %s"
+        select_sql = "SELECT * FROM lecturer WHERE lectId = %s AND password = %s"
         cursor = db_conn.cursor()
 
 

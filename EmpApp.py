@@ -91,7 +91,7 @@ def UpdateEmp():
     name = request.form['name']
     gender = request.form['gender']
     email = request.form['email']
-    expertis = request.form['expertis']
+    expertise = request.form['expertise']
     lec_image_file = request.files['lec_image_file']
 
     update_sql = "UPDATE lecturer SET password=%s, name=%s, gender=%s, email=%s, expertise=%s WHERE lectId=%s"
@@ -109,7 +109,7 @@ def UpdateEmp():
         if not existing_lecturer:
             return "Lecturer not found"
 
-        cursor.execute(update_sql, (password, name, gender, email, expertis,lec_id))
+        cursor.execute(update_sql, (password, name, gender, email, expertise,lec_id))
         db_conn.commit()
         lec_name = "" + name 
 

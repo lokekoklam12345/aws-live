@@ -98,6 +98,7 @@ def GetEmp():
         last_name = employee[2]
         pri_skill = employee[3]
         location = employee[4]
+         emp_name = "" + first_name + " " + last_name
 
         # You can return the employee details or use them as needed
         emp_details = {
@@ -107,7 +108,7 @@ def GetEmp():
             "pri_skill": pri_skill,
             "location": location
         }
- emp_name = "" + first_name + " " + last_name
+
         return emp_details
  return render_template('GetEmpOutput.html',name=emp_name)
     

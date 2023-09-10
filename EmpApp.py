@@ -82,7 +82,7 @@ def GetEmp():
     finally:
         cursor.close()
 
-@app.route("/editEmp", methods=['POST'])
+@app.route("/editemp", methods=['POST'])
 def UpdateEmp():
     emp_id = request.form['emp_id']
     first_name = request.form['first_name']

@@ -109,23 +109,23 @@
         <div class="panel-main">
             <div class="panel-header">
                 <div>Profile</div>
-                <div><a href="/fetchdata" class="btn btn-outline-secondary">Edit</a></div>
+                <div><a href="/fetchdata" class="btn btn-outline-secondary" method="POST" >Edit</a></div>
             </div>
             <div style="padding: 15px;">
                 <div>
                     <div class="form">
-                        <input  type="hidden" value="{{ id }}" name="lec_id" autofocus size="40"><br><br>
-                        <input  type="hidden" name="password" value="{{ psw}}" ><br><br>
+                        <input  type="hidden" value="{{ id }}" name="lec_id" autofocus size="40">
+                        <input  type="hidden" name="password" value="{{ psw}}" >
 
-		  		        <input  type="hidden" name="name" value="{{ name}}" ><br><br>
+		  		        <input  type="hidden" name="name" value="{{ name}}" >
 
-		  		        <input  type="hidden" name="gender" value="{{ gender}}" ><br><br>
+		  		        <input  type="hidden" name="gender" value="{{ gender}}" >
 
-		  		        <input  type="hidden" name="email" value="{{ email}}" ><br><br>
+		  		        <input  type="hidden" name="email" value="{{ email}}" >
 
-		  		        <input  type="hidden" name="expertise" value="{{ expertise}}" ><br><br>
+		  		        <input  type="hidden" name="expertise" value="{{ expertise}}" >
 
-		  		        <input type=hidden name="lec_image_file" style="height:25px;font-size:14pt;color:grey;" value="{{ image_url}}"> <br><br>
+		  		        <input type=hidden name="lec_image_file"  value="{{ image_url}}"> <br><br>
                         
                         <div class="form-label">Name</div>
                         <div class="form-data">{{ name }}</div>

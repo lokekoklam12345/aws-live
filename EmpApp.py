@@ -99,7 +99,7 @@ def GetEmp():
         pri_skill = employee[3]
         location = employee[4]
        
-          emp_name = "" + first_name + " " + last_name
+        
         # You can return the employee details or use them as needed
         emp_details = {
             "emp_id": emp_id,

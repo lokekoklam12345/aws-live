@@ -60,7 +60,7 @@ def GetEmp():
             "location": location
         }
 
-        return render_template('GetEmpOutput.html',id=emp_id ,f_name=first_name, l_name=last_name , skill=pri_skill , loc=location )
+        return render_template('GetEmpOutput.html',id=emp_id ,fname=first_name, lname=last_name , interest =pri_skill , location=location )
     except Exception as e:
         return str(e)
 

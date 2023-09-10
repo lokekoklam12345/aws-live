@@ -23,7 +23,7 @@ table = 'employee'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('GetEmp.html')
+    return render_template('GetLec.html')
 
 
 @app.route("/about", methods=['POST'])
@@ -33,45 +33,47 @@ def about():
 
 @app.route("/fetchdata", methods=['POST'])
 def GetEmp():
-    emp_id = request.form['emp_id']
-    select_sql = "SELECT * FROM employee WHERE emp_id = %s"
+    lec_id = request.form['lec_id']
+    select_sql = "SELECT * FROM lecturer WHERE lec_id = %s"
     cursor = db_conn.cursor()
 
     try:
-        cursor.execute(select_sql, (emp_id,))
-        employee = cursor.fetchone()
+        cursor.execute(select_sql, (lec_id,))
+        lecturer = cursor.fetchone()
 
-        if not employee:
-            return "Employee not found"
+        if not lecturer:
+            return "Lecturer not found"
 
-        emp_id = employee[0]
-        first_name = employee[1]
-        last_name = employee[2]
-        pri_skill = employee[3]
-        location = employee[4]
+        lec_id = lecturer[0]
+        passowrd = lecturer[1]
+        name = lecturer[2]
+        gender = lecturer[3]
+        email = lecturer[4]
+        expertis = lecturer[5]
 
         # Fetch the S3 image URL based on emp_id
-        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+        lec_image_file_name_in_s3 = "lec-id-" + str(lec_id) + "_image_file"
         s3 = boto3.client('s3')
         bucket_name = custombucket
 
         try:
             response = s3.generate_presigned_url('get_object',
                                                  Params={'Bucket': bucket_name,
-                                                         'Key': emp_image_file_name_in_s3},
+                                                         'Key': lec_image_file_name_in_s3},
                                                  ExpiresIn=3600)  # Adjust the expiration time as needed
 
             # You can return the employee details along with the image URL
             emp_details = {
-                "emp_id": emp_id,
-                "first_name": first_name,
-                "last_name": last_name,
-                "pri_skill": pri_skill,
-                "location": location,
+                "lec_id": lec_id,
+                "passowrd": passowrd,
+                "name": name,
+                "gender": gender,
+                "email": email,
+                "expertis": expertis,
                 "image_url": response
             }
 
-            return render_template('GetEmpOutput.html',image_url=response,id=emp_id ,fname=first_name, lname=last_name , interest=pri_skill , location =location )
+            return render_template('GetEmpOutput.html',image_url=response,id=lec_id ,psw=passowrd, name=name , email=email , expertis =expertis,gender=gender )
 
         except Exception as e:
             return str(e)
@@ -82,41 +84,42 @@ def GetEmp():
     finally:
         cursor.close()
 
-@app.route("/editemp", methods=['POST'])
+@app.route("/editlec", methods=['POST'])
 def UpdateEmp():
-    emp_id = request.form['emp_id']
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    pri_skill = request.form['pri_skill']
-    location = request.form['location']
-    emp_image_file = request.files['emp_image_file']
+    lec_id = request.form['lec_id']
+    password = request.form['password']
+    name = request.form['name']
+    gender = request.form['gender']
+    email = request.form['email']
+    expertis = request.form['expertis']
+    lec_image_file = request.files['lec_image_file']
 
-    update_sql = "UPDATE employee SET first_name=%s, last_name=%s, pri_skill=%s, location=%s WHERE emp_id=%s"
+    update_sql = "UPDATE lecturer SET password=%s, name=%s, gender=%s, email=%s, expertis=%s WHERE lecId=%s"
     cursor = db_conn.cursor()
 
-    if emp_image_file.filename == "":
+    if lec_image_file.filename == "":
         return "Please select a file"
 
     try:
         # Check if the employee exists
-        check_sql = "SELECT * FROM employee WHERE emp_id = %s"
-        cursor.execute(check_sql, (emp_id,))
-        existing_employee = cursor.fetchone()
+        check_sql = "SELECT * FROM employee WHERE lecId = %s"
+        cursor.execute(check_sql, (lec_id,))
+        existing_lecturer = cursor.fetchone()
 
-        if not existing_employee:
-            return "Employee not found"
+        if not existing_lecturer:
+            return "Lecturer not found"
 
-        cursor.execute(update_sql, (first_name, last_name, pri_skill, location, emp_id))
+        cursor.execute(update_sql, (password, name, gender, email, expertis))
         db_conn.commit()
-        emp_name = "" + first_name + " " + last_name
+        emp_name = "" + name 
 
         # Update image file in S3
-        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+        lec_image_file_name_in_s3 = "lec-id-" + str(lec_id) + "_image_file"
         s3 = boto3.resource('s3')
 
         try:
             print("Data updated in MySQL RDS... updating image in S3...")
-            s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file)
+            s3.Bucket(custombucket).put_object(Key=lec_image_file_name_in_s3, Body=lec_image_file)
             bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
             s3_location = (bucket_location.get('LocationConstraint'))
 
@@ -128,7 +131,7 @@ def UpdateEmp():
             object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
                 s3_location,
                 custombucket,
-                emp_image_file_name_in_s3)
+                lec_image_file_name_in_s3)
 
         except Exception as e:
             return str(e)
@@ -137,7 +140,7 @@ def UpdateEmp():
         cursor.close()
 
     print("all modifications done...")
-    return render_template('UpdateEmpOutput.html', name=emp_name)
+    return render_template('UpdateEmpOutput.html', name=name)
 
     
 

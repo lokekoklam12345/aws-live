@@ -109,7 +109,7 @@ def UpdateEmp():
         if not existing_lecturer:
             return "Lecturer not found"
 
-        cursor.execute(update_sql, (password, name, gender, email, expertis))
+        cursor.execute(update_sql, (password, name, gender, email, expertis,lec_id))
         db_conn.commit()
         lec_name = "" + name 
 

@@ -94,7 +94,7 @@ def UpdateEmp():
     expertis = request.form['expertis']
     lec_image_file = request.files['lec_image_file']
 
-    update_sql = "UPDATE lecturer SET password=%s, name=%s, gender=%s, email=%s, expertis=%s WHERE lecId=%s"
+    update_sql = "UPDATE lecturer SET password=%s, name=%s, gender=%s, email=%s, expertis=%s WHERE lectId=%s"
     cursor = db_conn.cursor()
 
     if lec_image_file.filename == "":
@@ -111,7 +111,7 @@ def UpdateEmp():
 
         cursor.execute(update_sql, (password, name, gender, email, expertis))
         db_conn.commit()
-        emp_name = "" + name 
+        lec_name = "" + name 
 
         # Update image file in S3
         lec_image_file_name_in_s3 = "lec-id-" + str(lec_id) + "_image_file"

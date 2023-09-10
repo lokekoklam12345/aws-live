@@ -89,7 +89,7 @@ def GetEmp():
     try:
         cursor.execute(select_sql, (emp_id,))
         employee = cursor.fetchone()
-
+  
         if not employee:
             return "Employee not found"
 
@@ -99,7 +99,7 @@ def GetEmp():
         pri_skill = employee[3]
         location = employee[4]
        
-
+          emp_name = "" + first_name + " " + last_name
         # You can return the employee details or use them as needed
         emp_details = {
             "emp_id": emp_id,
@@ -116,6 +116,9 @@ def GetEmp():
 
     finally:
         cursor.close()
+        
+     return render_template('EditEmp.html', emp_id ,first_name,last_name ,pri_skill ,location )
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

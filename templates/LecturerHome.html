@@ -109,7 +109,13 @@
         <div class="panel-main">
             <div class="panel-header">
                 <div>Profile</div>
-                <div><a href="/fetchdata" class="btn btn-outline-secondary" method="POST" >Edit</a></div>
+                <div>
+                    <form action="/fetchdata" autocomplete="on" method="POST">                                
+                        <input  type="text" name="lec_id" value="{{ id}}" autofocus size="40">
+                          <button type="submit" >Edit</button>
+        
+                    </form>
+                    </div>
             </div>
             <div style="padding: 15px;">
                 <div>

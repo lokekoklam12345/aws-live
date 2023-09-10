@@ -40,7 +40,7 @@ def GetEmp():
     try:
         cursor.execute(select_sql, (emp_id,))
         employee = cursor.fetchone()
-  
+
         if not employee:
             return "Employee not found"
 
@@ -49,24 +49,40 @@ def GetEmp():
         last_name = employee[2]
         pri_skill = employee[3]
         location = employee[4]
-       
-        
-        # You can return the employee details or use them as needed
-        emp_details = {
-            "emp_id": emp_id,
-            "first_name": first_name,
-            "last_name": last_name,
-            "pri_skill": pri_skill,
-            "location": location
-        }
 
-        return render_template('GetEmpOutput.html',id=emp_id ,fname=first_name, lname=last_name , interest =pri_skill , location=location )
+        # Fetch the S3 image URL based on emp_id
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+        s3 = boto3.client('s3')
+        bucket_name = custombucket
+
+        try:
+            response = s3.generate_presigned_url('get_object',
+                                                 Params={'Bucket': bucket_name,
+                                                         'Key': emp_image_file_name_in_s3},
+                                                 ExpiresIn=3600)  # Adjust the expiration time as needed
+
+            # You can return the employee details along with the image URL
+            emp_details = {
+                "emp_id": emp_id,
+                "first_name": first_name,
+                "last_name": last_name,
+                "pri_skill": pri_skill,
+                "location": location,
+                "image_url": response
+            }
+
+            return render_template('GetEmpOutput.html',image_url=response,id=emp_id ,f_name=first_name, l_name=last_name , skill=pri_skill , loc=location )
+
+        except Exception as e:
+            return str(e)
+
     except Exception as e:
         return str(e)
 
     finally:
         cursor.close()
-       
+
+
     
 
 

@@ -102,7 +102,7 @@ def UpdateEmp():
 
     try:
         # Check if the employee exists
-        check_sql = "SELECT * FROM employee WHERE lectId = %s"
+        check_sql = "SELECT * FROM lecturer WHERE lectId = %s"
         cursor.execute(check_sql, (lec_id,))
         existing_lecturer = cursor.fetchone()
 

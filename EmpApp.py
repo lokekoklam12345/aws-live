@@ -156,12 +156,12 @@ def LoginLec():
         email = request.form['email']
         password = request.form['password']
 
-        select_sql = "SELECT * FROM lecturer "
+        select_sql = "SELECT * FROM lecturer WHERE password = %s AND email = %s"
         cursor = db_conn.cursor()
 
 
         try:
-            cursor.execute(select_sql)
+            cursor.execute(select_sql, (password,email,))
             lecturer = cursor.fetchone()
 
             if not lecturer:

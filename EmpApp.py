@@ -34,7 +34,7 @@ def about():
 @app.route("/fetchdata", methods=['POST'])
 def GetEmp():
     lec_id = request.form['lec_id']
-    select_sql = "SELECT * FROM lecturer WHERE lec_id = %s"
+    select_sql = "SELECT * FROM lecturer WHERE lecId = %s"
     cursor = db_conn.cursor()
 
     try:

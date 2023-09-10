@@ -178,7 +178,7 @@ def LoginLec():
         finally:   
             cursor.close()
         
-    return render_template('LecturerHome.html', name=lecturer[2], gender=lecturer[3], email=lecturer[4], expertise=lecturer[5])
+    return render_template('LecturerHome.html', id=lecturer[0],password=lecturer[1], name=lecturer[2], gender=lecturer[3], email=lecturer[4], expertise=lecturer[5])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

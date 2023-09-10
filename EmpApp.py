@@ -107,9 +107,9 @@ def GetEmp():
             "pri_skill": pri_skill,
             "location": location
         }
-
+ emp_name = "" + first_name + " " + last_name
         return emp_details
- return render_template('AddEmpOutput.html')
+ return render_template('GetEmpOutput.html',name=emp_name)
     
     except Exception as e:
         return str(e)

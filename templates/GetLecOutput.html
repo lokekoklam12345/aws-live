@@ -127,6 +127,19 @@
         #students tr:nth-child(even){background-color: #f2f2f2;}
         #students tr:hover {background-color: #ddd;}
     </style>
+
+    <script>
+            $(document).ready(function() 
+        {
+            var genderValue = "{{gender}}"; // Replace with your actual value
+            if (genderValue === "M") {
+                $("#male").prop("checked", true);
+            } else if (genderValue === "F") {
+                $("#female").prop("checked", true);
+            }
+        });
+
+    </script>
 </head>
 
 <body>
@@ -175,7 +188,8 @@
                                 <label for="male">Male</label>
                                 <input type="radio" name="gender" value="F" id="female" data-gender="{{gender}}">
                                 <label for="female">Female</label>
-                              </div>
+                            </div>
+                            
 						</div>
 						<div class="form">
 							<div class="form-label">Email</div>

@@ -115,7 +115,7 @@
                           <button type="submit" >Edit</button>
         
                     </form>
-                    </div>
+                </div>
             </div>
             <div style="padding: 15px;">
                 <div>
@@ -159,12 +159,18 @@
         <div class="panel-main">
             <div class="panel-header">
                 <div>Students</div>
+                <div>
+                    <form action="/pickUpStudent" autocomplete="on" method="POST">                                                        
+                          <button type="submit" >Pick Up</button>        
+                    </form>
+                  
+                </div>
             </div>
             
             <div style="padding: 15px;">
-                {% if count == 0 %}
-                <div><form action="/pickUpStudent">Pick Students</a> </form></div>
-                {% else %}
+                
+                
+               
                 <table id="students" style="width: 100%; font-size: 14px; border-collapse: collapse;">
                     <tr>
                         <th width="1%"></th>

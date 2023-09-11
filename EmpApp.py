@@ -223,7 +223,6 @@ def GetStudent():
                     "level": level,
                     "programme": programme,
                     "cohort": cohort,
-                    "image_url": response
                 }
 
                 # Append the student's dictionary to the student_list
@@ -232,10 +231,10 @@ def GetStudent():
             except Exception as e:
                 return str(e)
 
-        return student_list
+         #return student_list
 
 
-        # return render_template('PickUpStudent.html', students=student_list)
+            return render_template('PickUpStudent.html', students=student_list)
 
     except Exception as e:
         return str(e)

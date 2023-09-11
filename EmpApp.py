@@ -63,7 +63,7 @@ def GetEmp():
                                                  ExpiresIn=3600)  # Adjust the expiration time as needed
 
             # You can return the employee details along with the image URL
-            emp_details = {
+            lec_details = {
                 "lec_id": lec_id,
                 "passowrd": passowrd,
                 "name": name,

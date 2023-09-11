@@ -180,7 +180,7 @@ def LoginLec():
 
 
 
-@app.route("/pickUpStudent")
+@app.route("/pickUpStudent" ,methods=['GET','POST'])
 def GetStudent():
     select_sql = "SELECT * FROM student where supervisor is NULL"
     cursor = db_conn.cursor()

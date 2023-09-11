@@ -228,13 +228,13 @@ def GetStudent():
 
                 # Append the student's dictionary to the student_list
                 student_list.append(student_data)
-
+                stu=student_list
             except Exception as e:
                 return str(e)
 
          #return student_list
 
-            stu=student_list
+            
             return stu
             #return render_template('PickUpStudent.html', stu=student_list)
 

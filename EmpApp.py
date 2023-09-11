@@ -215,7 +215,12 @@ def GetStudent():
                                                      ExpiresIn=1000)  # Adjust the expiration time as needed
 
                 # Create a dictionary for each lecturer with their details and image URL
-                student_details = {
+                
+
+            except Exception as e:
+                return str(e)
+            
+            student_list = {
                     "student_id": student_id,
                     "name": name,
                     "gender": gender,
@@ -225,12 +230,8 @@ def GetStudent():
                     "cohort": cohort
                 }
 
-                return student_details
-
-            except Exception as e:
-                return str(e)
-
-        return render_template('PickUpStudent.html', students=student_list)
+        return student_list
+        # return render_template('PickUpStudent.html', students=student_list)
 
     except Exception as e:
         return str(e)

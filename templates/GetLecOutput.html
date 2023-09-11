@@ -133,9 +133,9 @@
             $(document).ready(function() 
         {
             var genderValue = "{{gender}}"; // Replace with your actual value
-            if (genderValue === "M") {
+            if (genderValue == "M") {
                 $("#male").prop("checked", true);
-            } else if (genderValue === "F") {
+            } else if (genderValue == "F") {
                 $("#female").prop("checked", true);
             }
         });

@@ -60,7 +60,7 @@ def GetEmp():
             response = s3.generate_presigned_url('get_object',
                                                  Params={'Bucket': bucket_name,
                                                          'Key': lec_image_file_name_in_s3},
-                                                 ExpiresIn=3600)  # Adjust the expiration time as needed
+                                                 ExpiresIn=1000)  # Adjust the expiration time as needed
 
             # You can return the employee details along with the image URL
             lec_details = {

@@ -89,6 +89,41 @@
             padding: 5px;
         }
 
+        .form img {
+  object-fit: contain;
+}
+
+.acc-btn {
+        background-color: #00cc00;
+        /* Green */
+        color: #fff;
+        /* White text */
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .acc-btn:hover {
+        background-color: #009900;
+        /* Darker Green on hover */
+    }
+
+    .dec-btn {
+        background-color: #ff0000;
+        /* Red */
+        color: #fff;
+        /* White text */
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .dec-btn:hover {
+        background-color: #cc0000;
+        /* Darker Red on hover */
+    }
         #students tr:nth-child(even){background-color: #f2f2f2;}
         #students tr:hover {background-color: #ddd;}
     </style>
@@ -116,7 +151,13 @@
             </div>
             <div style="padding: 15px; width: 500px;">
 				<div>
-					<form action="/editlec" autocomplete="on" method = "POST" enctype="multipart/form-data">
+					<form action="/editlec" autocomplete="on" method = "POST" enctype="multipart/form-data">                                         
+                        <img src="img.jpg" style="width: 300px; height: 200px; position: relative; left: 38px;">   
+                        <div class="form">
+                             					
+                            <div class="form-data"><input style="position: relative; left: 140px;" type=file name="lec_image_file" value="{{ image_url}}" > </div>
+						</div>
+                        <br>
 						<div class="form">
 							<input  type="hidden" value="{{ id }}" name="lec_id" autofocus size="40">
 
@@ -139,13 +180,12 @@
 							<div class="form-label">Expertise</div>
 							<div class="form-data"><input  type="text" name="expertise" value="{{ expertise}}" ></div>
 						</div>
-                        <div class="form">
-							<div class="form-label">Image</div>
-                            <img src="{{ image_url }}">
-							<div class="form-data"><input type=file name="lec_image_file" style="height:25px;font-size:14pt;color:grey;" value="{{ image_url}}"> <br><br></div>
-						</div>
-						<br><br><button type="submit" style="background: grey; height: 45px; width: 180px; color: white; size: 3; font:oblique;">BACK</button>
-						<button type="submit" style="background: grey; height: 45px; width: 180px; color: white; size: 3; font:oblique;">UPDATE DATABASE</button>
+                       
+						<br><br>
+                        <div style="position:relative; left:50px;">
+                            <button type="submit" class="dec-btn">BACK</button>
+                            <button type="submit" class="acc-btn">UPDATE DATABASE</button>
+                        </div>
 					</form>
                 </div>
             </div>

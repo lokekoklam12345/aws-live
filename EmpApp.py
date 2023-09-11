@@ -98,7 +98,17 @@ def UpdateEmp():
     cursor = db_conn.cursor()
 
     if lec_image_file.filename == "":
-        return "Please select a file"
+        lec_image_file_name_in_s3 = "lec-id-" + str(lec_id) + "_image_file"
+        s3 = boto3.client('s3')
+        bucket_name = custombucket
+        try:
+            response = s3.generate_presigned_url('get_object',
+                                                 Params={'Bucket': bucket_name,
+                                                         'Key': lec_image_file_name_in_s3},
+                                                 ExpiresIn=100)  # Adjust the expiration time as needed                    
+            lec_image_file.filename = response
+        except Exception as e:
+            return str(e)
 
     try:
         # Check if the employee exists

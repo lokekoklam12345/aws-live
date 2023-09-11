@@ -187,7 +187,7 @@ def GetStudent():
 
     try:
         cursor.execute(select_sql)
-        students = cursor.fetchall()  # Fetch all lecturers
+        students = cursor.fetchall()  # Fetch all student
 
         if not students:
             return "No students found"
@@ -225,7 +225,7 @@ def GetStudent():
                     "cohort": cohort
                 }
 
-                student_list.append(student_details)
+                return student_details
 
             except Exception as e:
                 return str(e)

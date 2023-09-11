@@ -231,11 +231,9 @@ def GetStudent():
                 
 
             except Exception as e:
-                return str(e)
-
-        return student_list
+                return str(e)       
          
-            # return render_template('PickUpStudent.html', student_list=student_list)
+        return render_template('PickUpStudent.html', student_list=student_list)
 
     except Exception as e:
         return str(e)

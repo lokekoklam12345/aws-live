@@ -182,7 +182,7 @@ def LoginLec():
 
 @app.route("/pickUpStudent" ,methods=['GET','POST'])
 def GetStudent():
-    select_sql = "SELECT * FROM student where supervisor is NULL"
+    select_sql = "SELECT * FROM student"
     cursor = db_conn.cursor()
 
     try:

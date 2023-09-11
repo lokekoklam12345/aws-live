@@ -128,9 +128,10 @@
         #students tr:hover {background-color: #ddd;}
     </style>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
 
-        document.addEventListener("DOMContentLoaded", function() {
+    <script>
+        $(document).ready(function() {
             var genderValue = "{{gender}}"; // Replace with your actual value
 
             var maleRadio = document.getElementById("male");
@@ -142,9 +143,8 @@
                 femaleRadio.checked = true;
             }
         });
-
-
     </script>
+
 </head>
 
 <body>

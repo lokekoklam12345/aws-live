@@ -251,7 +251,7 @@ def PickStudent():
     #level = request.form['level']
     #programme = request.form['programme']
     #cohort = request.files['cohort']
-    student_image_file = request.files['lec_image_file']
+    student_image_file = ""
 
     update_sql = "UPDATE student SET supervisor=%s WHERE studentId=%s"
     cursor = db_conn.cursor()     

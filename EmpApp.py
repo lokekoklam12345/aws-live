@@ -251,7 +251,7 @@ def PickStudent():
     #level = request.form['level']
     #programme = request.form['programme']
     #cohort = request.files['cohort']
-    student_image_file = ""
+    
 
     update_sql = "UPDATE student SET supervisor=%s WHERE studentId=%s"
     cursor = db_conn.cursor()     
@@ -266,32 +266,7 @@ def PickStudent():
             return "Student not found"
 
         cursor.execute(update_sql, (lec_id,student_id))
-        db_conn.commit()
-
-
-        if student_image_file.filename != "":
-            # Update image file in S3
-            student_image_file_name_in_s3 = "stu-id-" + str(student_id) + "_image_file"
-            s3 = boto3.resource('s3')
-
-            try:
-                print("Data updated in MySQL RDS... updating image in S3...")
-                s3.Bucket(custombucket).put_object(Key=student_image_file_name_in_s3, Body=student_image_file)
-                bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-                s3_location = (bucket_location.get('LocationConstraint'))
-
-                if s3_location is None:
-                    s3_location = ''
-                else:
-                    s3_location = '-' + s3_location
-
-                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                    s3_location,
-                    custombucket,
-                    student_image_file_name_in_s3)
-
-            except Exception as e:
-                return str(e)
+        db_conn.commit()                    
 
     finally:
         cursor.close()

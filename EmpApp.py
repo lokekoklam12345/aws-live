@@ -187,7 +187,7 @@ def GetStudent():
 
     try:
         cursor.execute(select_sql)
-        students = cursor.fetchall()  # Fetch all student
+        students = cursor.fetchall()  # Fetch all students
 
         if not students:
             return "No students found"
@@ -199,12 +199,12 @@ def GetStudent():
             name = student[1]
             gender = student[4]
             email = student[6]
-            level= student[7]
-            programme= student[8]
-            cohort= student[10]
+            level = student[7]
+            programme = student[8]
+            cohort = student[10]
 
-            # Fetch the S3 image URL based on lec_id
-            stu_image_file_name_in_s3 = "lec-id-" + str(student_id) + "_image_file"
+            # Fetch the S3 image URL based on student_id
+            stu_image_file_name_in_s3 = "stu-id-" + str(student_id) + "_image_file"
             s3 = boto3.client('s3')
             bucket_name = custombucket
 
@@ -214,23 +214,27 @@ def GetStudent():
                                                              'Key': stu_image_file_name_in_s3},
                                                      ExpiresIn=1000)  # Adjust the expiration time as needed
 
-                # Create a dictionary for each lecturer with their details and image URL
-                
-
-            except Exception as e:
-                return str(e)
-            
-            student_list = {
+                # Create a dictionary for each student with their details and image URL
+                student_data = {
                     "student_id": student_id,
                     "name": name,
                     "gender": gender,
                     "email": email,
                     "level": level,
                     "programme": programme,
-                    "cohort": cohort
+                    "cohort": cohort,
+                    "image_url": response
                 }
 
+                # Append the student's dictionary to the student_list
+                student_list.append(student_data)
+
+            except Exception as e:
+                return str(e)
+
         return student_list
+
+
         # return render_template('PickUpStudent.html', students=student_list)
 
     except Exception as e:

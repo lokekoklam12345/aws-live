@@ -170,10 +170,10 @@
 						</div>
 						<div class="form">
 							<div class="form-label">Gender</div>
-							<div class="form-data">
-                                <input type="radio" name="gender" value="M" id="male">
+                            <div class="form-data">
+                                <input type="radio" name="gender" value="male" id="male" {{ gender == 'M' ? 'checked' : '' }}>
                                 <label for="male">Male</label>
-                                <input type="radio" name="gender" value="F" id="female">
+                                <input type="radio" name="gender" value="female" id="female" {{ gender == 'F' ? 'checked' : '' }}>
                                 <label for="female">Female</label>
                               </div>
 						</div>

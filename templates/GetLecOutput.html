@@ -170,11 +170,16 @@
 						</div>
 						<div class="form">
 							<div class="form-label">Gender</div>
-							<div class="form-data"><input  type="text" name="gender" value="{{ gender}}" ></div>
+							<div class="form-data">
+                                <input type="radio" name="gender" value="M" id="male">
+                                <label for="male">Male</label>
+                                <input type="radio" name="gender" value="F" id="female">
+                                <label for="female">Female</label>
+                              </div>
 						</div>
 						<div class="form">
 							<div class="form-label">Email</div>
-							<div class="form-data"> <input  type="text" name="email" value="{{ email}}" ></div>
+							<div class="form-data"> <input  type="email" name="email" value="{{ email}}" ></div>
 						</div>
 						<div class="form">
 							<div class="form-label">Expertise</div>

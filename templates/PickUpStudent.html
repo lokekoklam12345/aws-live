@@ -92,13 +92,13 @@
         <tbody>
             {% for student in students %}
             <tr>
-                <td> {{ students.student_id }}</td>
-                <td> {{ students.name }}</td>
-                <td> {{ students.gender }}</td>
-                <td> {{ students.email }}</td>
-                <td> {{ students.level }}</td>
-                <td> {{ students.programme }}</td>
-                <td> {{ students.cohort }}</td>
+                <td> {{ student.student_id }}</td>
+                <td> {{ student.name }}</td>
+                <td> {{ student.gender }}</td>
+                <td> {{ student.email }}</td>
+                <td> {{ student.level }}</td>
+                <td> {{ student.programme }}</td>
+                <td> {{ student.cohort }}</td>
             </tr>
             {% endfor %}
         </tbody>

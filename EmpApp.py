@@ -192,6 +192,7 @@ def GetStudent():
         if not students:
             return "No students found"
 
+        students = []
         student_list = []
 
         for student in students:

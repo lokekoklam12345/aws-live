@@ -178,6 +178,66 @@ def LoginLec():
         
     return render_template('LecturerHome.html', id=lecturer[0],password=lecturer[1], name=lecturer[2], gender=lecturer[3], email=lecturer[4], expertise=lecturer[5])
 
+
+
+@app.route("/pickUpStudent")
+def GetStudent():
+    select_sql = "SELECT * FROM student where supervisor is NULL"
+    cursor = db_conn.cursor()
+
+    try:
+        cursor.execute(select_sql)
+        students = cursor.fetchall()  # Fetch all lecturers
+
+        if not students:
+            return "No students found"
+
+        student_list = []
+
+        for student in students:
+            student_id = student[0]
+            name = student[1]
+            gender = student[4]
+            email = student[6]
+            level= student[7]
+            programme= student[8]
+            cohort= student[10]
+
+            # Fetch the S3 image URL based on lec_id
+            stu_image_file_name_in_s3 = "lec-id-" + str(student_id) + "_image_file"
+            s3 = boto3.client('s3')
+            bucket_name = custombucket
+
+            try:
+                response = s3.generate_presigned_url('get_object',
+                                                     Params={'Bucket': bucket_name,
+                                                             'Key': stu_image_file_name_in_s3},
+                                                     ExpiresIn=1000)  # Adjust the expiration time as needed
+
+                # Create a dictionary for each lecturer with their details and image URL
+                student_details = {
+                    "student_id": student_id,
+                    "name": name,
+                    "gender": gender,
+                    "email": email,
+                    "level": level,
+                    "programme": programme,
+                    "cohort": cohort
+                }
+
+                student_list.append(student_details)
+
+            except Exception as e:
+                return str(e)
+
+        return render_template('PickUpStudent.html', students=student_list)
+
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 

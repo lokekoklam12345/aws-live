@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        nav {
+            display: flex;
+            top: 0;
+            right: 0;
+            background-color: #1f1f1f;
+            padding: 15px;
+            justify-content: space-between;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #b9b9b9;
+            font-size: 16px;
+            margin-left: 20px;
+            /* Add margin to space out the links */
+            transition: color 0.3s;
+            /* Smooth color transition on hover */
+        }
+
+        .form {
+            width: 100%;
+            display: flex;
+            padding: 5px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .btn {
+            font-size: 14px;
+            width: 10%;
+        }
+
+        .msg {
+            color: red;
+        }
+
+        table {
+            border-collapse: collapse;
+            font-family: Tahoma, Geneva, sans-serif;
+        }
+        table td {
+            padding: 15px;
+        }
+        table thead td {
+            background-color: #54585d;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 13px;
+            border: 1px solid #54585d;
+        }
+        table tbody td {
+            color: #636363;
+            border: 1px solid #dddfe1;
+        }
+        table tbody tr {
+            background-color: #f9fafb;
+        }
+        table tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Gender</td>
+                <td>Email</td>
+                <td>Level</td>
+                <td>Programme</td>
+                <td>Cohort</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td> {{ students.student_id }}</td>
+                <td> {{ students.name }}</td>
+                <td> {{ students.gender }}</td>
+                <td> {{ students.email }}</td>
+                <td> {{ students.level }}</td>
+                <td> {{ students.programme }}</td>
+                <td> {{ students.cohort }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>

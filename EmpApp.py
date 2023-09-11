@@ -95,20 +95,7 @@ def UpdateEmp():
     lec_image_file = request.files['lec_image_file']
 
     update_sql = "UPDATE lecturer SET password=%s, name=%s, gender=%s, email=%s, expertise=%s WHERE lectId=%s"
-    cursor = db_conn.cursor()
-
-    if lec_image_file.filename == "":
-        lec_image_file_name_in_s3 = "lec-id-" + str(lec_id) + "_image_file"
-        s3 = boto3.client('s3')
-        bucket_name = custombucket
-        try:
-            response = s3.generate_presigned_url('get_object',
-                                                 Params={'Bucket': bucket_name,
-                                                         'Key': lec_image_file_name_in_s3},
-                                                 ExpiresIn=100)  # Adjust the expiration time as needed                    
-            lec_image_file.filename = response
-        except Exception as e:
-            return str(e)
+    cursor = db_conn.cursor()     
 
     try:
         # Check if the employee exists
@@ -123,28 +110,29 @@ def UpdateEmp():
         db_conn.commit()
         lec_name = "" + name 
 
-        # Update image file in S3
-        lec_image_file_name_in_s3 = "lec-id-" + str(lec_id) + "_image_file"
-        s3 = boto3.resource('s3')
+        if lec_image_file.filename != "":
+            # Update image file in S3
+            lec_image_file_name_in_s3 = "lec-id-" + str(lec_id) + "_image_file"
+            s3 = boto3.resource('s3')
 
-        try:
-            print("Data updated in MySQL RDS... updating image in S3...")
-            s3.Bucket(custombucket).put_object(Key=lec_image_file_name_in_s3, Body=lec_image_file)
-            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-            s3_location = (bucket_location.get('LocationConstraint'))
+            try:
+                print("Data updated in MySQL RDS... updating image in S3...")
+                s3.Bucket(custombucket).put_object(Key=lec_image_file_name_in_s3, Body=lec_image_file)
+                bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+                s3_location = (bucket_location.get('LocationConstraint'))
 
-            if s3_location is None:
-                s3_location = ''
-            else:
-                s3_location = '-' + s3_location
+                if s3_location is None:
+                    s3_location = ''
+                else:
+                    s3_location = '-' + s3_location
 
-            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                s3_location,
-                custombucket,
-                lec_image_file_name_in_s3)
+                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                    s3_location,
+                    custombucket,
+                    lec_image_file_name_in_s3)
 
-        except Exception as e:
-            return str(e)
+            except Exception as e:
+                return str(e)
 
     finally:
         cursor.close()

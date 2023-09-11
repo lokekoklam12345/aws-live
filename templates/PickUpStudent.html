@@ -90,17 +90,30 @@
             </tr>
         </thead>
         <tbody>
-            {% for student in student_list %}
-            <tr>
-                <td> {{ student.student_id }}</td>
-                <td> {{ student.name }}</td>
-                <td> {{ student.gender }}</td>
-                <td> {{ student.email }}</td>
-                <td> {{ student.level }}</td>
-                <td> {{ student.programme }}</td>
-                <td> {{ student.cohort }}</td>
-            </tr>
-            {% endfor %}
+            <form action="/pickUp" autocomplete="on" method = "POST" enctype="multipart/form-data">  
+                {% for student in student_list %}
+                <tr>
+                    <td> {{ student.student_id }}</td>
+                    <td> {{ student.name }}</td>
+                    <td> {{ student.gender }}</td>
+                    <td> {{ student.email }}</td>
+                    <td> {{ student.level }}</td>
+                    <td> {{ student.programme }}</td>
+                    <td> {{ student.cohort }}</td>
+                    <td> <input type="submit">Pick Up </td>
+                </tr>
+    
+                <input  type="hidden" name="student_id" value="{{ student.student_id}}" >
+                <input  type="hidden" name="name" value="{{ student.name}}" >
+                <input  type="hidden" name="gender" value="{{ student.gender}}" >
+                <input  type="hidden" name="email" value="{{ student.email}}" >
+                <input  type="hidden" name="level" value="{{ student.level}}" >
+                <input  type="hidden" name="programme" value="{{ student.programme}}" >
+                <input  type="hidden" name="cohort" value="{{ student.cohort}}" >
+                <input  type="hidden" name="lec_id" value="lec001" >
+                {% endfor %}
+            </form>
+
         </tbody>
     </table>
 </body>

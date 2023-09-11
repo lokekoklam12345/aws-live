@@ -180,7 +180,7 @@ def LoginLec():
 
 
 
-@app.route("/pickUpStudent" ,methods=['GET','POST'])
+@app.route("/displayStudent" ,methods=['GET','POST'])
 def GetStudent():
     select_sql = "SELECT * FROM student WHERE supervisor = ''"
     cursor = db_conn.cursor()
@@ -241,6 +241,64 @@ def GetStudent():
     finally:
         cursor.close()
 
+@app.route("/pickUp" ,methods=['GET','POST'])
+def PickStudent():
+    lec_id = request.form['lec_id']
+    student_id = request.form['student_id']
+    name = request.form['name']
+    #gender = request.form['gender']
+    #email = request.form['email']
+    #level = request.form['level']
+    #programme = request.form['programme']
+    #cohort = request.files['cohort']
+    student_image_file = request.files['lec_image_file']
+
+    update_sql = "UPDATE student SET supervisor=%s WHERE studentId=%s"
+    cursor = db_conn.cursor()     
+
+    try:
+        # Check if the employee exists
+        check_sql = "SELECT * FROM student WHERE studentId = %s"
+        cursor.execute(check_sql, (student_id,))
+        pickedStudent = cursor.fetchone()
+
+        if not pickedStudent:
+            return "Student not found"
+
+        cursor.execute(update_sql, (lec_id,student_id))
+        db_conn.commit()
+
+
+        if student_image_file.filename != "":
+            # Update image file in S3
+            student_image_file_name_in_s3 = "stu-id-" + str(student_id) + "_image_file"
+            s3 = boto3.resource('s3')
+
+            try:
+                print("Data updated in MySQL RDS... updating image in S3...")
+                s3.Bucket(custombucket).put_object(Key=student_image_file_name_in_s3, Body=student_image_file)
+                bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+                s3_location = (bucket_location.get('LocationConstraint'))
+
+                if s3_location is None:
+                    s3_location = ''
+                else:
+                    s3_location = '-' + s3_location
+
+                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                    s3_location,
+                    custombucket,
+                    student_image_file_name_in_s3)
+
+            except Exception as e:
+                return str(e)
+
+    finally:
+        cursor.close()
+
+    print("all modifications done...")
+    return render_template('PickedUpOutput.html', name=name)
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 

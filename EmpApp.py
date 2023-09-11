@@ -192,7 +192,7 @@ def GetStudent():
         if not students:
             return "No students found"
 
-        students = []
+        stu=[]
         student_list = []
 
         for student in students:
@@ -234,8 +234,8 @@ def GetStudent():
 
          #return student_list
 
-
-            return render_template('PickUpStudent.html', students=student_list)
+            return stu
+            #return render_template('PickUpStudent.html', stu=student_list)
 
     except Exception as e:
         return str(e)

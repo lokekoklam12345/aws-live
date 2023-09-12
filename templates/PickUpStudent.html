@@ -340,6 +340,21 @@
         table tbody tr:nth-child(odd) {
             background-color: #ffffff;
         }
+
+        .table-container {
+        position: relative;
+    }
+
+    .button-container {
+        text-align: center;
+        margin-top: 20px; /* Adjust the margin as needed */
+    }
+
+    .back-button {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
 </style>
 
 <head>
@@ -394,61 +409,74 @@
                 </form>
                     <div class="vl"></div>
             </div>
-            <form action="/pickUp" autocomplete="on" method="POST" enctype="multipart/form-data">  
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Pick</td>
-                            <td>ID</td>
-                            <td>Name</td>
-                            <td>Gender</td>
-                            <td>Email</td>
-                            <td>Level</td>
-                            <td>Programme</td>
-                            <td>Cohort</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <input  type="hidden" name="lec_id" value="lec001" >
-                        {% if student_list %}
-                            {% for student in student_list %}
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="selected_students[]" value="{{ student.student_id }}">
-                                </td>
-                                <input type="hidden" name="selected_studentsNames[]" value="{{ student.name }}">
-                                <td> {{ student.student_id }}</td>
-                                <td> {{ student.name }}</td>
-                                <td> {{ student.gender }}</td>
-                                <td> {{ student.email }}</td>
-                                <td> {{ student.level }}</td>
-                                <td> {{ student.programme }}</td>
-                                <td> {{ student.cohort }}</td>
-                            </tr>
-                            {% endfor %}
-                            <tr>
-                                <td colspan="8" style="text-align: center;">
-                                    <button type="submit" name="button-filter">Pick</button>
-                                </td>
-                                
-                            </tr>
-                            {% else %}                      
-                            <tr>
-                                <td colspan="8" style="text-align: center;">No student record</td>
-                            </tr>
 
+            <div style ="        display: flex;
+            flex-direction: column;
+            align-content: center;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        "> 
+                <div>
+                    <form action="/pickUp" autocomplete="on" method="POST" enctype="multipart/form-data">  
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Pick</td>
+                                    <td>ID</td>
+                                    <td>Name</td>
+                                    <td>Gender</td>
+                                    <td>Email</td>
+                                    <td>Level</td>
+                                    <td>Programme</td>
+                                    <td>Cohort</td>
+                                </tr>
+                            </thead>
+                            <tbody>
                             
-                        {% endif %}
-                        
-                    </tbody>
-                </table>
-            </form>
-                        
-                <form action="/lecHome" autocomplete="on" method="GET" enctype="multipart/form-data">                                  
-                                
-                    <button type="submit" name="button-filter">Back</button>
-                
-                </form>                                                        
+                                <input  type="hidden" name="lec_id" value="lec001" >
+                                {% if student_list %}
+                                    {% for student in student_list %}
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="selected_students[]" value="{{ student.student_id }}">
+                                        </td>
+                                        <input type="hidden" name="selected_studentsNames[]" value="{{ student.name }}">
+                                        <td> {{ student.student_id }}</td>
+                                        <td> {{ student.name }}</td>
+                                        <td> {{ student.gender }}</td>
+                                        <td> {{ student.email }}</td>
+                                        <td> {{ student.level }}</td>
+                                        <td> {{ student.programme }}</td>
+                                        <td> {{ student.cohort }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td colspan="8" style="text-align: center;">
+                                            <button type="submit" name="button-filter">Pick</button>
+                                        </td>
+                                        
+                                    </tr>
+                                    {% else %}                      
+                                    <tr>
+                                        <td colspan="8" style="text-align: center;">No student record</td>
+                                    </tr>
+        
+                                    
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            
+        
+                <div>
+                    <form action="/lecHome" autocomplete="on" method="GET" enctype="multipart/form-data">                                                                                
+                        <br><button type="submit" name="button-back">Back</button>
+                    
+                    </form>  
+                </div>    
+             </div>
+                                                       
         </div>
         
 </body>

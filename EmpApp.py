@@ -183,7 +183,15 @@ def LoginLec():
 @app.route("/displayStudent" ,methods=['GET','POST'])
 def GetStudent():
     
-    select_sql = "SELECT * FROM student WHERE supervisor = ''"
+    action=request.form['action']
+    id=request.form['id']
+
+    if action:'drop'
+    select_sql = f"SELECT * FROM student WHERE supervisor LIKE '%{id}%'"
+    cursor = db_conn.cursor()
+    
+    if action:'pickUp'
+    select_sql = f"SELECT * FROM student WHERE supervisor = ''"
     cursor = db_conn.cursor()
 
     try:

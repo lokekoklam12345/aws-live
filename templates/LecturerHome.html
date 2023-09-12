@@ -161,7 +161,9 @@
                 <div>Students</div>
                 <div>
                     <form action="/displayStudent" autocomplete="on" method="POST">                                                        
-                          <button type="submit" >Pick Up</button>        
+                          <button type="submit" name="action" value="pickUp" >Pick Up</button> 
+                          <button type="submit" name="action" value="drop" >Drop</button>     
+                          <input type="hidden" name="lec_id" value="{{id}}">
                     </form>
                   
                 </div>

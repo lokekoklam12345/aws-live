@@ -6,7 +6,11 @@
 		<body bgcolor="lightgrey">
 			<h1>PICK UP SUCCESSFUL</h1><br>
 			<h2>Following Student has been picked up</h2><br>
-			<h2>{{ name }}</h2><br>
+            {% for student in student_list %}
+
+			<h2>{{ student }}</h2><br>
+
+            {% endfor %}
 			<title>Student Pick Up Output</title>
 				<form action="/leclogin" autocomplete="on" method = "GET">
 

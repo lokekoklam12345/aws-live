@@ -394,7 +394,7 @@
                 </form>
                     <div class="vl"></div>
             </div>
-            <form action="/pickUp" autocomplete="on" method="POST" enctype="multipart/form-data">
+            <form action="/pickUp" autocomplete="on" method="POST" enctype="multipart/form-data">  
                 <table>
                     <thead>
                         <tr>
@@ -424,26 +424,26 @@
                                 <td> {{ student.programme }}</td>
                                 <td> {{ student.cohort }}</td>
                             </tr>
-            
-                            <input  type="hidden" name="student_id" value="{{ student.student_id}}" >
-                            <input  type="hidden" name="name" value="{{ student.name}}" >
-                            <input  type="hidden" name="gender" value="{{ student.gender}}" >
-                            <input  type="hidden" name="email" value="{{ student.email}}" >
-                            <input  type="hidden" name="level" value="{{ student.level}}" >
-                            <input  type="hidden" name="programme" value="{{ student.programme}}" >
-                            <input  type="hidden" name="cohort" value="{{ student.cohort}}" >
-                            <input  type="hidden" name="lec_id" value="lec001" >
                             {% endfor %}
+                            <tr>
+                                <td colspan="8" style="text-align: center;">
+                                    <button type="submit" name="button-filter">Pick</button>
+                                </td>
+                            </tr>
                         {% else %}
                             <tr>
                                 <td colspan="8" style="text-align: center;">No student record</td>
                             </tr>
+                            <tr>
+                                <td colspan="8" style="text-align: center;">
+                                    <button type="submit" name="button-filter" disabled>Pick</button>
+                                </td>
+                            </tr>
                         {% endif %}
                     </tbody>
                 </table>
-                <br>
-                <button style="position: relative;left: 0px;" type="submit" name="button-filter">Pick</button>
             </form>
+            
             
                 
                     

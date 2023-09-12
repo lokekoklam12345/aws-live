@@ -281,7 +281,7 @@ def PickStudent():
     return render_template('PickedUpOutput.html', student_list=selected_student_name)
 
 @app.route("/drop" ,methods=['GET','POST'])
-def PickStudent():
+def DropStudent():
     selected_student_ids = request.form.getlist('selected_students[]')
     selected_student_name = request.form.getlist('selected_studentsNames[]')
     lec_id = request.form['lec_id']

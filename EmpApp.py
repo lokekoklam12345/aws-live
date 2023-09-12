@@ -143,11 +143,7 @@ def UpdateEmp():
 
 @app.route("/lecHome")
 def LecHome():
-    if 'loginLecturer' in session:
-        lectId = session['loginLecturer']
-        return render_template('LecturerHome.html', lectId = lectId)
-    else:
-        return render_template('LecturerLogin.html')    
+    return render_template('LecturerHome.html')    
 
 @app.route("/leclogin")
 def LecLoginPage():

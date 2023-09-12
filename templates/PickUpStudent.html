@@ -363,84 +363,81 @@
 
 <body>
     <h1 class="internship-header">Pick Up Student</h1>
+    <form action="/pickUp" autocomplete="on" method="POST" enctype="multipart/form-data">  
+        <div class="overall">
+            <div class="div-line">
+                <form action="/filterStudent" autocomplete="on" method="post">
+                    <div class="job-search-filter">
+                        <div class="group-search-company">
+                            <label class="label-search-company">Level</label>
+                            <select name="search-level">
+                                <option value="Diploma">Diploma</option>
+                                <option value="Bachelor">Bachelor</option>                        
+                            </select>
+                        </div>
 
-    <div class="overall">
-        <div class="div-line">
-            <form action="/filterStudent" autocomplete="on" method="post">
-                <div class="job-search-filter">
-                    <div class="group-search-company">
-                        <label class="label-search-company">Level</label>
-                        <select name="search-level">
-                            <option value="Diploma">Diploma</option>
-                            <option value="Bachelor">Bachelor</option>                        
-                        </select>
-                    </div>
-
-                    <div class="group-search-title">
-                        <label class="label-search-title">Programme</label>
-                        <input type="text" name="search-programme" placeholder="eg. RSW">
-                    </div>
-                    
-                    <div class="group-search-title">
-                        <label class="label-search-title">Cohort</label>
-                        <input type="text" name="search-cohort" placeholder="eg. 1">
-                    </div>
-
-                    <div class-group-button>
-                        <button type="submit" name="button-filter" class="confirm-filter-company">Filter</button>
-                    </div>
-                </div>
-            </form>
-                <div class="vl"></div>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <td></td>
-                    <td>ID</td>
-                    <td>Name</td>
-                    <td>Gender</td>
-                    <td>Email</td>
-                    <td>Level</td>
-                    <td>Programme</td>
-                    <td>Cohort</td>
-                </tr>
-            </thead>
-            <tbody>
-                <form action="/pickUp" autocomplete="on" method = "POST" enctype="multipart/form-data">  
-                    {% for student in student_list %}
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="selected_students[]" value="{{ student.student_id }}">
-                        </td>
-                            <input type="hidden" name="selected_studentsNames[]" value="{{ student.name }}">
-                        <td> {{ student.student_id }}</td>
-                        <td> {{ student.name }}</td>
-                        <td> {{ student.gender }}</td>
-                        <td> {{ student.email }}</td>
-                        <td> {{ student.level }}</td>
-                        <td> {{ student.programme }}</td>
-                        <td> {{ student.cohort }}</td>
+                        <div class="group-search-title">
+                            <label class="label-search-title">Programme</label>
+                            <input type="text" name="search-programme" placeholder="eg. RSW">
+                        </div>
                         
-                    </tr>
-        
-                    <input  type="hidden" name="student_id" value="{{ student.student_id}}" >
-                    <input  type="hidden" name="name" value="{{ student.name}}" >
-                    <input  type="hidden" name="gender" value="{{ student.gender}}" >
-                    <input  type="hidden" name="email" value="{{ student.email}}" >
-                    <input  type="hidden" name="level" value="{{ student.level}}" >
-                    <input  type="hidden" name="programme" value="{{ student.programme}}" >
-                    <input  type="hidden" name="cohort" value="{{ student.cohort}}" >
-                    <input  type="hidden" name="lec_id" value="lec001" >
-                    {% endfor %}
-                  <input type="submit" >
+                        <div class="group-search-title">
+                            <label class="label-search-title">Cohort</label>
+                            <input type="text" name="search-cohort" placeholder="eg. 1">
+                        </div>
+
+                        <div class-group-button>
+                            <button type="submit" name="button-filter" class="confirm-filter-company">Filter</button>
+                        </div>
+                    </div>
                 </form>
-    
-            </tbody>
-        </table>
-       
-    </div>
-    
+                    <div class="vl"></div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Pick Up</td>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Gender</td>
+                        <td>Email</td>
+                        <td>Level</td>
+                        <td>Programme</td>
+                        <td>Cohort</td>
+                    </tr>
+                </thead>
+                <tbody>              
+                        {% for student in student_list %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="selected_students[]" value="{{ student.student_id }}">
+                            </td>
+                            <input type="hidden" name="selected_studentsNames[]" value="{{ student.name }}">
+                            <td> {{ student.student_id }}</td>
+                            <td> {{ student.name }}</td>
+                            <td> {{ student.gender }}</td>
+                            <td> {{ student.email }}</td>
+                            <td> {{ student.level }}</td>
+                            <td> {{ student.programme }}</td>
+                            <td> {{ student.cohort }}</td>
+                        </tr>
+            
+                        <input  type="hidden" name="student_id" value="{{ student.student_id}}" >
+                        <input  type="hidden" name="name" value="{{ student.name}}" >
+                        <input  type="hidden" name="gender" value="{{ student.gender}}" >
+                        <input  type="hidden" name="email" value="{{ student.email}}" >
+                        <input  type="hidden" name="level" value="{{ student.level}}" >
+                        <input  type="hidden" name="programme" value="{{ student.programme}}" >
+                        <input  type="hidden" name="cohort" value="{{ student.cohort}}" >
+                        <input  type="hidden" name="lec_id" value="lec001" >
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+        <input style="position: relative;
+        left: 565px;" type="submit">
+    </form>
 </body>
+
 
 </html>

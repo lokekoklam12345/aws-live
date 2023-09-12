@@ -331,8 +331,7 @@ def FilterStudent():
         cursor.execute(select_sql)
         students = cursor.fetchall()  # Fetch all students
 
-        if not students:
-            return "No students found"
+
 
         stu = []
         student_list = []
@@ -406,8 +405,6 @@ def FilterPickedStudent():
         cursor.execute(select_sql)
         students = cursor.fetchall()  # Fetch all students
 
-        if not students:
-            return "No students found"
 
         stu = []
         student_list = []

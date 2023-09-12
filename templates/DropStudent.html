@@ -411,9 +411,9 @@
                         {% for student in student_list %} 
                         <tr>
                             <td>
-                                <input type="checkbox" name="selectedDrop_students[]" value="{{ student.student_id }}">
+                                <input type="checkbox" name="selected_students[]" value="{{ student.student_id }}">
                             </td>
-                            <input type="hidden" name="selectedDrop_studentsNames[]" value="{{ student.name }}">
+                            <input type="hidden" name="selected_studentsNames[]" value="{{ student.name }}">
                             <td> {{ student.student_id }}</td>
                             <td> {{ student.name }}</td>
                             <td> {{ student.gender }}</td>

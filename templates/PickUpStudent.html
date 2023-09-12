@@ -408,7 +408,8 @@
                         <td>Cohort</td>
                     </tr>
                 </thead>
-                <tbody>              
+                <tbody>
+                    {% if student_list %}
                         {% for student in student_list %}
                         <tr>
                             <td>
@@ -423,7 +424,7 @@
                             <td> {{ student.programme }}</td>
                             <td> {{ student.cohort }}</td>
                         </tr>
-            
+                
                         <input  type="hidden" name="student_id" value="{{ student.student_id}}" >
                         <input  type="hidden" name="name" value="{{ student.name}}" >
                         <input  type="hidden" name="gender" value="{{ student.gender}}" >
@@ -434,7 +435,13 @@
                         <input  type="hidden" name="lec_id" value="lec001" >
                         {% endfor %}
                         <input style="position: relative;left: 0px;" type="submit">
-                    </tbody>
+                    {% else %}
+                        <tr>
+                            <td colspan="8" style="text-align: center;">No student record</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+                
                     
     </form>
                 </table>

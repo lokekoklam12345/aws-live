@@ -186,8 +186,6 @@ def GetStudent():
     select_sql = "SELECT * FROM student WHERE supervisor = ''"
     cursor = db_conn.cursor()
 
-    # Add the condition to check the company's status
-    select_sql += " AND c.status = 'activated'"
     try:
         cursor.execute(select_sql)
         students = cursor.fetchall()  # Fetch all students

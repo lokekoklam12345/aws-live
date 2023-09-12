@@ -407,35 +407,84 @@
                         <td>Cohort</td>
                     </tr>
                 </thead>
-                <tbody>              
-                        {% for student in student_list %}
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="selected_students[]" value="{{ student.student_id }}">
-                            </td>
-                            <input type="hidden" name="selected_studentsNames[]" value="{{ student.name }}">
-                            <td> {{ student.student_id }}</td>
-                            <td> {{ student.name }}</td>
-                            <td> {{ student.gender }}</td>
-                            <td> {{ student.email }}</td>
-                            <td> {{ student.level }}</td>
-                            <td> {{ student.programme }}</td>
-                            <td> {{ student.cohort }}</td>
-                        </tr>
-            
-                        <input  type="hidden" name="student_id" value="{{ student.student_id}}" >
-                        <input  type="hidden" name="name" value="{{ student.name}}" >
-                        <input  type="hidden" name="gender" value="{{ student.gender}}" >
-                        <input  type="hidden" name="email" value="{{ student.email}}" >
-                        <input  type="hidden" name="level" value="{{ student.level}}" >
-                        <input  type="hidden" name="programme" value="{{ student.programme}}" >
-                        <input  type="hidden" name="cohort" value="{{ student.cohort}}" >
-                        <input  type="hidden" name="lec_id" value="lec001" >
-                        {% endfor %}
-                        <input style="position: relative;left: 0px;" type="submit">
-                    </tbody>
+              
                     
-    </form>
+                <form action="/pickUp" autocomplete="on" method="POST" enctype="multipart/form-data">  
+                    <div class="overall">
+                        <div class="div-line">
+                            <!-- Your other form elements here (filter options) -->
+                
+                            <div class="vl"></div>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Pick Up</td>
+                                    <td>ID</td>
+                                    <td>Name</td>
+                                    <td>Gender</td>
+                                    <td>Email</td>
+                                    <td>Level</td>
+                                    <td>Programme</td>
+                                    <td>Cohort</td>
+                                </tr>
+                            </thead>
+                            <tbody>              
+                                {% for student in student_list %}
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="selected_students[]" value="{{ student.student_id }}" class="student-checkbox">
+                                    </td>                                    
+                                    <td>{{ student.student_id }}</td>
+                                    <td>{{ student.name }}</td>
+                                    <td>{{ student.gender }}</td>
+                                    <td>{{ student.email }}</td>
+                                    <td>{{ student.level }}</td>
+                                    <td>{{ student.programme }}</td>
+                                    <td>{{ student.cohort }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Move the submit button outside the table -->
+                    <input style="position: relative; left: 490px;" type="submit" id="submit-button">
+                </form>
+                
+                <script>
+                    // JavaScript code to update selected_students[] when checkboxes are clicked
+                    const checkboxes = document.querySelectorAll('.student-checkbox');
+                    const selectedStudents = [];
+                
+                    checkboxes.forEach(checkbox => {
+                        checkbox.addEventListener('change', (event) => {
+                            const studentId = event.target.value;
+                
+                            if (event.target.checked) {
+                                // Add the student ID to the selectedStudents array
+                                selectedStudents.push(studentId);
+                            } else {
+                                // Remove the student ID from the selectedStudents array
+                                const index = selectedStudents.indexOf(studentId);
+                                if (index !== -1) {
+                                    selectedStudents.splice(index, 1);
+                                }
+                            }
+                        });
+                    });
+                
+                    // Add an event listener to the submit button to update the hidden input field
+                    const submitButton = document.getElementById('submit-button');
+                    submitButton.addEventListener('click', () => {
+                        // Update the hidden input field with the selected student IDs
+                        const selectedStudentsInput = document.createElement('input');
+                        selectedStudentsInput.type = 'hidden';
+                        selectedStudentsInput.name = 'selected_students';
+                        selectedStudentsInput.value = selectedStudents.join(',');
+                        document.querySelector('form').appendChild(selectedStudentsInput);
+                    });
+                </script>
+                
                 </table>
         </div>
         

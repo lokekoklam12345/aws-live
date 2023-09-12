@@ -370,8 +370,10 @@
                 <div class="job-search-filter">
                     <div class="group-search-company">
                         <label class="label-search-company">Level</label>
-                        <input type="text" name="search-level"
-                            placeholder="eg. Tunku Abdul Rahman University College">
+                        <select name="search-level">
+                            <option value="Diploma">Diploma</option>
+                            <option value="Bachelor">Bachelor</option>                        
+                        </select>
                     </div>
 
                     <div class="group-search-title">
@@ -394,6 +396,7 @@
         <table>
             <thead>
                 <tr>
+                    <td></td>
                     <td>ID</td>
                     <td>Name</td>
                     <td>Gender</td>
@@ -407,6 +410,9 @@
                 <form action="/pickUp" autocomplete="on" method = "POST" enctype="multipart/form-data">  
                     {% for student in student_list %}
                     <tr>
+                        <td>
+                            <input type="checkbox" name="selected_students[]" value="{{ student.student_id }}">
+                        </td>
                         <td> {{ student.student_id }}</td>
                         <td> {{ student.name }}</td>
                         <td> {{ student.gender }}</td>
@@ -414,7 +420,7 @@
                         <td> {{ student.level }}</td>
                         <td> {{ student.programme }}</td>
                         <td> {{ student.cohort }}</td>
-                        <td> <input type="submit">Pick Up </td>
+                        
                     </tr>
         
                     <input  type="hidden" name="student_id" value="{{ student.student_id}}" >
@@ -426,11 +432,14 @@
                     <input  type="hidden" name="cohort" value="{{ student.cohort}}" >
                     <input  type="hidden" name="lec_id" value="lec" >
                     {% endfor %}
+                  <input type="submit" >
                 </form>
     
             </tbody>
         </table>
+       
     </div>
+    
 </body>
 
 </html>

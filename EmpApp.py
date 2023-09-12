@@ -244,9 +244,10 @@ def GetStudent():
 
 @app.route("/pickUp" ,methods=['GET','POST'])
 def PickStudent():
+    selected_student_ids = request.form.getlist('selected_students[]')
     lec_id = request.form['lec_id']
-    student_id = request.form['student_id']
-    name = request.form['name']
+    #student_id = request.form['student_id']
+    #name = request.form['name']
     #gender = request.form['gender']
     #email = request.form['email']
     #level = request.form['level']
@@ -255,25 +256,18 @@ def PickStudent():
     
 
     update_sql = "UPDATE student SET supervisor=%s WHERE studentId=%s"
-    cursor = db_conn.cursor()     
+    cursor = db_conn.cursor()    
 
     try:
         # Check if the employee exists
-        check_sql = "SELECT * FROM student WHERE studentId = %s"
-        cursor.execute(check_sql, (student_id,))
-        pickedStudent = cursor.fetchone()          
-
-        if not pickedStudent:
-            return "Student not found"
-
-        cursor.execute(update_sql, (lec_id,student_id))
-        db_conn.commit()                    
+        for student_id in selected_student_ids:
+            update_sql = "UPDATE student SET supervisor=%s WHERE studentId=%s"
+            cursor = db_conn.cursor()    
+            cursor.execute(update_sql, (lec_id,student_id))
+            db_conn.commit()                    
 
     finally:
         cursor.close()
-
-    print("all modifications done...")
-    return render_template('PickedUpOutput.html', name=name)
     
 @app.route("/filterStudent" ,methods=['GET','POST'])
 def FilterStudent():

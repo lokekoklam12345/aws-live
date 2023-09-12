@@ -311,7 +311,6 @@ def DropStudent():
     return render_template('DropOutput.html', student_list=selected_student_name)
 
 @app.route("/filterStudent" ,methods=['GET','POST'])
-
 def FilterStudent():
     
     level= request.form['search-level']
@@ -383,6 +382,82 @@ def FilterStudent():
 
     finally:
         cursor.close()
+
+@app.route("/filterPickedStudent" ,methods=['GET','POST'])
+def FilterPickedStudent():
+    
+
+    level= request.form['search-level']
+    programme=request.form['search-programme']
+    cohort=request.form['search-cohort']
+    id=request.form['lec_id']
+
+    select_sql = f"SELECT * FROM student WHERE supervisor = '{id}'"
+    cursor = db_conn.cursor()
+
+    if level:
+          select_sql += f" AND level LIKE '%{level}%'"
+    if programme:
+          select_sql += f" AND programme LIKE '%{programme}%'"
+    if level:
+          select_sql += f" AND cohort LIKE '%{cohort}%'"
+
+    try:
+        cursor.execute(select_sql)
+        students = cursor.fetchall()  # Fetch all students
+
+        if not students:
+            return "No students found"
+
+        stu = []
+        student_list = []
+
+        for student in students:
+            student_id = student[0]
+            name = student[1]
+            gender = student[4]
+            email = student[6]
+            level = student[7]
+            programme = student[8]
+            cohort = student[10]
+
+            # Fetch the S3 image URL based on student_id
+            stu_image_file_name_in_s3 = "stu-id-" + str(student_id) + "_image_file"
+            s3 = boto3.client('s3')
+            bucket_name = custombucket
+
+            try:
+                response = s3.generate_presigned_url('get_object',
+                                                     Params={'Bucket': bucket_name,
+                                                             'Key': stu_image_file_name_in_s3},
+                                                     ExpiresIn=1000)  # Adjust the expiration time as needed
+
+                # Create a dictionary for each student with their details and image URL
+                student_data = {
+                    "student_id": student_id,
+                    "name": name,
+                    "gender": gender,
+                    "email": email,
+                    "level": level,
+                    "programme": programme,
+                    "cohort": cohort,
+                }
+
+                # Append the student's dictionary to the student_list
+                student_list.append(student_data)
+                
+
+            except Exception as e:
+                return str(e)       
+         
+        return render_template('DropStudent.html', student_list=student_list)
+
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 

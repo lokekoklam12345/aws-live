@@ -286,8 +286,8 @@ def PickStudent():
 
 @app.route("/drop" ,methods=['GET','POST'])
 def DropStudent():
-    selected_student_ids = request.form.getlist('selectedDrop_students[]')
-    selected_student_name = request.form.getlist('selectedDrop_studentsNames[]')
+    selected_student_ids = request.form.getlist('selected_students[]')
+    selected_student_name = request.form.getlist('selected_students[]')
     #student_id = request.form['student_id']
     #name = request.form['name']
     #gender = request.form['gender']

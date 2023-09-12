@@ -441,6 +441,52 @@
         </div>
         
 </body>
+<script>
+    // JavaScript code to update selected_students[] and selected_studentsNames[] when checkboxes are clicked
+    const checkboxes = document.querySelectorAll('.student-checkbox');
+    const selectedStudentIds = [];
+    const selectedStudentNames = [];
 
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (event) => {
+            const studentId = event.target.value;
+            const studentName = event.target.nextElementSibling.textContent; // Get the name from the adjacent TD element
+
+            if (event.target.checked) {
+                // Add the student ID and name to the respective arrays
+                selectedStudentIds.push(studentId);
+                selectedStudentNames.push(studentName);
+            } else {
+                // Remove the student ID and name from the respective arrays
+                const idIndex = selectedStudentIds.indexOf(studentId);
+                if (idIndex !== -1) {
+                    selectedStudentIds.splice(idIndex, 1);
+                }
+
+                const nameIndex = selectedStudentNames.indexOf(studentName);
+                if (nameIndex !== -1) {
+                    selectedStudentNames.splice(nameIndex, 1);
+                }
+            }
+        });
+    });
+
+    // Add an event listener to the submit button to update the hidden input fields
+    const submitButton = document.getElementById('submit-button');
+    submitButton.addEventListener('click', () => {
+        // Update the hidden input fields with the selected student IDs and names
+        const selectedStudentIdsInput = document.createElement('input');
+        selectedStudentIdsInput.type = 'hidden';
+        selectedStudentIdsInput.name = 'selected_student_ids';
+        selectedStudentIdsInput.value = selectedStudentIds.join(',');
+        document.querySelector('form').appendChild(selectedStudentIdsInput);
+
+        const selectedStudentNamesInput = document.createElement('input');
+        selectedStudentNamesInput.type = 'hidden';
+        selectedStudentNamesInput.name = 'selected_student_names';
+        selectedStudentNamesInput.value = selectedStudentNames.join(',');
+        document.querySelector('form').appendChild(selectedStudentNamesInput);
+    });
+</script>
 
 </html>

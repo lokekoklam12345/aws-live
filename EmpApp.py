@@ -197,9 +197,6 @@ def GetStudent():
     try:
         cursor.execute(select_sql)
         students = cursor.fetchall()  # Fetch all students
-
-        if not students:
-            return "No students found"
                
         student_list = []
 

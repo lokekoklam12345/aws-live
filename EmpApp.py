@@ -292,7 +292,8 @@ def DropStudent():
     #programme = request.form['programme']
     #cohort = request.files['cohort']
     
-
+    update_sql = "UPDATE student SET supervisor='' WHERE studentId=%s"
+    cursor = db_conn.cursor()    
     try:       
         for student_id in selected_student_ids:
             update_sql = "UPDATE student SET supervisor='' WHERE studentId=%s"

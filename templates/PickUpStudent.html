@@ -409,6 +409,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <input  type="hidden" name="lec_id" value="lec001" >
                         {% if student_list %}
                             {% for student in student_list %}
                             <tr>
@@ -436,7 +437,7 @@
                             </tr>
                             <tr>
                                 <td colspan="8" style="text-align: center;">
-                                    <button type="submit" name="button-filter" disabled>Pick</button>
+                                    <button action="/leclogin" name="button-filter">Back</button>
                                 </td>
                             </tr>
                         {% endif %}

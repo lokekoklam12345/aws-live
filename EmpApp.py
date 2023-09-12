@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,session
 from pymysql import connections
 import os
 import boto3
 from config import *
+
 
 app = Flask(__name__)
 
@@ -140,7 +141,13 @@ def UpdateEmp():
     print("all modifications done...")
     return render_template('UpdateEmpOutput.html', name=name)
 
-    
+@app.route("/lecHome")
+def LecHome():
+    if 'loginLecturer' in session:
+        lectId = session['loginLecturer']
+        return render_template('LecturerHome.html', lectId = lectId)
+    else:
+        return render_template('LecturerLogin.html')    
 
 @app.route("/leclogin")
 def LecLoginPage():

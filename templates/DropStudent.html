@@ -395,59 +395,73 @@
                 </form>
                     <div class="vl"></div>
             </div>
-            <form action="/drop" autocomplete="on" method="POST" enctype="multipart/form-data">  
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Pick</td>
-                            <td>ID</td>
-                            <td>Name</td>
-                            <td>Gender</td>
-                            <td>Email</td>
-                            <td>Level</td>
-                            <td>Programme</td>
-                            <td>Cohort</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% if student_list %}
-                            {% for student in student_list %}
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="selected_students[]" value="{{ student.student_id }}">
-                                </td>
-                                <input type="hidden" name="selected_studentsNames[]" value="{{ student.name }}">
-                                <td> {{ student.student_id }}</td>
-                                <td> {{ student.name }}</td>
-                                <td> {{ student.gender }}</td>
-                                <td> {{ student.email }}</td>
-                                <td> {{ student.level }}</td>
-                                <td> {{ student.programme }}</td>
-                                <td> {{ student.cohort }}</td>
-                            </tr>
-                            {% endfor %}
-                            <tr>
-                                <td colspan="8" style="text-align: center;">
-                                    <button type="submit" name="button-filter">Drop</button>
-                                </td>
-                            </tr>
-            </form>
-                        {% else %}
-            <form action="/leclogin" autocomplete="on" method="POST" enctype="multipart/form-data">  
-                            <tr>
-                                <td colspan="8" style="text-align: center;">No student record</td>
-                            </tr>
-                            <tr>
-                                <td colspan="8" style="text-align: center;">
-                                    <button type="submit" name="button-filter">Back</button>
-                                </td>
-                            </tr>
-            </form>
-                        {% endif %}
-                    </tbody>
+          
+            <div style ="        display: flex;
+            flex-direction: column;
+            align-content: center;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        "> 
+                <div>
+                    <form action="/drop" autocomplete="on" method="POST" enctype="multipart/form-data">  
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Drop</td>
+                                    <td>ID</td>
+                                    <td>Name</td>
+                                    <td>Gender</td>
+                                    <td>Email</td>
+                                    <td>Level</td>
+                                    <td>Programme</td>
+                                    <td>Cohort</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                                <input  type="hidden" name="lec_id" value="lec001" >
+                                {% if student_list %}
+                                    {% for student in student_list %}
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="selected_students[]" value="{{ student.student_id }}">
+                                        </td>
+                                        <input type="hidden" name="selected_studentsNames[]" value="{{ student.name }}">
+                                        <td> {{ student.student_id }}</td>
+                                        <td> {{ student.name }}</td>
+                                        <td> {{ student.gender }}</td>
+                                        <td> {{ student.email }}</td>
+                                        <td> {{ student.level }}</td>
+                                        <td> {{ student.programme }}</td>
+                                        <td> {{ student.cohort }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td colspan="8" style="text-align: center;">
+                                            <button type="submit" name="button-filter">Drop</button>
+                                        </td>
+                                        
+                                    </tr>
+                                    {% else %}                      
+                                    <tr>
+                                        <td colspan="8" style="text-align: center;">No student record</td>
+                                    </tr>
+        
+                                    
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
             
-                </table>
-            
+        
+                <div>
+                    <form action="/lecHome" autocomplete="on" method="GET" enctype="multipart/form-data">                                                                                
+                        <br><button type="submit" name="button-back">Back</button>
+                    
+                    </form>  
+                </div>    
+             </div> 
             
         </div>
         

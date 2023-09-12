@@ -186,13 +186,13 @@ def GetStudent():
     action=request.form['action']
     id=request.form['lec_id']
 
-    if action:'drop'
-    select_sql = f"SELECT * FROM student WHERE supervisor LIKE '%{id}%'"
-    cursor = db_conn.cursor()
+    if action == 'drop':
+        select_sql = f"SELECT * FROM student WHERE supervisor LIKE '%{id}%'"
+        cursor = db_conn.cursor()
 
-    if action:'pickUp'
-    select_sql = f"SELECT * FROM student WHERE supervisor = ''"
-    cursor = db_conn.cursor()
+    if action =='pickUp':
+        select_sql = f"SELECT * FROM student WHERE supervisor = ''"
+        cursor = db_conn.cursor()
 
     try:
         cursor.execute(select_sql)

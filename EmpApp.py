@@ -305,7 +305,7 @@ def DropStudent():
     finally:
         cursor.close()
     
-    return render_template('PickedUpOutput.html', student_list=selected_student_name)
+    return render_template('DropOutput.html', student_list=selected_student_name)
 
 @app.route("/filterStudent" ,methods=['GET','POST'])
 def FilterStudent():

@@ -242,7 +242,7 @@ def GetStudent():
                 return str(e)       
          
         if action == 'drop':
-         return render_template('DropStudent.html', student_list=student_list)
+         return render_template('DropStudent.html', student_list=student_list,id=id)
 
         if action =='pickUp': 
          return render_template('PickUpStudent.html', student_list=student_list)

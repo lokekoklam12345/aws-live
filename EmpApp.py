@@ -200,8 +200,7 @@ def GetStudent():
 
         if not students:
             return "No students found"
-
-        stu = []
+               
         student_list = []
 
         for student in students:
@@ -254,6 +253,7 @@ def GetStudent():
     finally:
         cursor.close()
 
+
 @app.route("/pickUp" ,methods=['GET','POST'])
 def PickStudent():
     selected_student_ids = request.form.getlist('selected_students[]')
@@ -286,8 +286,8 @@ def PickStudent():
 
 @app.route("/drop" ,methods=['GET','POST'])
 def DropStudent():
-    selected_student_ids = request.form.getlist('selected_students[]')
-    selected_student_name = request.form.getlist('selected_studentsNames[]')
+    selected_student_ids = request.form.getlist('selectedDrop_students[]')
+    selected_student_name = request.form.getlist('selectedDrop_studentsNames[]')
     #student_id = request.form['student_id']
     #name = request.form['name']
     #gender = request.form['gender']
@@ -311,6 +311,7 @@ def DropStudent():
     return render_template('DropOutput.html', student_list=selected_student_name)
 
 @app.route("/filterStudent" ,methods=['GET','POST'])
+
 def FilterStudent():
     
     level= request.form['search-level']

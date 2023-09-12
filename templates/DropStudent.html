@@ -395,56 +395,55 @@
                 </form>
                     <div class="vl"></div>
             </div>
-            <form action="/drop" autocomplete="on" method="POST" enctype="multipart/form-data">  
-            <table>
-                <thead>
-                    <tr>
-                        <td>Pick</td>
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>Gender</td>
-                        <td>Email</td>
-                        <td>Level</td>
-                        <td>Programme</td>
-                        <td>Cohort</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if student_list %}
-                        {% for student in student_list %}
+            <form action="/pickUp" autocomplete="on" method="POST" enctype="multipart/form-data">
+                <table>
+                    <thead>
                         <tr>
-                            <td>
-                                <input type="checkbox" name="selected_students[]" value="{{ student.student_id }}">
-                            </td>
-                            <input type="hidden" name="selected_studentsNames[]" value="{{ student.name }}">
-                            <td> {{ student.student_id }}</td>
-                            <td> {{ student.name }}</td>
-                            <td> {{ student.gender }}</td>
-                            <td> {{ student.email }}</td>
-                            <td> {{ student.level }}</td>
-                            <td> {{ student.programme }}</td>
-                            <td> {{ student.cohort }}</td>
+                            <td>Pick</td>
+                            <td>ID</td>
+                            <td>Name</td>
+                            <td>Gender</td>
+                            <td>Email</td>
+                            <td>Level</td>
+                            <td>Programme</td>
+                            <td>Cohort</td>
                         </tr>
-                
-                        <input  type="hidden" name="student_id" value="{{ student.student_id}}" >
-                        <input  type="hidden" name="name" value="{{ student.name}}" >
-                        <input  type="hidden" name="gender" value="{{ student.gender}}" >
-                        <input  type="hidden" name="email" value="{{ student.email}}" >
-                        <input  type="hidden" name="level" value="{{ student.level}}" >
-                        <input  type="hidden" name="programme" value="{{ student.programme}}" >
-                        <input  type="hidden" name="cohort" value="{{ student.cohort}}" >
-                        <input  type="hidden" name="lec_id" value="lec001" >
-                        {% endfor %}
-                        <button style="position: relative;left: 0px;" type="submit" name="button-filter">Drop</button>
-                    {% else %}
-                        <tr>
-                            <td colspan="8" style="text-align: center;">No student record</td>
-                        </tr>
-                    {% endif %}
-                </tbody>
-                
-    
+                    </thead>
+                    <tbody>
+                        {% if student_list %}
+                            {% for student in student_list %}
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="selected_students[]" value="{{ student.student_id }}">
+                                </td>
+                                <input type="hidden" name="selected_studentsNames[]" value="{{ student.name }}">
+                                <td> {{ student.student_id }}</td>
+                                <td> {{ student.name }}</td>
+                                <td> {{ student.gender }}</td>
+                                <td> {{ student.email }}</td>
+                                <td> {{ student.level }}</td>
+                                <td> {{ student.programme }}</td>
+                                <td> {{ student.cohort }}</td>
+                            </tr>
+            
+                            <input  type="hidden" name="student_id" value="{{ student.student_id}}" >
+                            <input  type="hidden" name="name" value="{{ student.name}}" >
+                            <input  type="hidden" name="gender" value="{{ student.gender}}" >
+                            <input  type="hidden" name="email" value="{{ student.email}}" >
+                            <input  type="hidden" name="level" value="{{ student.level}}" >
+                            <input  type="hidden" name="programme" value="{{ student.programme}}" >
+                            <input  type="hidden" name="cohort" value="{{ student.cohort}}" >
+                            <input  type="hidden" name="lec_id" value="lec001" >
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="8" style="text-align: center;">No student record</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
                 </table>
+                <br>
+                <button style="position: relative;left: 0px;" type="submit" name="button-filter">Pick</button>
             </form>
         </div>
         

@@ -242,7 +242,11 @@ def GetStudent():
             except Exception as e:
                 return str(e)       
          
-        return render_template('PickUpStudent.html', student_list=student_list)
+        if action == 'drop':
+         return render_template('DropStudent.html', student_list=student_list)
+
+        if action =='pickUp': 
+         return render_template('PickUpStudent.html', student_list=student_list)
 
     except Exception as e:
         return str(e)

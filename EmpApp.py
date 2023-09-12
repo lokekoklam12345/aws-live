@@ -141,7 +141,7 @@ def UpdateEmp():
     print("all modifications done...")
     return render_template('UpdateEmpOutput.html', name=name)
 
-@app.route("/lecHome")
+@app.route("/lecHome" methods=["GET","POST"])
 def LecHome():
     return render_template('LecturerHome.html')    
 

@@ -284,7 +284,6 @@ def PickStudent():
 def DropStudent():
     selected_student_ids = request.form.getlist('selected_students[]')
     selected_student_name = request.form.getlist('selected_studentsNames[]')
-    lec_id = request.form['lec_id']
     #student_id = request.form['student_id']
     #name = request.form['name']
     #gender = request.form['gender']
@@ -294,12 +293,11 @@ def DropStudent():
     #cohort = request.files['cohort']
     
 
-    try:
-        # Check if the employee exists
+    try:       
         for student_id in selected_student_ids:
             update_sql = "UPDATE student SET supervisor='' WHERE studentId=%s"
             cursor = db_conn.cursor()    
-            cursor.execute(update_sql, (lec_id,student_id))
+            cursor.execute(update_sql, (student_id))
             db_conn.commit()                    
 
     finally:

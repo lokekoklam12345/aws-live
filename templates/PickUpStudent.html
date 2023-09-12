@@ -394,9 +394,8 @@
                 </form>
                     <div class="vl"></div>
             </div>
-            <table>
             <form action="/pickUp" autocomplete="on" method="POST" enctype="multipart/form-data">  
-                
+                <table>
                     <thead>
                         <tr>
                             <td>Pick</td>
@@ -431,19 +430,20 @@
                                 <td colspan="8" style="text-align: center;">
                                     <button type="submit" name="button-filter">Pick</button>
                                 </td>
+                                
                             </tr>
             </form>
-                        {% else %}
-                        <form action="/leclogin" autocomplete="on" method="POST" enctype="multipart/form-data">  
+                        {% else %}                      
                             <tr>
                                 <td colspan="8" style="text-align: center;">No student record</td>
                             </tr>
-                            <tr>
-                                <td colspan="8" style="text-align: center;">
-                                    <button type="submit" name="button-filter">Back</button>
-                                </td>
-                            </tr>
-                        </form>
+
+                            <form action="/leclogin" autocomplete="on" method="POST" enctype="multipart/form-data">  
+                                
+                                
+                                        <button type="submit" name="button-filter">Back</button>
+                                    
+                            </form>
                         {% endif %}
                         
                     </tbody>

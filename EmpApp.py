@@ -320,7 +320,7 @@ def FilterStudent():
     select_sql = "SELECT * FROM student WHERE supervisor = ''"
     cursor = db_conn.cursor()
 
-    if level:
+    if level !='All':
           select_sql += f" AND level LIKE '%{level}%'"
     if programme:
           select_sql += f" AND programme LIKE '%{programme}%'"

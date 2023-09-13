@@ -476,7 +476,8 @@
         checkbox.addEventListener('change', (event) => {
             const studentId = event.target.value;
             const studentName = event.target.nextElementSibling.textContent; // Get the name from the adjacent TD element
-
+            const checkedCheckboxesCount = document.querySelectorAll('.student-checkbox:checked').length;
+            
             if (event.target.checked) {
                 // Add the student ID and name to the respective arrays
                 selectedStudentIds.push(studentId);

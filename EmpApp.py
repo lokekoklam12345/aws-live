@@ -514,6 +514,7 @@ def loginAdmin():
 def approveReq():
     selected_request_ids = request.form.getlist('selected_requests[]')
     resultAttributes = []  # Store the result attributes here
+    resultChange = []
 
     try:
         cursor = db_conn.cursor()
@@ -522,9 +523,16 @@ def approveReq():
             get_attribute = "SELECT attribute FROM request WHERE requestId=%s"
             cursor.execute(get_attribute, (request_id,))
             attribute_result = cursor.fetchone()  # Fetch the result for this request_id
+
+            get_change = "SELECT change FROM request WHERE requestId=%s"
+            cursor.execute(get_change, (request_id,))
+            change_result = cursor.fetchone()  # Fetch the result for this request_id
             
             if attribute_result:
                 resultAttributes.append(attribute_result[0])  # Append the attribute value to the list
+
+            if change_result:
+                resultChange.append(change_result[0])  # Append the change value to the list
                 
         db_conn.commit()
         
@@ -563,7 +571,7 @@ def approveReq():
     finally:
         cursor.close()
         
-    return selected_change
+    return resultChange
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

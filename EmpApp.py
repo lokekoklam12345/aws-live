@@ -478,12 +478,12 @@ def loginAdmin():
                
         request_list = []
 
-        for request in requests:
-            req_id = request[0]
-            req_attribute = request[1]
-            req_change = request[2]
-            req_reason = request[4]
-            req_studentId = request[5]
+        for requestEdit in requests:
+            req_id = requestEdit[0]
+            req_attribute = requestEdit[1]
+            req_change = requestEdit[2]
+            req_reason = requestEdit[4]
+            req_studentId = requestEdit[5]
 
             try:                
                 request_data = {

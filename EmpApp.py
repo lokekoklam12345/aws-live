@@ -468,8 +468,48 @@ def loginAdmin():
         if admin_id != "Admin001" or password != "12345678":
             return render_template('LoginAdmin.html')
         #session['logedInAdmin'] = str(admin_id)
-        return render_template('AdminDashboard.html', id=admin_id)
+    
+    select_sql = "SELECT * FROM request"
+    cursor = db_conn.cursor()
 
+    try:
+        cursor.execute(select_sql)
+        requests = cursor.fetchall()  # Fetch all request
+               
+        request_list = []
+
+        for request in requests:
+            req_id = request[0]
+            req_attribute = request[1]
+            req_change = request[2]
+            req_reason = request[4]
+            req_studentId = request[5]
+
+            try:                
+                request_data = {
+                    "id": req_id,
+                    "attribute": req_attribute,
+                    "change": req_change,
+                    "reason": req_reason,
+                    "studentId": req_studentId,
+                }
+
+                # Append the student's dictionary to the student_list
+                request_list.append(request_data)
+                
+
+            except Exception as e:
+                return str(e)               
+
+        render_template('AdminDashboard.html',request_list=request_list);
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+
+    
+  
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

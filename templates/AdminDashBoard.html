@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin Dashboard</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/company.css')}}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	
+	<nav>
+		<div class="homeNav">
+			<a href="/"></a>
+		</div>
+		<div class="otherNav">
+			<a href="#">Company Registration</a>
+			<a href="#">Student Profile Update Request</a>
+			<a href="/logoutAdmin">Logout</a>
+		</div>
+	</nav>
+</head>
+
+<body>
+	<div class="logedIn">
+		<i class="fas fa-user-circle"></i>
+		<label>
+			{{id}}
+		</label>
+	</div>
+
+	<form action="/addCompanyReg" autocomplete="on" method="POST" enctype="multipart/form-data">
+		<div class="h1">
+			<h1>
+				Admin Dashboard
+			</h1>
+		</div>
+
+		<fieldset>
+			<div class="container">
+				
+				
+
+			</div>			
+		</fieldset>
+	</form>
+
+	<script src="{{ url_for('static', filename='script/master.js') }}"></script>
+</body>
+
+
+</html>

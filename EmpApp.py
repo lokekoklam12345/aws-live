@@ -455,6 +455,22 @@ def FilterPickedStudent():
     finally:
         cursor.close()
 
+@app.route('/login_admin')
+def login_admin():
+    return render_template('LoginAdmin.html')
+
+@app.route("/loginAdmin", methods=['GET','POST'])
+def loginAdmin():
+    if request.method == 'POST':
+        admin_id = request.form['admin_ID']
+        password = request.form['password']
+
+        if admin_id != "Admin001" or password != "12345678":
+            return render_template('LoginAdmin.html')
+        session['logedInAdmin'] = str(admin_id)
+        return render_template('AdminDashboard.html', id=session['logedInAdmin'])
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 

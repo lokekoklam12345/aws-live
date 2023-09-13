@@ -551,10 +551,23 @@ def approveReq():
         change = selected_change[i]
         attribute = resultAttributes[i]
             
-        update_sql = "UPDATE student SET %s = %s WHERE studentId=%s"
-        cursor = db_conn.cursor()    
-        cursor.execute(update_sql, (attribute,change, student_id))
-        db_conn.commit()                   
+        if attribute == 'studentName' :
+            update_sql = "UPDATE student SET studentName = %s WHERE studentId=%s"
+            cursor = db_conn.cursor()    
+            cursor.execute(update_sql, (change, student_id))
+            db_conn.commit()        
+
+        if attribute == 'IC' :
+            update_sql = "UPDATE student SET IC = %s WHERE studentId=%s"
+            cursor = db_conn.cursor()    
+            cursor.execute(update_sql, (change, student_id))
+            db_conn.commit()    
+
+        if attribute == 'mobileNumber' :
+            update_sql = "UPDATE student SET mobileNumber = %s WHERE studentId=%s"
+            cursor = db_conn.cursor()    
+            cursor.execute(update_sql, (change, student_id))
+            db_conn.commit()            
 
     finally:
         cursor.close()

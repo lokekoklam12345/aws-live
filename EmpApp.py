@@ -194,7 +194,7 @@ def GetStudent():
         cursor = db_conn.cursor()
 
     if action =='pickUp':
-        select_sql = f"SELECT * FROM student WHERE supervisor = ''"
+        select_sql = f"SELECT * FROM student WHERE supervisor = 'NULL'"
         cursor = db_conn.cursor()
 
     try:

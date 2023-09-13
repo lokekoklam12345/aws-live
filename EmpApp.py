@@ -537,7 +537,19 @@ def approveReq():
     selected_change = request.form.getlist('selected_change[]')
 
     
+    try:       
+       for i in range(len(resultAttributes)):
+        student_id = selected_studentId[i]
+        change = selected_change[i]
+        attribute = resultAttributes[i]
+            
+        update_sql = "UPDATE student SET studentName = %s WHERE studentId=%s"
+        cursor = db_conn.cursor()    
+        cursor.execute(update_sql, (change, student_id))
+        db_conn.commit()                   
 
+    finally:
+        cursor.close()
     
 
     #update the status of the request        

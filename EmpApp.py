@@ -468,7 +468,7 @@ def loginAdmin():
         if admin_id != "Admin001" or password != "12345678":
             return render_template('LoginAdmin.html')
         #session['logedInAdmin'] = str(admin_id)
-    
+
     select_sql = "SELECT * FROM request"
     cursor = db_conn.cursor()
 
@@ -507,10 +507,8 @@ def loginAdmin():
 
     finally:
         cursor.close()
-        render_template('AdminDashboard.html',request_list=request_list)
 
-    
-  
+    return render_template('AdminDashboard.html',request_list=request_list)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

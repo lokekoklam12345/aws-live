@@ -537,12 +537,7 @@ def approveReq():
     selected_change = request.form.getlist('selected_change[]')
 
     
-    try:       
-       for i in range(len(resultAttributes)):
-               
 
-    finally:
-        cursor.close()
     
 
     #update the status of the request        

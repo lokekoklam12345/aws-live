@@ -561,7 +561,7 @@ def approveReq():
     finally:
         cursor.close()
         
-    return selected_change
+    return resultAttributes
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

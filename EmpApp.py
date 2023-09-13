@@ -510,6 +510,32 @@ def loginAdmin():
 
     return render_template('AdminDashboard.html',request_list=request_list)
 
+@app.route("/approveReq", methods=['GET','POST'])
+def DropStudent():
+    selected_request_ids = request.form.getlist('selected_requests[]')
+    resultAttributes = []  # Store the result attributes here
+
+    try:
+        cursor = db_conn.cursor()
+        
+        for request_id in selected_request_ids:
+            get_attribute = "SELECT attribute FROM student WHERE requestId=%s"
+            cursor.execute(get_attribute, (request_id,))
+            attribute_result = cursor.fetchone()  # Fetch the result for this request_id
+            
+            if attribute_result:
+                resultAttributes.append(attribute_result[0])  # Append the attribute value to the list
+                
+        db_conn.commit()
+        
+    finally:
+        cursor.close()
+
+    # Now resultAttributes contains the attribute values for the selected request_ids
+
+    return resultAttributes  
+    #return render_template('RequestOutput.html', selected_request_ids=selected_request_ids)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 

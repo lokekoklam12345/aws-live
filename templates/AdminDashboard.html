@@ -63,48 +63,49 @@
 		</div>
 
 		<div>
-            <table>
-                <thead>
-                    <tr>
-                       <td></td>
-                       <td>Request ID</td>
-                       <td>Attribue</td>
-                       <td>Change</td>
-                       <td>Reason</td>
-                       <td>Student ID</td>
-                    </tr>
-                </thead>
-                <tbody>
-                  
-                    {% if request_list %}
-                      {% for request in request_list %}
+            <form action="/approveReq" autocomplete="on" method="POST" enctype="multipart/form-data">  
+                <table>
+                    <thead>
                         <tr>
-                            <td>
-                                <input type="checkbox" name="selected_requests[]" value="{{ request.id }}">
-                            </td>
-                            <td>{{ request.id }}</td>
-                            <td>{{ request.attribute }}</td>
-                            <td>{{ request.change }}</td>
-                            <td>{{ request.reason }}</td>
-                            <td>{{ request.studentId }}</td>
+                        <td></td>
+                        <td>Request ID</td>
+                        <td>Attribue</td>
+                        <td>Change</td>
+                        <td>Reason</td>
+                        <td>Student ID</td>
                         </tr>
-                        {% endfor %}
-                        <tr>
-                            <td colspan="8" style="text-align: center;">
-                                <button type="submit" name="button-filter" style="background-color: #54585d;">Approval</button>
-                            </td>
+                    </thead>
+                    <tbody>
+                    
+                        {% if request_list %}
+                        {% for request in request_list %}
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="selected_requests[]" value="{{ request.id }}">
+                                </td>
+                                <td>{{ request.id }}</td>
+                                <td>{{ request.attribute }}</td>
+                                <td>{{ request.change }}</td>
+                                <td>{{ request.reason }}</td>
+                                <td>{{ request.studentId }}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="8" style="text-align: center;">
+                                    <button type="submit" name="button-filter" style="background-color: #54585d;">Approval</button>
+                                </td>
+                                
+                            </tr>
+                            {% else %}                      
+                            <tr>
+                                <td colspan="8" style="text-align: center;">No request record</td>
+                            </tr>
+
                             
-                        </tr>
-                        {% else %}                      
-                        <tr>
-                            <td colspan="8" style="text-align: center;">No request record</td>
-                        </tr>
-
-                        
-                    {% endif %}            
-                </tbody>
-            </table>
-
+                        {% endif %}            
+                    </tbody>
+                </table>
+            </form>
         </div>
 	</form>
 

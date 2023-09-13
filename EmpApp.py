@@ -501,12 +501,13 @@ def loginAdmin():
             except Exception as e:
                 return str(e)               
 
-        render_template('AdminDashboard.html',request_list=request_list)
+       
     except Exception as e:
         return str(e)
 
     finally:
         cursor.close()
+        render_template('AdminDashboard.html',request_list=request_list)
 
     
   

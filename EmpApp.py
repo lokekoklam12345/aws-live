@@ -511,7 +511,7 @@ def loginAdmin():
     return render_template('AdminDashboard.html',request_list=request_list)
 
 @app.route("/approveReq", methods=['GET','POST'])
-def DropStudent():
+def approveReq():
     selected_request_ids = request.form.getlist('selected_requests[]')
     resultAttributes = []  # Store the result attributes here
 

@@ -300,7 +300,7 @@ def DropStudent():
     cursor = db_conn.cursor()    
     try:       
         for student_id in selected_student_ids:
-            update_sql = "UPDATE student SET supervisor IS NULL WHERE studentId=%s"
+            update_sql = "UPDATE student SET supervisor = NULL WHERE studentId=%s"
             cursor = db_conn.cursor()    
             cursor.execute(update_sql, (student_id))
             db_conn.commit()                    

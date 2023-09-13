@@ -543,10 +543,10 @@ def approveReq():
         change = selected_change[i]
         attribute = resultAttributes[i]
             
-        update_sql = "UPDATE student SET studentName = %s WHERE studentId=%s"
-        cursor = db_conn.cursor()    
-        cursor.execute(update_sql, (change, student_id))
-        db_conn.commit()                   
+        #update_sql = "UPDATE student SET studentName = %s WHERE studentId=%s"
+        #cursor = db_conn.cursor()    
+        #cursor.execute(update_sql, (change, student_id))
+        #db_conn.commit()                   
 
     finally:
         cursor.close()
@@ -563,7 +563,7 @@ def approveReq():
     finally:
         cursor.close()
         
-    return resultAttributes
+    return resultAttributes,selected_change
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

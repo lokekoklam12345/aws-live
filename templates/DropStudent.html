@@ -471,13 +471,12 @@
     const checkboxes = document.querySelectorAll('.student-checkbox');
     const selectedStudentIds = [];
     const selectedStudentNames = [];
-
+    
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', (event) => {
             const studentId = event.target.value;
             const studentName = event.target.nextElementSibling.textContent; // Get the name from the adjacent TD element
-            const checkedCheckboxesCount = document.querySelectorAll('.student-checkbox:checked').length;
-            
+
             if (event.target.checked) {
                 // Add the student ID and name to the respective arrays
                 selectedStudentIds.push(studentId);
@@ -493,14 +492,6 @@
                 if (nameIndex !== -1) {
                     selectedStudentNames.splice(nameIndex, 1);
                 }
-            }
-
-            if (checkedCheckboxesCount === 0) {
-                // Show an error message
-                alert('Please select at least one checkbox');
-
-                // Prevent the form from submitting
-                return false;
             }
         });
     });
@@ -520,6 +511,18 @@
         selectedStudentNamesInput.name = 'selected_student_names';
         selectedStudentNamesInput.value = selectedStudentNames.join(',');
         document.querySelector('form').appendChild(selectedStudentNamesInput);
+
+        submitButton.addEventListener('click', () => {
+    // Get the number of checked checkboxes
+    const checkedCheckboxesCount = document.querySelectorAll('.student-checkbox:checked').length;
+
+    if (checkedCheckboxesCount === 0) {
+        // Show an error message
+        alert('Please select at least one checkbox');
+
+        // Prevent the form from submitting
+        return false;
+    }
     });
 </script>
 

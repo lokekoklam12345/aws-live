@@ -532,8 +532,9 @@ def approveReq():
         cursor.close()
 
     #update the student details 
+    
     selected_studentId = request.form.getlist('selected_studentId[]')
-    selected_change = request.form.getlist('selected_change[]')
+    selected_change = resultAttributes
 
     update_sql = "UPDATE student SET %s = %s WHERE studentId=%s"
     cursor = db_conn.cursor()    

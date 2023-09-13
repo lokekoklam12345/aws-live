@@ -512,13 +512,17 @@
         selectedStudentNamesInput.value = selectedStudentNames.join(',');
         document.querySelector('form').appendChild(selectedStudentNamesInput);
 
-        const checkedCheckboxesCount = document.querySelectorAll('.student-checkbox:checked').length;
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
+    // Get the number of checked checkboxes
+    const checkedCheckboxesCount = document.querySelectorAll('.student-checkbox:checked').length;
 
     // If no checkboxes are checked, change the form action to /lecHome
     if (checkedCheckboxesCount === 0) {
-        const form = document.querySelector('form');
+        event.preventDefault(); // Prevent the form from submitting
         form.setAttribute('action', '/lecHome');
     }
+})
     });
 </script>
 

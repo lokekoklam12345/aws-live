@@ -519,7 +519,7 @@ def approveReq():
         cursor = db_conn.cursor()
         
         for request_id in selected_request_ids:
-            get_attribute = "SELECT attribute FROM student WHERE requestId=%s"
+            get_attribute = "SELECT attribute FROM request WHERE requestId=%s"
             cursor.execute(get_attribute, (request_id,))
             attribute_result = cursor.fetchone()  # Fetch the result for this request_id
             

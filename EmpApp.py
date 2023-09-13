@@ -467,8 +467,8 @@ def loginAdmin():
 
         if admin_id != "Admin001" or password != "12345678":
             return render_template('LoginAdmin.html')
-        session['logedInAdmin'] = str(admin_id)
-        return render_template('AdminDashboard.html', id=session['logedInAdmin'])
+        #session['logedInAdmin'] = str(admin_id)
+        return render_template('AdminDashboard.html', id=admin_id)
 
 
 if __name__ == '__main__':

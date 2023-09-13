@@ -317,7 +317,7 @@ def FilterStudent():
     programme=request.form['search-programme']
     cohort=request.form['search-cohort']
 
-    select_sql = "SELECT * FROM student WHERE supervisor = ''"
+    select_sql = "SELECT * FROM student WHERE supervisor IS NULL"
     cursor = db_conn.cursor()
 
     if level !='All':

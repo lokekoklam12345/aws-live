@@ -493,6 +493,14 @@
                     selectedStudentNames.splice(nameIndex, 1);
                 }
             }
+
+            if (checkedCheckboxesCount === 0) {
+                // Show an error message
+                alert('Please select at least one checkbox');
+
+                // Prevent the form from submitting
+                return false;
+            }
         });
     });
 

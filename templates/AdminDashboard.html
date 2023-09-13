@@ -83,11 +83,14 @@
                                 <td>
                                     <input type="checkbox" name="selected_requests[]" value="{{ request.id }}">
                                 </td>
+                                
                                 <td>{{ request.id }}</td>
                                 <td>{{ request.attribute }}</td>
                                 <td>{{ request.change }}</td>
+                                <input type="hidden" name="selected_change[]" value="{{ request.change }}">
                                 <td>{{ request.reason }}</td>
                                 <td>{{ request.studentId }}</td>
+                                <input type="hidden" name="selected_studentId[]" value="{{ request.studentId }}">
                             </tr>
                             {% endfor %}
                             <tr>

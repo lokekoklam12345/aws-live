@@ -531,10 +531,36 @@ def approveReq():
     finally:
         cursor.close()
 
-    # Now resultAttributes contains the attribute values for the selected request_ids
+    #update the student details 
+    selected_studentId = request.form.getlist('selected_studentId[]')
+    selected_change = request.form.getlist('selected_changed[]')
 
-    return resultAttributes  
-    #return render_template('RequestOutput.html', selected_request_ids=selected_request_ids)
+    update_sql = "UPDATE student SET %s = %s WHERE studentId=%s"
+    cursor = db_conn.cursor()    
+    
+    try:       
+        for student_id, change in zip(selected_studentId, selected_change):
+            update_sql = "UPDATE student SET %s = %s WHERE studentId=%s"
+            cursor = db_conn.cursor()    
+            cursor.execute(update_sql, (change, student_id))
+            db_conn.commit()                    
+
+    finally:
+        cursor.close()
+    
+
+    #update the status of the request        
+    try:       
+        for request_id in selected_request_ids:
+            update_sql = "UPDATE request SET status = 'approvered' WHERE requestId=%s"
+            cursor = db_conn.cursor()    
+            cursor.execute(update_sql, (request_id))
+            db_conn.commit()                    
+
+    finally:
+        cursor.close()
+        
+    return render_template('LoginAdmin.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

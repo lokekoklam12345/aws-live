@@ -536,15 +536,17 @@ def approveReq():
     selected_studentId = request.form.getlist('selected_studentId[]')
     selected_change = request.form.getlist('selected_change[]')
 
-    update_sql = "UPDATE student SET %s = %s WHERE studentId=%s"
-    cursor = db_conn.cursor()    
     
     try:       
-        for student_id, change,attribute in zip(selected_studentId, selected_change,resultAttributes):
-            update_sql = "UPDATE student SET %s = %s WHERE studentId=%s"
-            cursor = db_conn.cursor()    
-            cursor.execute(update_sql, (attribute,change, student_id))
-            db_conn.commit()                    
+       for i in range(len(resultAttributes)):
+        student_id = selected_studentId[i]
+        change = selected_change[i]
+        attribute = resultAttributes[i]
+            
+        update_sql = "UPDATE student SET %s = %s WHERE studentId=%s"
+        cursor = db_conn.cursor()    
+        cursor.execute(update_sql, (attribute,change, student_id))
+        db_conn.commit()                   
 
     finally:
         cursor.close()

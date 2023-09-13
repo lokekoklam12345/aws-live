@@ -539,14 +539,7 @@ def approveReq():
     
     try:       
        for i in range(len(resultAttributes)):
-        student_id = selected_studentId[i]
-        change = selected_change[i]
-        attribute = resultAttributes[i]
-            
-        update_sql = "UPDATE student SET '%s' = %s WHERE studentId=%s"
-        cursor = db_conn.cursor()    
-        cursor.execute(update_sql, (attribute,change, student_id))
-        db_conn.commit()                   
+               
 
     finally:
         cursor.close()

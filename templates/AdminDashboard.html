@@ -86,6 +86,7 @@
                                 
                                 <td>{{ request.id }}</td>
                                 <td>{{ request.attribute }}</td>
+                                <input type="hidden" name="selected_attribute[]" value="{{ request.attribute }}">
                                 <td>{{ request.change }}</td>
                                 <input type="hidden" name="selected_change[]" value="{{ request.change }}">
                                 <td>{{ request.reason }}</td>

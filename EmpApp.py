@@ -552,7 +552,7 @@ def approveReq():
     #update the status of the request        
     try:       
         for request_id in selected_request_ids:
-            update_sql = "UPDATE request SET status = 'approvered' WHERE requestId=%s"
+            update_sql = "UPDATE request SET status = 'approved' WHERE requestId=%s"
             cursor = db_conn.cursor()    
             cursor.execute(update_sql, (request_id))
             db_conn.commit()                    
@@ -560,7 +560,7 @@ def approveReq():
     finally:
         cursor.close()
         
-    return render_template('LoginAdmin.html')
+    return selected_studentId,selected_change
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

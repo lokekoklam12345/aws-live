@@ -598,9 +598,9 @@ def FilterRequest():
 
     if level != 'All':
           select_sql += f" AND level LIKE '%{level}%'"
-    if programme:
+    if programme !='':
           select_sql += f" AND programme LIKE '%{programme}%'"
-    if level:
+    if level !='':
           select_sql += f" AND cohort LIKE '%{cohort}%'"
 
     try:

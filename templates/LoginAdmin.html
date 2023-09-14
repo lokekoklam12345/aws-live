@@ -2,77 +2,98 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Login Admin</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/company.css')}}" />
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}" />
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
 
-	<nav>
-		<div class="homeNav">
-			<a href="/">Home</a>
-		</div>
-		<div class="otherNav">
-			<div class="dropdown">
-				<a class="dropdown-button" onclick="toggleDropdown()">Company</a>
-				<div id="dropdownOptions" class="dropdown-content">
-					<a href="/register_company">Sign Up</a>
-					<a href="/login_company">Login</a>
-				</div>
-			</div>
-			<a href="#">Uni Supervisor</a>
-			<a href="/login_admin">Admin</a>
-			<a href="#">Student</a>
-		</div>
-	</nav>
+        nav {
+            display: flex;
+            top: 0;
+            right: 0;
+            background-color: #1f1f1f;
+            padding: 15px;
+            justify-content: space-between;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #b9b9b9;
+            font-size: 16px;
+            margin-left: 20px;
+            /* Add margin to space out the links */
+            transition: color 0.3s;
+            /* Smooth color transition on hover */
+        }
+
+        .form {
+            width: 100%;
+            display: flex;
+            padding: 5px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .btn {
+            font-size: 14px;
+            width: 10%;
+        }
+
+        .msg {
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
-	<form action="/loginAdmin" autocomplete="on" method="POST" enctype="multipart/form-data">
-		<div class="h1">
-			
-		</div>
+    <nav>
+        <div class="homeNav">
+            <a href="#">Home</a>
+        </div>
+        <div class="otherNav">
+            <a href="#">Company</a>
+            <a href="#">Uni Supervisor</a>
+            <a href="#">Admin</a>
+            <a href="#">Student</a>
+        </div>
+    </nav>
 
-		<fieldset>
-			<div class="container">
-				<div class="loginTable">
-					<table>
-						<tr>
-							<td>
-								<label class="label">Admin ID</label>
-							</td>
-							<td>
-								<input class="inputText" type="text" name="admin_ID"
-									placeholder="Enter admin ID">
-							</td>
-						</tr>
+    <div style="margin: 20px 60px; padding: 10px;">
 
-						<tr>
-							<td>
-								<label class="label">Password</label>
-							</td>
-							<td>
-								<input class="inputText" type="password" name="password" placeholder="Enter password">
-							</td>
-						</tr>
+        <h2 style="font-weight: 500;">Admin Login</h2>
+        <hr>
+        <form action="/loginlec" method="post">
+            <div>
+                <div class="msg">{{ msg }}</div>
+                <div class="form">
+                    <label for="email" style="width: 20%; text-align: end; padding-right: 40px;"><b>Admin ID</b></label>
+                    <input name="admin_ID" type="text" style="width: 40%;" class="form-control" required />
+                </div>
+                <div class="form">
+                    <label for="password"
+                        style="width: 20%; text-align: right; padding-right: 40px;"><b>Password</b></label>
+                    <input name="password" type="password" style="width: 40%;" class="form-control" required />
+                </div>
+            </div>
+            <div style="margin-left: 20.5%; padding: 20px 0px;">
+                <button type="submit" class="btn btn-secondary" value="Login">Login</button>
+            </div>
+        </form>
+        <hr>
 
-						<tr>
-							<td></td>
-							<td>
-								<button class="submitBtn" type="submit">Login</button>
-							</td>
-						</tr>
-					</table>
-				</div>
+        <footer>
+            <p>© 2023 - TAR UMT FOCS ITP</p>
+        </footer>
+    </div>
 
-			</div>
 
-		</fieldset>
-	</form>
-
-	</form>
-	<script src="{{ url_for('static', filename='script/master.js') }}"></script>
+    <script src="/bundles/bootstrap?v=lescQEuG5u4jd-GcVDBcbpUOSyTDIg0Kk9zHDX55GCw1"></script>
 </body>
-
 
 </html>

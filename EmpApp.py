@@ -465,7 +465,7 @@ def loginAdmin():
         admin_id = request.form['admin_ID']
         password = request.form['password']
 
-        if admin_id != "Admin001" or password != "1":
+        if admin_id != "a" or password != "1":
             return render_template('LoginAdmin.html')
         #session['logedInAdmin'] = str(admin_id)
 

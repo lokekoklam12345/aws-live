@@ -593,7 +593,7 @@ def FilterRequest():
     programme=request.form.get('search-programme')  # Check if the field exists
     cohort=request.form['search-cohort']
 
-    select_sql = f"SELECT r.studentId, ATTRIBUTE, newData, reason FROM request r, student s WHERE r.studentId=s.studentId WHERE level='Diploma''"
+    select_sql = f"SELECT r.studentId, ATTRIBUTE, newData, reason FROM request r, student s WHERE r.studentId=s.studentId WHERE level='Diploma' "
     cursor = db_conn.cursor()
 
 

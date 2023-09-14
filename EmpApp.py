@@ -597,11 +597,11 @@ def FilterRequest():
     cursor = db_conn.cursor()
 
     if level != 'All':
-          select_sql += f" AND level LIKE '%{level}%'"
+          select_sql += f" AND s.level LIKE '%{level}%'"
     if programme !='':
-          select_sql += f" AND programme LIKE '%{programme}%'"
+          select_sql += f" AND s.programme LIKE '%{programme}%'"
     if level !='':
-          select_sql += f" AND cohort LIKE '%{cohort}%'"
+          select_sql += f" AND s.cohort LIKE '%{cohort}%'"
 
     try:
         cursor.execute(select_sql)

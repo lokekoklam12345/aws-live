@@ -586,6 +586,62 @@ def approveReq():
         
     return resultChange
 
+@app.route("/filterRequest" ,methods=['GET','POST'])
+def FilterRequest():
+    
+
+    level= request.form['search-level']
+    programme=request.form['search-programme']
+    cohort=request.form['search-cohort']
+
+    select_sql = f"SELECT r.studentId,ATTRIBUTE,newData,reason FROM request r, student s WHERE r.studentId=s.studentId'"
+    cursor = db_conn.cursor()
+
+    if level != 'All':
+          select_sql += f" AND level LIKE '%{level}%'"
+    if programme:
+          select_sql += f" AND programme LIKE '%{programme}%'"
+    if level:
+          select_sql += f" AND cohort LIKE '%{cohort}%'"
+
+    try:
+        cursor.execute(select_sql)
+        requests = cursor.fetchall()  # Fetch all request
+               
+        request_list = []
+
+        for requestEdit in requests:
+            req_id = requestEdit[0]
+            req_attribute = requestEdit[1]
+            req_change = requestEdit[2]
+            req_reason = requestEdit[4]
+            req_studentId = requestEdit[5]
+
+            try:                
+                request_data = {
+                    "id": req_id,
+                    "attribute": req_attribute,
+                    "change": req_change,
+                    "reason": req_reason,
+                    "studentId": req_studentId,
+                }
+
+                # Append the student's dictionary to the student_list
+                request_list.append(request_data)
+                
+
+            except Exception as e:
+                return str(e)               
+
+       
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+
+     return render_template('AdminDashboard.html',request_list=request_list)
+     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 

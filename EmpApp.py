@@ -508,7 +508,7 @@ def loginAdmin():
     finally:
         cursor.close()
 
-    return render_template('AdminDashboard.html',request_list=request_list)
+    
 
 @app.route("/approveReq", methods=['GET','POST'])
 def approveReq():
@@ -588,13 +588,12 @@ def approveReq():
 
 @app.route("/filterRequest" ,methods=['GET','POST'])
 def FilterRequest():
-    
 
     level= request.form['search-level']
-    programme=request.form['search-programme']
+    programme=request.form.get('search-programme')  # Check if the field exists
     cohort=request.form['search-cohort']
 
-    select_sql = f"SELECT r.studentId,ATTRIBUTE,newData,reason FROM request r, student s WHERE r.studentId=s.studentId'"
+    select_sql = f"SELECT r.studentId, ATTRIBUTE, newData, reason FROM request r, student s WHERE r.studentId=s.studentId'"
     cursor = db_conn.cursor()
 
     if level != 'All':
@@ -640,8 +639,8 @@ def FilterRequest():
     finally:
         cursor.close()
 
-     return render_template('AdminDashboard.html',request_list=request_list)
-     
+    return render_template('AdminDashboard.html', request_list=request_list)
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 

@@ -508,7 +508,7 @@ def loginAdmin():
     finally:
         cursor.close()
 
-    
+    return render_template('AdminDashboard.html', request_list=request_list)
 
 @app.route("/approveReq", methods=['GET','POST'])
 def approveReq():
@@ -640,7 +640,7 @@ def FilterRequest():
         cursor.close()
 
     return render_template('AdminDashboard.html', request_list=request_list)
-    
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 

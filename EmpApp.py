@@ -628,6 +628,7 @@ def FilterRequest():
     level= request.form['search-level']
     programme=request.form.get('search-programme')  # Check if the field exists
     cohort=request.form['search-cohort']
+    programme=request.form['search-programme']
 
     select_sql = "SELECT * FROM request r ,student s WHERE status ='pending' AND r.studentId = s.studentId "
     cursor = db_conn.cursor()
@@ -638,6 +639,8 @@ def FilterRequest():
           select_sql += f" AND s.programme LIKE '%{programme}%'"
     if level !='':
           select_sql += f" AND s.cohort LIKE '%{cohort}%'"
+    if programme !='':
+          select_sql += f" AND s.programme LIKE '%{programme}%'"
 
     select_sql += " Order by r.requestId"
 
@@ -677,7 +680,37 @@ def FilterRequest():
     finally:
         cursor.close()
 
-    return render_template('AdminDashboard.html', request_list=request_list)
+    selectProgram_sql = "SELECT DISTINCT programme FROM student;"
+    cursorProgramme = db_conn.cursor()
+    try:
+        cursorProgramme.execute(selectProgram_sql)
+        programmes = cursorProgramme.fetchall()  # Fetch all request
+                
+        programme_list = []
+
+        for programmeExits in programmes:
+            programme = programmeExits[0]          
+
+            try:                
+                programme_data = {
+                    "programme": programme,
+                }
+
+                # Append the student's dictionary to the student_list
+                programme_list.append(programme_data)
+            
+
+            except Exception as e:
+                return str(e)               
+
+    
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursorProgramme.close()
+
+    return render_template('AdminDashboard.html', request_list=request_list,programme_list)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

@@ -593,7 +593,7 @@ def FilterRequest():
     programme=request.form.get('search-programme')  # Check if the field exists
     cohort=request.form['search-cohort']
 
-    select_sql = "SELECT * FROM request WHERE status ='pending'"
+    select_sql = "SELECT * FROM request r ,student s WHERE status ='pending' "
     cursor = db_conn.cursor()
 
 

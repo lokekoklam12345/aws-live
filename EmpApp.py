@@ -934,24 +934,24 @@ def approveCompany():
         try:       
             for conpanyId in selected_selected_companys:
                 update_sql = "UPDATE company SET status ='activeted' WHERE companyId=%s"
-                cursor = db_conn.cursor()    
-                cursor.execute(update_sql, (conpanyId))
+                cursorApprove = db_conn.cursor()    
+                cursorApprove.execute(update_sql, (conpanyId))
                 db_conn.commit()                    
 
         finally:
-            cursor.close()
+            cursorApprove.close()
         
         return render_template('companyOutput.html',company_list=name_list)
     else:
         try:       
             for conpanyId in selected_selected_companys:
                 update_sql = "UPDATE company SET status ='rejected' WHERE companyId=%s"
-                cursor = db_conn.cursor()    
-                cursor.execute(update_sql, (conpanyId))
+                cursorReject = db_conn.cursor()    
+                cursorReject.execute(update_sql, (conpanyId))
                 db_conn.commit()                    
 
         finally:
-            cursor.close()
+            cursorReject.close()
         
         return render_template('companyOutput.html',company_list=name_list)
 

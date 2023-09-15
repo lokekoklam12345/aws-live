@@ -710,6 +710,12 @@ def FilterRequest():
     finally:
         cursor.close()
 
+    filterBar()
+
+
+    return render_template('AdminDashboard.html', request_list=request_list,programme_list=programme_list,cohort_list=cohort_list)
+
+def filterBar():
     selectProgram_sql = "SELECT DISTINCT programme FROM student;"
     cursorProgramme = db_conn.cursor()
     try:
@@ -769,10 +775,6 @@ def FilterRequest():
 
     finally:
         cursorCohort.close()
-
-
-    return render_template('AdminDashboard.html', request_list=request_list,programme_list=programme_list,cohort_list=cohort_list)
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 

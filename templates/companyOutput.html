@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<center>
+	<font color="grey" size="5" style="font-family: avenir">
+		<body bgcolor="lightgrey">
+            {% if company_list %}
+                <h1>Approve Success</h1><br>
+                <h2>Following company has been approved</h2><br>
+                {% for company in company_list %}
+
+                <h5>{{ company }}</h5><br>
+                
+                <title>Company Approve Output</title>
+                    <form action="/leclogin" autocomplete="on" method = "GET">
+
+                        <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" 
+                        >GO BACK</button><br><br>
+
+                    </form>
+            {% else %} 
+                <h1>Please select at least one company</h1><br>                              
+                <title>None selected company</title>
+                    <form action="/displayCompany" autocomplete="on" method = "GET">
+
+                        <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" 
+                        >GO BACK</button><br><br>
+
+                    </form>
+            {% endif %}  
+		</body>
+	</font>
+</center>
+</head>
+<body>
+
+</body>
+</html>
+
+

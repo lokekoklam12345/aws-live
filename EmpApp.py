@@ -902,10 +902,10 @@ def approveCompany():
     selected_company_name = request.form.getlist('selected_name[]')
     action = request.form['button-filter']
 
-    selectName_sql = "SELECT name FROM company;"
+    selectName_sql = "SELECT name FROM company WHERE companyId=%s;"
     cursorName = db_conn.cursor()
     try:
-        cursorName.execute(selectName_sql)
+        cursorName.execute(selectName_sql, (selected_selected_companys))
         names = cursorName.fetchall()  # Fetch all request
 
         name_list = []

@@ -672,7 +672,7 @@ def FilterRequest():
     if programme !='All':
           select_sql += f" AND s.programme LIKE '%{programme}%'"
 
-    select_sql += " Order by r.requestId"
+    select_sql += " Order by r.requestId,r.studentId"
 
     try:
         cursor.execute(select_sql)

@@ -775,6 +775,9 @@ def filterBar():
 
     finally:
         cursorCohort.close()
+
+    return programme_list,cohort_list
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 

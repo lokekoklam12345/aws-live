@@ -713,9 +713,9 @@ def FilterRequest():
     filterBar()
 
 
-    return render_template('AdminDashboard.html', request_list=request_list,programme_list=programme_list,cohort_list=cohort_list)
+    return render_template('AdminDashboard.html', request_list=request_list,programme_list=filterProgramme,cohort_list=filterohort)
 
-def filterBar():
+def filterProgramme():
     selectProgram_sql = "SELECT DISTINCT programme FROM student;"
     cursorProgramme = db_conn.cursor()
     try:
@@ -776,8 +776,40 @@ def filterBar():
     finally:
         cursorCohort.close()
 
-    return programme_list,cohort_list
+    return programme_list
+
+def filterohort():
+    selectCohort_sql = "SELECT * FROM cohort;"
+    cursorCohort = db_conn.cursor()
+    try:
+        cursorCohort.execute(selectCohort_sql)
+        cohorts = cursorCohort.fetchall()  # Fetch all request
+                
+        cohort_list = []
+
+        for cohortExits in cohorts:
+            cohort = cohortExits[0]          
+
+            try:                
+                cohort_data = {
+                    "cohort": cohort,
+                }
+
+                # Append the student's dictionary to the student_list
+                cohort_list.append(cohort_data)
+            
+
+            except Exception as e:
+                return str(e)               
+
     
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursorCohort.close()
+
+    return cohort_list
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 

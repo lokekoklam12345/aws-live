@@ -400,8 +400,6 @@ def FilterPickedStudent():
           select_sql += f" AND programme LIKE '%{programme}%'"
     if cohort !='All':
           select_sql += f" AND cohort LIKE '%{cohort}%'"
-    if attribute !='All':
-          select_sql += f" AND attribute LIKE '%{attribute}%'"
 
     try:
         cursor.execute(select_sql)
@@ -449,7 +447,7 @@ def FilterPickedStudent():
             except Exception as e:
                 return str(e)       
          
-        return render_template('DropStudent.html', student_list=student_list)
+        return render_template('DropStudent.html', student_list=student_list,programme_list=filterProgramme(),cohort_list=filterCohort(),level_list=filterLevel())
 
     except Exception as e:
         return str(e)

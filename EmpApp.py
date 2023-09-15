@@ -892,7 +892,7 @@ def approveCompany():
     finally:
         cursor.close()
 
-    return render_template(approveCompany.html,company_list=company_list)
+    return render_template('approveCompany.html',company_list=company_list)
 
 
 if __name__ == '__main__':

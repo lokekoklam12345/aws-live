@@ -846,7 +846,7 @@ def filterLevel():
     return level_list
 
 @app.route("/displayCompany", methods=['GET','POST'])
-def approveCompany():
+def displayCompany():
 
     select_sql = "SELECT * FROM company WHERE status ='pending'"
     cursor = db_conn.cursor()
@@ -892,7 +892,7 @@ def approveCompany():
     finally:
         cursor.close()
 
-    return render_template('approveCompany.html',company_list=company_list)
+    return render_template('displayCompany.html',company_list=company_list)
 
 
 @app.route("/filterCompany" ,methods=['GET','POST'])
@@ -904,7 +904,7 @@ def FilterCompany():
     select_sql = "SELECT * FROM company WHERE status ='pending'"
     cursor = db_conn.cursor()
 
-    if name:
+    if name :
           select_sql += f" AND name LIKE '%{name}%'"
     if address:
           select_sql += f" AND address LIKE '%{address}%'"
@@ -954,8 +954,27 @@ def FilterCompany():
 
 
 
-    return render_template('approveCompany.html',company_list=company_list)
+    return render_template('displayCompany.html',company_list=company_list)
 
+@app.route("/approveCompany", methods=['GET','POST'])
+def approveCompany():
+    selected_selected_companys = request.form.getlist('selected_companys[]')
+   
+  
+    
+    update_sql = "UPDATE company SET status ='activeted' WHERE companyId=%s"
+    cursor = db_conn.cursor()    
+    try:       
+        for conpanyId in selected_selected_companys:
+            update_sql = "UPDATE company SET status ='activeted' WHERE companyId=%s"
+            cursor = db_conn.cursor()    
+            cursor.execute(update_sql, (conpanyId))
+            db_conn.commit()                    
+
+    finally:
+        cursor.close()
+    
+    return displayCompany()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

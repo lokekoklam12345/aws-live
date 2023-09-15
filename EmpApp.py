@@ -516,16 +516,16 @@ def loginAdmin():
                 
         programme_list = []
 
-    for programmeExits in programmes:
-        programme = requestEdit[0]          
+        for programmeExits in programmes:
+            programme = requestEdit[0]          
 
-        try:                
-            programme_data = {
-                "programme": programme,
-            }
+            try:                
+                programme_data = {
+                    "programme": programme,
+                }
 
-            # Append the student's dictionary to the student_list
-            programme_list.append(programme_data)
+                # Append the student's dictionary to the student_list
+                programme_list.append(programme_data)
             
 
         except Exception as e:

@@ -374,7 +374,7 @@ def FilterStudent():
             except Exception as e:
                 return str(e)       
          
-        return render_template('PickUpStudent.html', student_list=student_list)
+        return render_template('PickUpStudent.html', student_list=student_list,programme_list=filterProgramme(),cohort_list=filterCohort(),level_list=filterLevel())
 
     except Exception as e:
         return str(e)
@@ -713,7 +713,8 @@ def FilterRequest():
     
 
 
-    return render_template('AdminDashboard.html', request_list=request_list,programme_list=filterProgramme(),cohort_list=filterCohort())
+    return render_template('AdminDashboard.html', request_list=request_list,programme_list=filterProgramme(),cohort_list=filterCohort(),level_list=filterLevel())
+
 
 def filterProgramme():
     selectProgram_sql = "SELECT DISTINCT programme FROM student;"
@@ -810,6 +811,39 @@ def filterCohort():
         cursorCohort.close()
 
     return cohort_list
+
+def filterLevel():
+    selectLevel_sql = "SELECT DISTINCT level FROM student;"
+    cursorLevel = db_conn.cursor()
+    try:
+        cursorLevel.execute(selectLevel_sql)
+        levels = cursorLevel.fetchall()  # Fetch all request
+                
+        level_list = []
+
+        for levelExits in levels:
+            level = levelExits[0]          
+
+            try:                
+                level_data = {
+                    "level": level,
+                }
+
+                # Append the student's dictionary to the student_list
+                level_list.append(level_data)
+            
+
+            except Exception as e:
+                return str(e)               
+
+    
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursorLevel.close()
+
+    return level_list
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 

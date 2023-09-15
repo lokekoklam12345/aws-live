@@ -568,7 +568,7 @@ def loginAdmin():
     finally:
         cursorCohort.close()
 
-    return render_template('AdminDashboard.html', request_list=request_list,programme_list=programme_lis,cohort_list=cohort_list)
+    return render_template('AdminDashboard.html', request_list=request_list,programme_list=programme_list,cohort_list=cohort_list)
 
 @app.route("/approveReq", methods=['GET','POST'])
 def approveReq():

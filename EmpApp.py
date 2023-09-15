@@ -528,8 +528,8 @@ def loginAdmin():
                 programme_list.append(programme_data)
             
 
-        except Exception as e:
-            return str(e)               
+            except Exception as e:
+                return str(e)               
 
     
     except Exception as e:

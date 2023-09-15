@@ -374,7 +374,7 @@ def FilterStudent():
             except Exception as e:
                 return str(e)       
          
-        return render_template('PickUpStudent.html', student_list=student_list,programme_list=filterProgramme(),cohort_list=filterCohort(),level_list=filterLevel())
+        return render_template('PickUpStudent.html',id=id, student_list=student_list,programme_list=filterProgramme(),cohort_list=filterCohort(),level_list=filterLevel())
 
     except Exception as e:
         return str(e)

@@ -596,12 +596,6 @@ def FilterRequest():
     select_sql = f"SELECT r.requestId r.studentId, ATTRIBUTE, newData, reason FROM request r, student s WHERE r.studentId=s.studentId"
     cursor = db_conn.cursor()
 
-    if level != 'All':
-          select_sql += f" AND s.level LIKE '%{level}%'"
-    if programme:
-          select_sql += f" AND s.programme LIKE '%{programme}%'"
-    if level:
-          select_sql += f" AND s.cohort LIKE '%{cohort}%'"
 
     try:
         cursor.execute(select_sql)

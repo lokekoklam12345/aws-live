@@ -320,11 +320,11 @@ def FilterStudent():
     select_sql = "SELECT * FROM student WHERE supervisor IS NULL"
     cursor = db_conn.cursor()
 
-    if level !='All':
+     if level != 'All':
           select_sql += f" AND level LIKE '%{level}%'"
-    if programme!='All':
+    if programme !='All':
           select_sql += f" AND programme LIKE '%{programme}%'"
-    if level:
+    if cohort !='All':
           select_sql += f" AND cohort LIKE '%{cohort}%'"
 
     try:

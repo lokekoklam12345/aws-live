@@ -895,6 +895,68 @@ def approveCompany():
     return render_template('approveCompany.html',company_list=company_list)
 
 
+@app.route("/filterCompany" ,methods=['GET','POST'])
+def FilterCompany():
+
+    name= request.form['search-name']
+    address=request.form['search-address']  # Check if the field exists   
+
+    select_sql = "SELECT * FROM company WHERE status ='pending'"
+    cursor = db_conn.cursor()
+
+    if name:
+          select_sql += f" AND name LIKE '%{name}%'"
+    if address:
+          select_sql += f" AND address LIKE '%{address}%'"
+   
+   
+
+   try:
+        cursor.execute(select_sql)
+        companys = cursor.fetchall()  # Fetch all request
+               
+        company_list = []
+
+        for companyExits in companys:
+            company_id = companyExits[0]
+            company_password = companyExits[1]
+            company_name = companyExits[2]
+            company_about = companyExits[3]
+            company_address = companyExits[4]
+            company_email= companyExits[5]
+            company_phone= companyExits[6]            
+
+            try:                
+                company_data = {
+                    "id": company_id,
+                    "password": company_password,
+                    "name": company_name,
+                    "about": company_about,
+                    "address": company_address,
+                    "email": company_email,
+                    "phone": company_phone,
+                    
+                }
+
+                # Append the student's dictionary to the student_list
+                company_list.append(company_data)
+                
+
+            except Exception as e:
+                return str(e)               
+
+       
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+    
+
+
+    return render_template('approveCompany.html',company_list=company_list)
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 

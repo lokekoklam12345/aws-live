@@ -362,8 +362,7 @@
 </head>
 
 <body>
-    <h1 class="internship-header">Drop Student</h1>
-    <input type="hidden" name="lec_id" value="{{id}}">
+    <h1 class="internship-header">Drop Student</h1>    
         <div class="overall">
             <div class="div-line">
                 <form action="/filterPickedStudent" autocomplete="on" method="post">
@@ -401,6 +400,7 @@
 
                         <div class-group-button>
                             <button type="submit" name="button-filter" class="confirm-filter-company">Filter</button>
+                            <input type="hidden" name="lec_id" value="{{id}}">
                         </div>
                     </div>
                 </form>

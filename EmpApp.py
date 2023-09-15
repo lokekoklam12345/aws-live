@@ -670,7 +670,7 @@ def FilterRequest():
     if cohort !='All':
           select_sql += f" AND s.cohort LIKE '%{cohort}%'"
     if attribute !='All':
-          select_sql += f" AND s.attribute LIKE '%{attribute}%'"
+          select_sql += f" AND r.attribute LIKE '%{attribute}%'"
 
     select_sql += " Order by r.requestId,r.studentId"
 

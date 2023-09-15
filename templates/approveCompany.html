@@ -361,53 +361,21 @@
 </head>
 
 <body>
-    <h1 class="internship-header">Student Edit Profile Request</h1>
+    <h1 class="internship-header">Approve Company</h1>
    
         <div class="overall">
             <div class="div-line">
                 <form action="/filterRequest" autocomplete="on" method="post">
                     <div class="job-search-filter">
                         <div class="group-search-company">
-                            <label class="label-search-company">Level</label>
-                            <select name="search-level">
-                                <option value="All">All</option>
-                                {% for level in level_list %}     
-                                <option value="{{level.level}}">{{level.level}}</option>
-                                {% endfor %}                       
-                            </select>
-                        </div>
-                        
-                        <div class="group-search-company">
-                            <label class="label-search-company">Attribute</label>
-                            <select name="search-attribute">    
-                                <option value="All">All</option>                            
-                                <option value="studentName">Name</option>
-                                <option value="mobileNumber">Mobile Number</option>
-                                <option value="IC">IC</option>
-                                <option value="address">Address</option>                          
-                            </select>
-                        </div>
+                            <label class="label-search-company">Name</label>
+                            <input type="text" name="search-company" placeholder="company name">
+                        </div>                    
 
-                        <div class="group-search-title">
-                            <label class="label-search-title">Programme</label>
-                                                   
-                            <select name="search-programme"> 
-                                <option value="All">All</option>           
-                                {% for programme in programme_list %}                        
-                                <option value="{{programme.programme}}">{{programme.programme}}</option>
-                                {% endfor %}                        
-                            </select>
-                        </div>
-                        
-                        <div class="group-search-title">
-                            <label class="label-search-title">Cohort</label>
-                            <select name="search-cohort"> 
-                                <option value="All">All</option>           
-                                {% for cohort in cohort_list %}                        
-                                <option value="{{cohort.cohort}}">{{cohort.cohort}}</option>
-                                {% endfor %}                        
-                            </select>
-                        </div>
+                        <div class="group-search-company">
+                            <label class="label-search-company">Name</label>
+                            <input type="text" name="search-address" placeholder="company address">
+                        </div>     
 
                         <div class-group-button>
                             <button type="submit" name="button-filter" class="confirm-filter-company">Filter</button>
@@ -424,35 +392,34 @@
             justify-content: flex-start;
         "> 
                 <div>
-                    <form action="/approveReq" autocomplete="on" method="POST" enctype="multipart/form-data">  
+                    <form action="/displayCompany" autocomplete="on" method="POST" enctype="multipart/form-data">  
                         <table>
                             <thead>
                                 <tr>
                                 <td></td>
-                                <td>Request ID</td>
-                                <td>Attribue</td>
-                                <td>Change</td>
-                                <td>Reason</td>
-                                <td>Student ID</td>
+                                <td>Company ID</td>
+                                <td>Company Name</td>
+                                <td>About</td>
+                                <td>Address</td>
+                                <td>Email</td>
+                                <td>Phone</td>
                                 </tr>
                             </thead>
                             <tbody>
                     
-                                {% if request_list %}
-                                {% for request in request_list %}
+                                {% if company_list %}
+                                {% for company in company_list %}
                                     <tr>
                                         <td>
-                                            <input type="checkbox" name="selected_requests[]" value="{{ request.id }}">
+                                            <input type="checkbox" name="selected_requests[]" value="{{ company.id }}">
                                         </td>
                                         
-                                        <td>{{ request.id }}</td>
-                                        <td>{{ request.attribute }}</td>
-                                        <input type="hidden" name="selected_attribute[]" value="{{ request.attribute }}">
-                                        <td>{{ request.change }}</td>
-                                        <input type="hidden" name="selected_change[]" value="{{ request.change }}">
-                                        <td>{{ request.reason }}</td>
-                                        <td>{{ request.studentId }}</td>
-                                        <input type="hidden" name="selected_studentId[]" value="{{ request.studentId }}">
+                                        <td>{{ company.id }}</td>
+                                        <td>{{ company.name }}</td>
+                                        <td>{{ company.about }}</td>
+                                        <td>{{ company.address }}</td>
+                                        <td>{{ company.email }}</td>
+                                        <td>{{ company.phone }}</td>                                                                            
                                     </tr>
                                     {% endfor %}
                                     <tr>
@@ -463,7 +430,7 @@
                                     </tr>
                                     {% else %}                      
                                     <tr>
-                                        <td colspan="8" style="text-align: center;">No request record</td>
+                                        <td colspan="8" style="text-align: center;">No company is pending</td>
                                     </tr>
         
                                     

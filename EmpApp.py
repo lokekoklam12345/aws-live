@@ -656,9 +656,9 @@ def approveReq():
 def FilterRequest():
 
     level= request.form['search-level']
-    programme=request.form('search-programme')  # Check if the field exists
+    programme=request.form['search-programme']  # Check if the field exists
     cohort=request.form['search-cohort']
-    attribute=request.form['search-programme']
+    attribute=request.form['search-attribute']
 
     select_sql = "SELECT * FROM request r ,student s WHERE status ='pending' AND r.studentId = s.studentId "
     cursor = db_conn.cursor()

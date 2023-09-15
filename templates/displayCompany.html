@@ -481,13 +481,13 @@
         // Update the hidden input fields with the selected student IDs and names
         const selectedStudentIdsInput = document.createElement('input');
         selectedStudentIdsInput.type = 'hidden';
-        selectedStudentIdsInput.name = 'selected_student_ids';
+        selectedStudentIdsInput.name = 'selected_companys';
         selectedStudentIdsInput.value = selectedStudentIds.join(',');
         document.querySelector('form').appendChild(selectedStudentIdsInput);
 
         const selectedStudentNamesInput = document.createElement('input');
         selectedStudentNamesInput.type = 'hidden';
-        selectedStudentNamesInput.name = 'selected_student_names';
+        selectedStudentNamesInput.name = 'selected_name';
         selectedStudentNamesInput.value = selectedStudentNames.join(',');
         document.querySelector('form').appendChild(selectedStudentNamesInput);
      

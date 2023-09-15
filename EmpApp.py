@@ -656,7 +656,7 @@ def approveReq():
 def FilterRequest():
 
     level= request.form['search-level']
-    programme=request.form.get('search-programme')  # Check if the field exists
+    programme=request.form('search-programme')  # Check if the field exists
     cohort=request.form['search-cohort']
     attribute=request.form['search-programme']
 

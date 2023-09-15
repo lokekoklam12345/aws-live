@@ -710,10 +710,10 @@ def FilterRequest():
     finally:
         cursor.close()
 
-    filterBar()
+    
 
 
-    return render_template('AdminDashboard.html', request_list=request_list,programme_list=filterProgramme,cohort_list=filterohort)
+    return render_template('AdminDashboard.html', request_list=request_list,programme_list=filterProgramme(),cohort_list=filterCohort())
 
 def filterProgramme():
     selectProgram_sql = "SELECT DISTINCT programme FROM student;"
@@ -778,7 +778,7 @@ def filterProgramme():
 
     return programme_list
 
-def filterohort():
+def filterCohort():
     selectCohort_sql = "SELECT * FROM cohort;"
     cursorCohort = db_conn.cursor()
     try:

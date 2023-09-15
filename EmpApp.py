@@ -507,68 +507,8 @@ def loginAdmin():
 
     finally:
         cursor.close()
-
-    selectProgram_sql = "SELECT DISTINCT programme FROM student;"
-    cursorProgramme = db_conn.cursor()
-    try:
-        cursorProgramme.execute(selectProgram_sql)
-        programmes = cursorProgramme.fetchall()  # Fetch all request
-                
-        programme_list = []
-
-        for programmeExits in programmes:
-            programme = programmeExits[0]          
-
-            try:                
-                programme_data = {
-                    "programme": programme,
-                }
-
-                # Append the student's dictionary to the student_list
-                programme_list.append(programme_data)
-            
-
-            except Exception as e:
-                return str(e)               
-
     
-    except Exception as e:
-        return str(e)
-
-    finally:
-        cursorProgramme.close()
-
-    selectCohort_sql = "SELECT * FROM cohort;"
-    cursorCohort = db_conn.cursor()
-    try:
-        cursorCohort.execute(selectCohort_sql)
-        cohorts = cursorCohort.fetchall()  # Fetch all request
-                
-        cohort_list = []
-
-        for cohortExits in cohorts:
-            cohort = cohortExits[0]          
-
-            try:                
-                cohort_data = {
-                    "cohort": cohort,
-                }
-
-                # Append the student's dictionary to the student_list
-                cohort_list.append(cohort_data)
-            
-
-            except Exception as e:
-                return str(e)               
-
-    
-    except Exception as e:
-        return str(e)
-
-    finally:
-        cursorCohort.close()
-
-    return render_template('AdminDashboard.html', request_list=request_list,programme_list=programme_list,cohort_list=cohort_list)
+    return render_template('AdminDashboard.html', request_list=request_list,programme_list=filterProgramme(),cohort_list=filterCohort(),level_list=filterLevel())
 
 @app.route("/approveReq", methods=['GET','POST'])
 def approveReq():
@@ -960,21 +900,60 @@ def FilterCompany():
 def approveCompany():
     selected_selected_companys = request.form.getlist('selected_companys[]')
     selected_company_name = request.form.getlist('selected_name[]')
-  
+    action = request.form['button-filter']
     
-    update_sql = "UPDATE company SET status ='activeted' WHERE companyId=%s"
-    cursor = db_conn.cursor()    
-    try:       
-        for conpanyId in selected_selected_companys:
-            update_sql = "UPDATE company SET status ='activeted' WHERE companyId=%s"
-            cursor = db_conn.cursor()    
-            cursor.execute(update_sql, (conpanyId))
-            db_conn.commit()                    
+    selectName_sql = "SELECT name FROM company;"
+    cursorName = db_conn.cursor()
+    try:
+        cursorName.execute(selectName_sql)
+        names = cursorName.fetchall()  # Fetch all request
+                
+        name_list = []
+
+        for nameExits in names:
+            name = nameExits[0]          
+
+            try:                
+                name_data = {
+                    "name": name,
+                }
+                name_list.append(name_data)
+            
+
+            except Exception as e:
+                return str(e)               
+
+    
+    except Exception as e:
+        return str(e)
 
     finally:
-        cursor.close()
-    
-    return render_template('companyOutput.html',company_list=selected_selected_companys)
+        cursorName.close()
+
+    if action == 'approve':          
+        try:       
+            for conpanyId in selected_selected_companys:
+                update_sql = "UPDATE company SET status ='activeted' WHERE companyId=%s"
+                cursor = db_conn.cursor()    
+                cursor.execute(update_sql, (conpanyId))
+                db_conn.commit()                    
+
+        finally:
+            cursor.close()
+        
+        return render_template('companyOutput.html',company_list=name_list)
+    else:
+        try:       
+            for conpanyId in selected_selected_companys:
+                update_sql = "UPDATE company SET status ='rejected' WHERE companyId=%s"
+                cursor = db_conn.cursor()    
+                cursor.execute(update_sql, (conpanyId))
+                db_conn.commit()                    
+
+        finally:
+            cursor.close()
+        
+        return render_template('companyOutput.html',company_list=name_list)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

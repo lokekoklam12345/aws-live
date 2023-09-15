@@ -603,6 +603,8 @@ def FilterRequest():
     if level !='':
           select_sql += f" AND s.cohort LIKE '%{cohort}%'"
 
+    select_sql += " Order by r.requestId"
+
     try:
         cursor.execute(select_sql)
         requests = cursor.fetchall()  # Fetch all request

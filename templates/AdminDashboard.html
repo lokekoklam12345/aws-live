@@ -391,7 +391,8 @@
                         <div class="group-search-title">
                             <label class="label-search-title">Programme</label>
                                                    
-                            <select name="search-programme">            
+                            <select name="search-programme"> 
+                                <option value="All">All</option>           
                                 {% for programme in programme_list %}                        
                                 <option value="{{programme.programme}}">{{programme.programme}}</option>
                                 {% endfor %}                        

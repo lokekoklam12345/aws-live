@@ -401,7 +401,12 @@
                         
                         <div class="group-search-title">
                             <label class="label-search-title">Cohort</label>
-                            <input type="text" name="search-cohort" placeholder="eg. 1">
+                            <select name="search-cohort"> 
+                                <option value="All">All</option>           
+                                {% for cohort in cohort_list %}                        
+                                <option value="{{cohort.cohort}}">{{cohort.cohort}}</option>
+                                {% endfor %}                        
+                            </select>
                         </div>
 
                         <div class-group-button>

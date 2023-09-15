@@ -517,7 +517,7 @@ def loginAdmin():
         programme_list = []
 
         for programmeExits in programmes:
-            programme = requestEdit[0]          
+            programme = programmeExits[0]          
 
             try:                
                 programme_data = {

@@ -905,8 +905,11 @@ def approveCompany():
     selectName_sql = "SELECT name FROM company WHERE companyId=%s;"
     cursorName = db_conn.cursor()
     try:
-        cursorName.execute(selectName_sql, (selected_selected_companys))
-        names = cursorName.fetchall()  # Fetch all request
+        # Convert selected_selected_companys to a tuple
+        selected_ids_tuple = tuple(selected_selected_companys)
+
+        cursorName.execute(selectName_sql, selected_ids_tuple)
+        names = cursorName.fetchall()
 
         name_list = []
 
@@ -931,9 +934,9 @@ def approveCompany():
 
     if action == 'approve':
         try:
-            for conpanyId in selected_selected_companys:
+            for companyId in selected_selected_companys:
                 update_sql = "UPDATE company SET status ='activeted' WHERE companyId=%s"
-                cursorApprove.execute(update_sql, (conpanyId))
+                cursorApprove.execute(update_sql, (companyId,))
                 db_conn.commit()
         finally:
             cursorApprove.close()
@@ -942,11 +945,11 @@ def approveCompany():
 
     else:
         try:
-            for conpanyId in selected_selected_companys:
+            for companyId in selected_selected_companys:
                 update_sql = "UPDATE company SET status ='rejected' WHERE companyId=%s"
-                cursorReject = db_conn.cursor()    
-                cursorReject.execute(update_sql, (conpanyId))
-                db_conn.commit()                    
+                cursorReject = db_conn.cursor()
+                cursorReject.execute(update_sql, (companyId,))
+                db_conn.commit()
 
         finally:
             cursorReject.close()

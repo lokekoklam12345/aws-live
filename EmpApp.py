@@ -959,7 +959,7 @@ def FilterCompany():
 @app.route("/approveCompany", methods=['GET','POST'])
 def approveCompany():
     selected_selected_companys = request.form.getlist('selected_companys[]')
-   
+    selected_company_name = request.form.getlist('selected_name[]')
   
     
     update_sql = "UPDATE company SET status ='activeted' WHERE companyId=%s"
@@ -974,7 +974,7 @@ def approveCompany():
     finally:
         cursor.close()
     
-    return displayCompany()
+     return render_template('companyOutput.html',company_list=selected_company_name)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

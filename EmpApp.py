@@ -901,49 +901,47 @@ def approveCompany():
     selected_selected_companys = request.form.getlist('selected_companys[]')
     selected_company_name = request.form.getlist('selected_name[]')
     action = request.form['button-filter']
-    
+
     selectName_sql = "SELECT name FROM company;"
     cursorName = db_conn.cursor()
     try:
         cursorName.execute(selectName_sql)
         names = cursorName.fetchall()  # Fetch all request
-                
+
         name_list = []
 
         for nameExits in names:
-            name = nameExits[0]          
+            name = nameExits[0]
 
-            try:                
+            try:
                 name_data = {
                     "name": name,
                 }
                 name_list.append(name_data)
-            
-
             except Exception as e:
-                return str(e)               
+                return str(e)
 
-    
     except Exception as e:
         return str(e)
 
     finally:
         cursorName.close()
 
-    if action == 'approve':          
-        try:       
+    cursorApprove = db_conn.cursor()
+
+    if action == 'approve':
+        try:
             for conpanyId in selected_selected_companys:
                 update_sql = "UPDATE company SET status ='activeted' WHERE companyId=%s"
-                cursorApprove = db_conn.cursor()    
                 cursorApprove.execute(update_sql, (conpanyId))
-                db_conn.commit()                    
-
+                db_conn.commit()
         finally:
             cursorApprove.close()
-        
-        return render_template('companyOutput.html',company_list=name_list)
+
+        return render_template('companyOutput.html', company_list=name_list)
+
     else:
-        try:       
+        try:
             for conpanyId in selected_selected_companys:
                 update_sql = "UPDATE company SET status ='rejected' WHERE companyId=%s"
                 cursorReject = db_conn.cursor()    
@@ -952,8 +950,8 @@ def approveCompany():
 
         finally:
             cursorReject.close()
-        
-        return render_template('companyOutput.html',company_list=name_list)
+
+        return render_template('companyOutput.html', company_list=name_list)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

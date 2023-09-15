@@ -665,7 +665,7 @@ def FilterRequest():
 
     if level != 'All':
           select_sql += f" AND s.level LIKE '%{level}%'"
-    if programme !='':
+    if programme !='All':
           select_sql += f" AND s.programme LIKE '%{programme}%'"
     if cohort !='All':
           select_sql += f" AND s.cohort LIKE '%{cohort}%'"

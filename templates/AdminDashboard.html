@@ -376,10 +376,25 @@
                                 <option value="Bachelor">Bachelor</option>                        
                             </select>
                         </div>
+                        
+                        <div class="group-search-company">
+                            <label class="label-search-company">Attribute</label>
+                            <select name="search-level">                                
+                                <option value="studentName">Name</option>
+                                <option value="mobileNumber">Mobile Number</option>
+                                <option value="IC">IC</option>
+                                <option value="address">Addres</option>                          
+                            </select>
+                        </div>
 
                         <div class="group-search-title">
                             <label class="label-search-title">Programme</label>
-                            <input type="text" name="search-programme" placeholder="eg. RSW">
+                                                   
+                            <select name="search-level">            
+                                {% for programme in programme_list %}                        
+                                <option value="{{programme}}">{{programme}}</option>
+                                {% endfor %}                        
+                            </select>
                         </div>
                         
                         <div class="group-search-title">
@@ -388,7 +403,6 @@
                         </div>
 
                         <div class-group-button>
-                            <input type="hidden" name="lec_id" value="{{ id }}">
                             <button type="submit" name="button-filter" class="confirm-filter-company">Filter</button>
                         </div>
                     </div>

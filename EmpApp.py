@@ -472,6 +472,9 @@ def loginAdmin():
     select_sql = "SELECT * FROM request WHERE status ='pending'"
     cursor = db_conn.cursor()
 
+    selectProgram_sql = "SELECT DISTINCT programme FROM student;"
+    cursorProgramme = db_conn.cursor()
+
     try:
         cursor.execute(select_sql)
         requests = cursor.fetchall()  # Fetch all request
@@ -508,7 +511,35 @@ def loginAdmin():
     finally:
         cursor.close()
 
-    return render_template('AdminDashboard.html', request_list=request_list)
+        try:
+        cursorProgramme.execute(selectProgram_sql)
+        programmes = cursorProgramme.fetchall()  # Fetch all request
+               
+        programme_list = []
+
+        for programmeExits in programmes:
+            programme = requestEdit[0]          
+
+            try:                
+                programme_data = {
+                    "programme": programme,
+                }
+
+                # Append the student's dictionary to the student_list
+                programme_list.append(programme_data)
+                
+
+            except Exception as e:
+                return str(e)               
+
+       
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursorProgramme.close()
+
+    return render_template('AdminDashboard.html', request_list=request_list,programme_list=programme_list)
 
 @app.route("/approveReq", methods=['GET','POST'])
 def approveReq():
@@ -567,7 +598,13 @@ def approveReq():
             update_sql = "UPDATE student SET mobileNumber = %s WHERE studentId=%s"
             cursor = db_conn.cursor()    
             cursor.execute(update_sql, (change, student_id))
-            db_conn.commit()            
+            db_conn.commit()     
+
+        if attribute == 'address' :
+            update_sql = "UPDATE student SET address = %s WHERE studentId=%s"
+            cursor = db_conn.cursor()    
+            cursor.execute(update_sql, (change, student_id))
+            db_conn.commit()         
 
     finally:
         cursor.close()

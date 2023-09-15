@@ -322,7 +322,7 @@ def FilterStudent():
 
     if level !='All':
           select_sql += f" AND level LIKE '%{level}%'"
-    if programme:
+    if programme!='All':
           select_sql += f" AND programme LIKE '%{programme}%'"
     if level:
           select_sql += f" AND cohort LIKE '%{cohort}%'"
@@ -396,10 +396,12 @@ def FilterPickedStudent():
 
     if level != 'All':
           select_sql += f" AND level LIKE '%{level}%'"
-    if programme:
+    if programme !='All':
           select_sql += f" AND programme LIKE '%{programme}%'"
-    if level:
+    if cohort !='All':
           select_sql += f" AND cohort LIKE '%{cohort}%'"
+    if attribute !='All':
+          select_sql += f" AND attribute LIKE '%{attribute}%'"
 
     try:
         cursor.execute(select_sql)

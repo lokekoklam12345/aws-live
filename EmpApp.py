@@ -658,7 +658,7 @@ def FilterRequest():
     level= request.form['search-level']
     programme=request.form.get('search-programme')  # Check if the field exists
     cohort=request.form['search-cohort']
-    programme=request.form['search-programme']
+    attribute=request.form['search-programme']
 
     select_sql = "SELECT * FROM request r ,student s WHERE status ='pending' AND r.studentId = s.studentId "
     cursor = db_conn.cursor()
@@ -667,10 +667,10 @@ def FilterRequest():
           select_sql += f" AND s.level LIKE '%{level}%'"
     if programme !='':
           select_sql += f" AND s.programme LIKE '%{programme}%'"
-    if cohort !='':
+    if cohort !='All':
           select_sql += f" AND s.cohort LIKE '%{cohort}%'"
-    if programme !='All':
-          select_sql += f" AND s.programme LIKE '%{programme}%'"
+    if attribute !='All':
+          select_sql += f" AND s.attribute LIKE '%{attribute}%'"
 
     select_sql += " Order by r.requestId,r.studentId"
 

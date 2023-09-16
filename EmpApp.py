@@ -354,6 +354,7 @@ def DropStudent():
     finally:
         cursor.close()
     
+    cursor = db_conn.cursor()
     try:
         
         for student_id in selected_student_ids:

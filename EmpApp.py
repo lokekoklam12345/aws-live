@@ -564,7 +564,7 @@ def approveReq():
             db_conn.commit()
 
     finally:
-            cursor.close()
+        cursor.close()
 
     #update the status of the request        
     try:       

@@ -547,8 +547,9 @@ def approveReq():
                 update_sql = "UPDATE student SET studentName = %s WHERE studentId=%s"
                 cursor = db_conn.cursor()    
                 cursor.execute(update_sql, (change_result, studentId_result))
-                db_conn.commit()        
-
+                db_conn.commit()   
+                return  studentId_result  
+            
             if attribute_result == 'IC' :
                 update_sql = "UPDATE student SET IC = %s WHERE studentId=%s"
                 cursor = db_conn.cursor()    

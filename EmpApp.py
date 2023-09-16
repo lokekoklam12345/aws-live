@@ -943,7 +943,7 @@ def FilterCompany():
 def approveCompany():
     selected_selected_companys = request.form.getlist('selected_companys[]')
     selected_company_name = request.form.getlist('selected_name[]')
-    action = request.form['button-filter']
+    action = request.form['action']
 
     
     cursorApprove = db_conn.cursor()

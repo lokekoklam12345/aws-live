@@ -543,37 +543,15 @@ def approveReq():
             if change_result:
                 resultChange.append(change_result[0])  # Append the change value to the list
 
-            if attribute_result == 'studentName' :
-                update_sql = "UPDATE student SET studentName = %s WHERE studentId=%s"
-                cursor = db_conn.cursor()    
-                cursor.execute(update_sql, (change_result, studentId_result))
-                db_conn.commit()   
-                return  studentId_result  
-            
-            if attribute_result == 'IC' :
-                update_sql = "UPDATE student SET IC = %s WHERE studentId=%s"
-                cursor = db_conn.cursor()    
-                cursor.execute(update_sql, (change_result, studentId_result))
-                db_conn.commit()    
-
-            if attribute_result == 'mobileNumber' :
-                update_sql = "UPDATE student SET mobileNumber = %s WHERE studentId=%s"
-                cursor = db_conn.cursor()    
-                cursor.execute(update_sql, (change_result, studentId_result))
-                db_conn.commit()     
-
-            if attribute_result == 'address' :
-                update_sql = "UPDATE student SET address = %s WHERE studentId=%s"
-                cursor = db_conn.cursor()    
-                cursor.execute(update_sql, (change_result, studentId_result))
-                db_conn.commit() 
+            # Use attribute_result as the attribute name, no need to compare it
+            update_sql = f"UPDATE student SET {attribute_result} = %s WHERE studentId=%s"
+            cursor.execute(update_sql, (change_result, studentId_result))
+            db_conn.commit()
                 
         db_conn.commit()
         
     finally:
         cursor.close()
- 
-    
 
     #update the status of the request        
     try:       
@@ -587,6 +565,7 @@ def approveReq():
         cursor.close()
         
     return render_template('requestOutput.html', resultAttributes=resultAttributes)
+
 
 @app.route("/filterRequest" ,methods=['GET','POST'])
 def FilterRequest():

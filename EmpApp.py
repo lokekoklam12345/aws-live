@@ -264,12 +264,11 @@ def PickStudent():
     cursorUpdate = db_conn.cursor()
 
     try:
-        
-        select_sql = "SELECT * FROM student WHERE supervisor=%s AND studentId=%s"        
-        cursor.execute(select_sql, (lec_id, student_id))
-        students = cursor.fetchall()  # Fetch all students               
-
         for student_id in selected_student_ids:
+            select_sql = "SELECT * FROM student WHERE supervisor=%s AND studentId=%s"        
+            cursor.execute(select_sql, (lec_id, student_id))
+            students = cursor.fetchall()  # Fetch all students               
+
             for student in students:
                 student_id = student[0]
                 name = student[1]

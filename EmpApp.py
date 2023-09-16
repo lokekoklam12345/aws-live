@@ -558,12 +558,19 @@ def approveReq():
             # Convert the list of single characters to a string
             attribute = ''.join(attribute)
 
+            # Create a new cursor for each iteration
+            cursor = db_conn.cursor()
+
             # Update the corresponding student record
             update_sql = "UPDATE student SET {} = %s WHERE studentId=%s".format(attribute)
             cursor.execute(update_sql, (change, student_id))
             db_conn.commit()
 
+            # Close the cursor within the loop
+            cursor.close()
+
     finally:
+        # Ensure that the cursor is closed even if an exception occurs
         cursor.close()
 
     #update the status of the request        

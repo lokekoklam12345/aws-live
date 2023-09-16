@@ -469,6 +469,10 @@ def loginAdmin():
             return render_template('LoginAdmin.html')
         #session['logedInAdmin'] = str(admin_id)
 
+    return displayRequest()
+
+
+def displayRequest():
     select_sql = "SELECT * FROM request WHERE status ='pending'"
     cursor = db_conn.cursor()
 

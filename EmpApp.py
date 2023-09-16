@@ -211,7 +211,7 @@ def GetStudent():
             level = student[7]
             programme = student[8]
             cohort = student[10]
-            
+
             try:            
                 student_data = {
                     "student_id": student_id,
@@ -667,11 +667,11 @@ def approveReq():
         finally:
             cursor.close()
 
-        select_sql = "SELECT * FROM request WHERE status ='rejected'"
+        select_sql = "SELECT * FROM request WHERE status ='rejected' AND requestId=%s"
         cursor = db_conn.cursor()
 
         try:
-            cursor.execute(select_sql)
+            cursor.execute(select_sql, (request_id,))
             requests = cursor.fetchall()  # Fetch all request
 
             request_list = []

@@ -10,15 +10,18 @@
                 
                    
                     <h5>
-                        {% for i, student_id in enumerate(studentId_result) %}
-    {% set attribute = resultAttributes[i] if i < resultAttributes|length else '' %}
-    {% set ori = resultOri[i] if resultOri is defined and i < resultOri|length else '' %}
-    {% set change = resultChange[i] if resultChange is defined and i < resultChange|length else '' %}
-    
-    Debug: {{ student_id }} ({{ attribute }}) : old {{ ori }} to new: {{ change }}<br>
-{% endfor %}
 
-                       
+{% set index = 0 %}
+{% for student_id in studentId_result %}
+    {% set attribute = resultAttributes[index] if index < resultAttributes|length else '' %}
+    {% set ori = resultOri[index] if resultOri is defined and index < resultOri|length else '' %}
+    {% set change = resultChange[index] if resultChange is defined and index < resultChange|length else '' %}
+    
+    <!-- Your code here using index, student_id, attribute, ori, and change -->
+    Debug: {{ student_id }} ({{ attribute }}) : old {{ ori }} to new: {{ change }}<br>
+    {% set index = index + 1 %}
+{% endfor %}
+ 
                     </h5>
                    
                 

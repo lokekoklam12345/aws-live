@@ -314,9 +314,11 @@ def PickStudent():
             cursor.execute(update_sql, (lec_id,student_id))
             db_conn.commit()                    
 
+        cursorStudent.close()
+        
     finally:
         cursor.close()
-        cursorStudent.close()
+     
     
     return render_template('PickedUpOutput.html', student_list=student_list)
 

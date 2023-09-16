@@ -141,8 +141,9 @@ def UpdateEmp():
 
         finally:
             cursor.close()
-
-    else:
+        return render_template('UpdateLecOutput.html', name=name)
+    
+    else:   
         return render_template('LecturerHome.html')  
 
 @app.route("/lecHome", methods=['GET','POST'])

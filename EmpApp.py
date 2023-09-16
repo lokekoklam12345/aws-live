@@ -570,6 +570,8 @@ def approveReq():
     selected_change = request.form.getlist('selected_change[]')
 
     ori_list=[]
+
+    original=db_conn.cursor()
     try:       
        for i in range(len(resultAttributes)):
         student_id = selected_studentId[i]

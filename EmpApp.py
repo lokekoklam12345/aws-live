@@ -342,6 +342,8 @@ def DropStudent():
     
     update_sql = "UPDATE student SET supervisor='' WHERE studentId=%s"
     cursor = db_conn.cursor()    
+    student_list=[]
+
     try:       
         for student_id in selected_student_ids:
             update_sql = "UPDATE student SET supervisor = NULL WHERE studentId=%s"
@@ -352,7 +354,43 @@ def DropStudent():
     finally:
         cursor.close()
     
-    return render_template('DropOutput.html', student_list=selected_student_name)
+    try:
+        
+        for student_id in selected_student_ids:
+            select_sql ="SELECT * FROM student WHERE studentId = %s "
+            cursor.execute(select_sql,(student_id))
+            students = cursor.fetchall()  # Fetch all students
+                       
+
+            for student in students:
+                student_id = student[0]
+                name = student[1]
+                gender = student[4]
+                email = student[6]
+                level = student[7]
+                programme = student[8]
+                cohort = student[10]           
+                try:               
+                    student_data = {
+                        "student_id": student_id,
+                        "name": name,
+                        "gender": gender,
+                        "email": email,
+                        "level": level,
+                        "programme": programme,
+                        "cohort": cohort,
+                    }
+
+                    # Append the student's dictionary to the student_list
+                    student_list.append(student_data)
+                    
+
+                except Exception as e:
+                    return str(e)       
+                
+    except Exception as e:
+        return str(e)
+    return render_template('DropOutput.html', student_list=student_list)
 
 @app.route("/filterStudent" ,methods=['GET','POST'])
 def FilterStudent():

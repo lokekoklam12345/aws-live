@@ -520,6 +520,7 @@ def approveReq():
     
     resultAttributes = []  # Store the result attributes here
     resultChange = []
+    resultStudentId =[]
 
     try:
         cursor = db_conn.cursor()
@@ -542,10 +543,13 @@ def approveReq():
 
             if change_result:
                 resultChange.append(change_result[0])  # Append the change value to the list
+            
+            if studentId_result:
+                resultStudentId.append(studentId_result[0])  # Append the change value to the list
 
             # Use attribute_result as the attribute name, no need to compare it
             update_sql = f"UPDATE student SET {attribute_result} = %s WHERE studentId=%s"
-            cursor.execute(update_sql, (change_result, studentId_result))
+            cursor.execute(update_sql, (change_result, resultStudentId))
             db_conn.commit()
                 
         db_conn.commit()

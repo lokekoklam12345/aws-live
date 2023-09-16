@@ -279,7 +279,7 @@ def PickStudent():
             select_sql = "SELECT * FROM student WHERE supervisor=%s AND studentId=%s"
             cursorStudent = db_conn.cursor()
             cursorStudent.execute(select_sql, (lec_id,student_id))
-            students = cursor.fetchall()  # Fetch all students
+            students = cursorStudent.fetchall()  # Fetch all students
             
             for student in students:
                     student_id = student[0]

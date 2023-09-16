@@ -667,42 +667,43 @@ def approveReq():
         finally:
             cursor.close()
 
-        select_sql = "SELECT * FROM request WHERE status ='rejected' AND requestId=%s"
-        cursor = db_conn.cursor()
+        for request_id in selected_request_ids:
+            select_sql = "SELECT * FROM request WHERE status ='rejected' AND requestId=%s"
+            cursor = db_conn.cursor()
 
-        try:
-            cursor.execute(select_sql, (request_id,))
-            requests = cursor.fetchall()  # Fetch all request
+            try:
+                cursor.execute(select_sql, (request_id,))
+                requests = cursor.fetchall()  # Fetch all request
 
-            request_list = []
+                request_list = []
 
-            for requestEdit in requests:
-                req_id = requestEdit[0]
-                req_attribute = requestEdit[1]
-                req_change = requestEdit[2]
-                req_reason = requestEdit[4]
-                req_studentId = requestEdit[5]
+                for requestEdit in requests:
+                    req_id = requestEdit[0]
+                    req_attribute = requestEdit[1]
+                    req_change = requestEdit[2]
+                    req_reason = requestEdit[4]
+                    req_studentId = requestEdit[5]
 
-                try:
-                    request_data = {
-                        "id": req_id,
-                        "attribute": req_attribute,
-                        "change": req_change,
-                        "reason": req_reason,
-                        "studentId": req_studentId,
-                    }
+                    try:
+                        request_data = {
+                            "id": req_id,
+                            "attribute": req_attribute,
+                            "change": req_change,
+                            "reason": req_reason,
+                            "studentId": req_studentId,
+                        }
 
-                    # Append the student's dictionary to the student_list
-                    request_list.append(request_data)
+                        # Append the student's dictionary to the student_list
+                        request_list.append(request_data)
 
-                except Exception as e:
-                    return str(e)
+                    except Exception as e:
+                        return str(e)
 
-        except Exception as e:
-            return str(e)
+            except Exception as e:
+                return str(e)
 
-        finally:
-            cursor.close()
+            finally:
+                cursor.close()
 
         return render_template('requestRejectOutput.html', request_list=request_list)
         

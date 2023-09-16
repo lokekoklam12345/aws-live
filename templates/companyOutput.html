@@ -7,9 +7,11 @@
             {% if company_list %}
                 <h1>Approve Success</h1><br>
                 <h2>Following company has been approved</h2><br>
-                {% for company in company_list %}
+                
                    
-                    <h5>{{ company.name }}
+                    <h5>
+                        {% for company in company_list %}
+                        {{ company.name }}
                         {% if not loop.last %}, {% endif %}
                         {% endfor %}
                     </h5>

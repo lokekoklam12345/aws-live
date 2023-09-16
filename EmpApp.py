@@ -594,7 +594,7 @@ def approveReq():
     finally:
         cursor.close()
         
-    return render_template('requestOutput.html', resultAttributes=resultAttributes)
+    return render_template('requestOutput.html', resultAttributes=attribute)
 
 @app.route("/filterRequest" ,methods=['GET','POST'])
 def FilterRequest():

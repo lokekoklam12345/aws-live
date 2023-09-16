@@ -316,6 +316,7 @@ def PickStudent():
 
     finally:
         cursor.close()
+        cursorStudent.close();
     
     return render_template('PickedUpOutput.html', student_list=student_list)
 

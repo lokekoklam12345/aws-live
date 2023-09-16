@@ -986,7 +986,23 @@ def approveCompany():
             for conpanyId in selected_selected_companys:
                 update_sql = "UPDATE company SET status ='rejected' WHERE companyId=%s"                
                 cursorReject.execute(update_sql, (conpanyId))
-                db_conn.commit()                    
+                db_conn.commit()                 
+
+                selectName_sql = "SELECT name FROM company WHERE companyId=%s and status='rejected';"                
+                cursorName.execute(selectName_sql, (conpanyId))
+                names = cursorName.fetchall()  # Fetch all request
+
+                for nameExits in names:
+                    name = nameExits[0]
+
+            
+                try:
+                    name_data = {
+                        "name": name,
+                    }
+                    name_list.append(name_data)
+                except Exception as e:
+                    return str(e)   
 
         finally:
             cursorReject.close()

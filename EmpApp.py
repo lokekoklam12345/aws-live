@@ -902,54 +902,47 @@ def approveCompany():
     selected_company_name = request.form.getlist('selected_name[]')
     action = request.form['button-filter']
 
-    selectName_sql = "SELECT name FROM company WHERE companyId=%s;"
-    cursorName = db_conn.cursor()
-    try:
-        # Convert selected_selected_companys to a tuple
-        selected_ids_tuple = tuple(selected_selected_companys)
-
-        cursorName.execute(selectName_sql, selected_ids_tuple)
-        names = cursorName.fetchall()
-
-        name_list = []
-
-        for nameExits in names:
-            name = nameExits[0]
-
-            try:
-                name_data = {
-                    "name": name,
-                }
-                name_list.append(name_data)
-            except Exception as e:
-                return str(e)
-
-    except Exception as e:
-        return str(e)
-
-    finally:
-        cursorName.close()
-
+    
     cursorApprove = db_conn.cursor()
 
     if action == 'approve':
         try:
-            for companyId in selected_selected_companys:
+            
+            name_list = []
+            for conpanyId in selected_selected_companys:
                 update_sql = "UPDATE company SET status ='activeted' WHERE companyId=%s"
-                cursorApprove.execute(update_sql, (companyId,))
+                cursorApprove.execute(update_sql, (conpanyId))
                 db_conn.commit()
+
+                selectName_sql = "SELECT name FROM company WHERE companyId=%s;"
+                cursorName = db_conn.cursor()
+                cursorName.execute(selectName_sql, (conpanyId))
+                names = cursorName.fetchall()  # Fetch all request
+
+                for nameExits in names:
+                    name = nameExits[0]
+
+            
+                try:
+                    name_data = {
+                        "name": name,
+                    }
+                    name_list.append(name_data)
+                except Exception as e:
+                    return str(e)
         finally:
             cursorApprove.close()
+            cursorName.close()
 
         return render_template('companyOutput.html', company_list=name_list)
 
     else:
         try:
-            for companyId in selected_selected_companys:
+            for conpanyId in selected_selected_companys:
                 update_sql = "UPDATE company SET status ='rejected' WHERE companyId=%s"
-                cursorReject = db_conn.cursor()
-                cursorReject.execute(update_sql, (companyId,))
-                db_conn.commit()
+                cursorReject = db_conn.cursor()    
+                cursorReject.execute(update_sql, (conpanyId))
+                db_conn.commit()                    
 
         finally:
             cursorReject.close()

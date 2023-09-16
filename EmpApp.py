@@ -595,6 +595,7 @@ def approveReq():
     resultChange = []
     resultStudentId=[]
     resultOri=[]
+    request_list = []
 
     if action =='approve':
         try:
@@ -673,9 +674,7 @@ def approveReq():
 
             try:
                 cursor.execute(select_sql, (request_id,))
-                requests = cursor.fetchall()  # Fetch all request
-
-                request_list = []
+                requests = cursor.fetchall()  # Fetch all request              
 
                 for requestEdit in requests:
                     req_id = requestEdit[0]

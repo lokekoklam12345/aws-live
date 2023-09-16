@@ -257,69 +257,52 @@ def GetStudent():
 @app.route("/pickUp" ,methods=['GET','POST'])
 def PickStudent():
     selected_student_ids = request.form.getlist('selected_students[]')
-    #selected_student_name = request.form.getlist('selected_studentsNames[]')
     lec_id = request.form['lec_id']
-    #student_id = request.form['student_id']
-    #name = request.form['name']
-    #gender = request.form['gender']
-    #email = request.form['email']
-    #level = request.form['level']
-    #programme = request.form['programme']
-    #cohort = request.files['cohort']
-    
 
-    update_sql = "UPDATE student SET supervisor=%s WHERE studentId=%s"
-    cursor = db_conn.cursor()    
-
-    student_list=[]
+    student_list = []
 
     try:
-        # Check if the employee exists
+        cursor = db_conn.cursor()
+
         for student_id in selected_student_ids:
             select_sql = "SELECT * FROM student WHERE supervisor=%s AND studentId=%s"
-            cursorStudent = db_conn.cursor()
-            cursorStudent.execute(select_sql, (lec_id,student_id))
-            students = cursorStudent.fetchall()  # Fetch all students
-            
+            cursor.execute(select_sql, (lec_id, student_id))
+            students = cursor.fetchall()
+
             for student in students:
-                    student_id = student[0]
-                    name = student[1]
-                    gender = student[4]
-                    email = student[6]
-                    level = student[7]
-                    programme = student[8]
-                    cohort = student[10]
-                  
+                student_id = student[0]
+                name = student[1]
+                gender = student[4]
+                email = student[6]
+                level = student[7]
+                programme = student[8]
+                cohort = student[10]
 
-                    try:
-                        student_data = {
-                            "student_id": student_id,
-                            "name": name,
-                            "gender": gender,
-                            "email": email,
-                            "level": level,
-                            "programme": programme,
-                            "cohort": cohort,
-                        }
+                try:
+                    student_data = {
+                        "student_id": student_id,
+                        "name": name,
+                        "gender": gender,
+                        "email": email,
+                        "level": level,
+                        "programme": programme,
+                        "cohort": cohort,
+                    }
 
-                        # Append the student's dictionary to the student_list
-                        student_list.append(student_data)
-                        
+                    student_list.append(student_data)
 
-                    except Exception as e:
-                        return str(e)  
-            
-                 
+                except Exception as e:
+                    return str(e)
+
             update_sql = "UPDATE student SET supervisor=%s WHERE studentId=%s"
-            cursor = db_conn.cursor()    
-            cursor.execute(update_sql, (lec_id,student_id))
-            db_conn.commit()                    
-
-        cursorStudent.close()
-        return student_list
+            cursor.execute(update_sql, (lec_id, student_id))
+            db_conn.commit()
 
     finally:
         cursor.close()
+
+    return student_list
+
      
     
     return render_template('PickedUpOutput.html', student_list=student_list)

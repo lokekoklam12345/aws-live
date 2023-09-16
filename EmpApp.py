@@ -549,40 +549,22 @@ def approveReq():
     selected_change = request.form.getlist('selected_change[]')
 
     
-    try:       
-        
-       for i in range(len(resultAttributes)):
-        student_id = selected_studentId[i]
-        change = selected_change[i]
-        attribute = resultAttributes[i]
-            
-        if attribute == 'studentName' :
-            update_sql = "UPDATE student SET studentName = %s WHERE studentId=%s"
-            cursor = db_conn.cursor()    
-            cursor.execute(update_sql, (change, student_id))
-            db_conn.commit()        
+    try:
+        for i in range(len(resultAttributes)):
+            student_id = selected_studentId[i]
+            change = selected_change[i]
+            attribute = resultAttributes[i]
 
-        if attribute == 'IC' :
-            update_sql = "UPDATE student SET IC = %s WHERE studentId=%s"
-            cursor = db_conn.cursor()    
-            cursor.execute(update_sql, (change, student_id))
-            db_conn.commit()    
+            # Convert the list of single characters to a string
+            attribute = ''.join(attribute)
 
-        if attribute == 'mobileNumber' :
-            update_sql = "UPDATE student SET mobileNumber = %s WHERE studentId=%s"
-            cursor = db_conn.cursor()    
+            # Update the corresponding student record
+            update_sql = "UPDATE student SET {} = %s WHERE studentId=%s".format(attribute)
             cursor.execute(update_sql, (change, student_id))
-            db_conn.commit()     
-
-        if attribute == 'address' :
-            update_sql = "UPDATE student SET address = %s WHERE studentId=%s"
-            cursor = db_conn.cursor()    
-            cursor.execute(update_sql, (change, student_id))
-            db_conn.commit()         
+            db_conn.commit()
 
     finally:
-        cursor.close()
-    
+            cursor.close()
 
     #update the status of the request        
     try:       

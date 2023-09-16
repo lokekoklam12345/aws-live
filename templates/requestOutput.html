@@ -4,13 +4,13 @@
 <center>
 	<font color="grey" size="5" style="font-family: avenir">
 		<body bgcolor="lightgrey">
-            {% if ori_list %}
+            {% if resultAttributes %}
                 <h1>Approve Success</h1><br>
                 <h2>Following request has been approved</h2><br>
                 
                    
                     <h5>
-                        {% for ori in ori_list %}
+                        {% for attibute in resultAttributes %}
                         {{ id }} ( {{attribute}} ): {{ori_data.ori}} change to {{change_data}}                   
                         {% endfor %}
                     </h5>

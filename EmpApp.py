@@ -543,9 +543,9 @@ def approveReq():
             if change_result:
                 resultChange.append(change_result[0])  # Append the change value to the list
 
-            # Use attribute_result as the attribute name and studentId_result as a placeholder
-            update_sql = f"UPDATE student SET {attribute_result} = %s WHERE studentId=%s"
-            cursor.execute(update_sql, (change_result, studentId_result[0]))  # Note the [0] to access the value
+            # Use string formatting to create the SQL query
+            update_sql = f"UPDATE student SET `{attribute_result[0]}` = %s WHERE studentId=%s"
+            cursor.execute(update_sql, (change_result[0], studentId_result[0]))
             db_conn.commit()
                 
         db_conn.commit()

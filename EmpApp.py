@@ -584,14 +584,14 @@ def approveReq():
                             ,resultStudentId=resultStudentId
                             ,resultOri=resultOri)
 
-    if action=='reject':
-        try:       
+    if action == 'reject':
+        try:
+            cursor = db_conn.cursor()
+
             for request_id in selected_request_ids:
                 update_sql = "UPDATE request SET status = 'rejected' WHERE requestId=%s"
-                cursor = db_conn.cursor()    
                 cursor.execute(update_sql, (request_id,))
-                db_conn.commit()                    
-
+                db_conn.commit()
         finally:
             cursor.close()
 
@@ -601,7 +601,7 @@ def approveReq():
         try:
             cursor.execute(select_sql)
             requests = cursor.fetchall()  # Fetch all request
-                
+
             request_list = []
 
             for requestEdit in requests:
@@ -611,7 +611,7 @@ def approveReq():
                 req_reason = requestEdit[4]
                 req_studentId = requestEdit[5]
 
-                try:                
+                try:
                     request_data = {
                         "id": req_id,
                         "attribute": req_attribute,
@@ -622,19 +622,17 @@ def approveReq():
 
                     # Append the student's dictionary to the student_list
                     request_list.append(request_data)
-                    
 
                 except Exception as e:
-                    return str(e)               
+                    return str(e)
 
-        
         except Exception as e:
             return str(e)
 
         finally:
             cursor.close()
 
-        return render_template('reqestRejectOutput.html',request_list=request_list)
+        return render_template('reqestRejectOutput.html', request_list=request_list)
         
 
 @app.route("/filterRequest" ,methods=['GET','POST'])

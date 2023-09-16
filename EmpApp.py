@@ -540,7 +540,7 @@ def approveReq():
             
             try:                
                 attribute_data = {
-                    "attibute": req_id,                  
+                    "attibute": attribute_result,                  
                 }
 
                 # Append the student's dictionary to the student_list

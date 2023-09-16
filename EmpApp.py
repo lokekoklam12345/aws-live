@@ -471,7 +471,7 @@ def loginAdmin():
 
     return displayRequest()
 
-
+@app.route("/displayRequest", methods=['GET','POST'])
 def displayRequest():
     select_sql = "SELECT * FROM request WHERE status ='pending'"
     cursor = db_conn.cursor()

@@ -632,7 +632,7 @@ def approveReq():
         finally:
             cursor.close()
 
-        return render_template('reqestRejectOutput.html', request_list=request_list)
+        return render_template('requestRejectOutput.html', request_list=request_list)
         
 
 @app.route("/filterRequest" ,methods=['GET','POST'])

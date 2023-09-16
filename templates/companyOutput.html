@@ -9,9 +9,11 @@
                 <h2>Following company has been approved</h2><br>
                 {% for company in company_list %}
                    
-                    <h5>{{ company.name }}</h5>
-                    {% if not loop.first and not loop.last %}, {% endif %}
-                {% endfor %}
+                    <h5>{{ company.name }}
+                        {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </h5>
+                   
                 
                 <title>Company Approve Output</title>
                     <form action="/leclogin" autocomplete="on" method="GET">

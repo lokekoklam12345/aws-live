@@ -519,6 +519,7 @@ def approveReq():
     selected_request_ids = request.form.getlist('selected_requests[]')
     resultAttributes = []  # Store the result attributes here
     resultChange = []
+    selectedStdId=[]
 
     try:
         cursor = db_conn.cursor()
@@ -531,12 +532,19 @@ def approveReq():
             get_change = "SELECT newData FROM request WHERE requestId=%s"
             cursor.execute(get_change, (request_id,))
             change_result = cursor.fetchone()  # Fetch the result for this request_id
+
+            get_id = "SELECT r.studentId FROM request r, student s WHERE requestId=%s AND r.studentId=s.studentId"
+            cursor.execute(get_change, (get_id,))
+            stdId_result = cursor.fetchone()  # Fetch the result for this request_id
             
             if attribute_result:
                 resultAttributes.append(attribute_result[0])  # Append the attribute value to the list
 
             if change_result:
                 resultChange.append(change_result[0])  # Append the change value to the list
+
+            if stdId_result:
+                selectedStdId.append(stdId_result[0])  # Append the change value to the list
                 
         db_conn.commit()
         
@@ -548,7 +556,7 @@ def approveReq():
     selected_studentId = request.form.getlist('selected_studentId[]')
     selected_change = request.form.getlist('selected_change[]')
 
-    
+    ori_list=[]
     try:       
        for i in range(len(resultAttributes)):
         student_id = selected_studentId[i]
@@ -556,28 +564,65 @@ def approveReq():
         attribute = resultAttributes[i]
             
         if attribute == 'studentName' :
+            select_sql = "SELECT studentName FROM student WHERE studentId=%s"
+            cursor_select=db_conn.cursor()
+            cursor_select.execute(select_sql, (student_id))
+            original=cursor_select.fetchall()
+
             update_sql = "UPDATE student SET studentName = %s WHERE studentId=%s"
             cursor = db_conn.cursor()    
             cursor.execute(update_sql, (change, student_id))
             db_conn.commit()        
 
         if attribute == 'IC' :
+            select_sql = "SELECT IC FROM student WHERE studentId=%s"
+            cursor_select=db_conn.cursor()
+            cursor_select.execute(select_sql, (student_id))
+            original=cursor_select.fetchall()
+        
             update_sql = "UPDATE student SET IC = %s WHERE studentId=%s"
             cursor = db_conn.cursor()    
             cursor.execute(update_sql, (change, student_id))
             db_conn.commit()    
 
         if attribute == 'mobileNumber' :
+            select_sql = "SELECT mobileNumber FROM student WHERE studentId=%s"
+            cursor_select=db_conn.cursor()
+            cursor_select.execute(select_sql, (student_id))
+            original=cursor_select.fetchall()
+        
             update_sql = "UPDATE student SET mobileNumber = %s WHERE studentId=%s"
             cursor = db_conn.cursor()    
             cursor.execute(update_sql, (change, student_id))
             db_conn.commit()     
 
         if attribute == 'address' :
+            select_sql = "SELECT address FROM student WHERE studentId=%s"
+            cursor_select=db_conn.cursor()
+            cursor_select.execute(select_sql, (student_id))
+            original=cursor_select.fetchall()
+
             update_sql = "UPDATE student SET address = %s WHERE studentId=%s"
             cursor = db_conn.cursor()    
             cursor.execute(update_sql, (change, student_id))
-            db_conn.commit()         
+            db_conn.commit()      
+        
+        for ori in original:
+            original_data = ori[0]
+
+            try:                
+                ori_data = {
+                    "ori": original_data,                    
+                    
+                }
+
+                # Append the student's dictionary to the student_list
+                ori_list.append(ori_data)
+                
+
+            except Exception as e:
+                return str(e)        
+
 
     finally:
         cursor.close()
@@ -594,7 +639,11 @@ def approveReq():
     finally:
         cursor.close()
         
-    return resultChange
+    return render_template('requestOutput.html',
+                           student_id=selectedStdId,
+                           ori_data=ori_list,
+                           change_data=resultChange,
+                           attribute=resultAttributes )
 
 @app.route("/filterRequest" ,methods=['GET','POST'])
 def FilterRequest():

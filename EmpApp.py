@@ -259,16 +259,19 @@ def PickStudent():
     selected_student_ids = request.form.getlist('selected_students[]')
     lec_id = request.form['lec_id']
 
-    student_list = []
-
+    student_list = []   
+    cursor = db_conn.cursor()
+    cursorUpdate = db_conn.cursor()
+    
     try:
-        cursor = db_conn.cursor()
+        
+        select_sql = "SELECT * FROM student WHERE supervisor=%s AND studentId=%s"        
+        cursor.execute(select_sql, (lec_id, student_id))
+        students = cursor.fetchall()  # Fetch all students
+               
+        student_list = []
 
         for student_id in selected_student_ids:
-            select_sql = "SELECT * FROM student WHERE supervisor=%s AND studentId=%s"
-            cursor.execute(select_sql, (lec_id, student_id))
-            students = cursor.fetchall()
-
             for student in students:
                 student_id = student[0]
                 name = student[1]
@@ -278,7 +281,7 @@ def PickStudent():
                 programme = student[8]
                 cohort = student[10]
 
-                try:
+                try:             
                     student_data = {
                         "student_id": student_id,
                         "name": name,
@@ -289,23 +292,24 @@ def PickStudent():
                         "cohort": cohort,
                     }
 
+                    # Append the student's dictionary to the student_list
                     student_list.append(student_data)
+                    
 
                 except Exception as e:
-                    return str(e)
-
+                    return str(e)       
+            
             update_sql = "UPDATE student SET supervisor=%s WHERE studentId=%s"
-            cursor.execute(update_sql, (lec_id, student_id))
+            cursorUpdate.execute(update_sql, (lec_id, student_id))
             db_conn.commit()
+            
+
+    except Exception as e:
+        return str(e)
 
     finally:
-        cursor.close()
-
+        cursor.close()    
     return student_list
-
-     
-    
-    return render_template('PickedUpOutput.html', student_list=student_list)
 
 @app.route("/drop" ,methods=['GET','POST'])
 def DropStudent():

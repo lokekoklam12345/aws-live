@@ -551,7 +551,7 @@ def approveReq():
     
     try:       
         
-       for i in selected_request_ids:
+       for i in len(selected_request_ids):
         student_id = selected_studentId[i]
         change = selected_change[i]
         attribute = resultAttributes[i]

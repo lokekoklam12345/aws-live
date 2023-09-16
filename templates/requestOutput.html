@@ -18,7 +18,7 @@
     {% set change = resultChange[index] if resultChange is defined and index < resultChange|length else '' %}
     
     <!-- Your code here using index, student_id, attribute, ori, and change -->
-    Debug: {{ student_id }} ({{ attribute }}) : old {{ ori }} to new: {{ change }}<br>
+    {{ student_id[index }} ({{ resultAttributes[index] }}) : old {{ resultOri[index] }} to new: {{ resultChange[index] }}<br>
     {% set index = index + 1 %}
 {% endfor %}
  

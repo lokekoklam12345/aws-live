@@ -1007,7 +1007,7 @@ def approveCompany():
         finally:
             cursorReject.close()
 
-        return render_template('companyOutput.html', company_list=name_list)
+        return render_template('companyRejectOutput.html', company_list=name_list)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

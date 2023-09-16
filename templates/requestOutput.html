@@ -10,9 +10,10 @@
                 
                    
                     <h5>
-                        {% for attribute in resultAttributes %}
-                        {{studentId_result}}( {{attribute}} ) :old :{{resultOri}} to new: {{resultChange}}          
+                        {% for stdId, attribute, ori, change in studentId_result,resultAttributes, resultOri, resultChange %}                           
+                                {{ studentId_result }} ({{ attribute }}) : old {{ ori }} to new: {{ change }}
                         {% endfor %}
+
                     </h5>
                    
                 

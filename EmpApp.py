@@ -276,7 +276,7 @@ def PickStudent():
     try:
         # Check if the employee exists
         for student_id in selected_student_ids:
-            select_sql = f"SELECT * FROM student WHERE supervisor=%s WHERE studentId=%s"
+            select_sql = "SELECT * FROM student WHERE supervisor=%s WHERE studentId=%s"
             cursorStudent = db_conn.cursor()
             cursorStudent.execute(select_sql, (lec_id,student_id))
             students = cursor.fetchall()  # Fetch all students

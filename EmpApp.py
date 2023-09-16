@@ -537,6 +537,19 @@ def approveReq():
             cursor.execute(get_change, (get_id,))
             stdId_result = cursor.fetchone()  # Fetch the result for this request_id
             
+            
+            try:                
+                attribute_data = {
+                    "attibute": req_id,                  
+                }
+
+                # Append the student's dictionary to the student_list
+                resultAttributes.append(attribute_data)
+                
+
+            except Exception as e:
+                return str(e)   
+               
             if attribute_result:
                 resultAttributes.append(attribute_result[0])  # Append the attribute value to the list
 

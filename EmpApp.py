@@ -520,6 +520,8 @@ def approveReq():
     
     resultAttributes = []  # Store the result attributes here
     resultChange = []
+    resultStudentId=[]
+    resultOri=[]
 
     try:
         cursor = db_conn.cursor()
@@ -543,6 +545,17 @@ def approveReq():
             if change_result:
                 resultChange.append(change_result[0])  # Append the change value to the list
 
+            if studentId_result:
+                resultStudentId.append(studentId_result[0])  # Append the change value to the list
+
+            #get ori data
+            get_ori = f"SELECT `{attribute_result[0]}` FROM student WHERE studentId=%s"
+            cursor.execute(get_ori, (studentId_result,))
+            ori_result = cursor.fetchone()  # Fetch the result for this request_id
+            
+            if ori_result:
+                resultOri.append(ori_result[0])  # Append the change value to the list
+
             # Use string formatting to create the SQL query
             update_sql = f"UPDATE student SET `{attribute_result[0]}` = %s WHERE studentId=%s"
             cursor.execute(update_sql, (change_result[0], studentId_result[0]))
@@ -564,7 +577,8 @@ def approveReq():
     finally:
         cursor.close()
         
-    return render_template('requestOutput.html', resultAttributes=resultAttributes)
+    return render_template('requestOutput.html', resultAttributes=resultAttributes,resultChange=resultChange
+                           ,studentId_result=studentId_result,resultOri=resultOri)
 
 
 @app.route("/filterRequest" ,methods=['GET','POST'])

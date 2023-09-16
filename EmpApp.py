@@ -517,6 +517,7 @@ def displayRequest():
 @app.route("/approveReq", methods=['GET','POST'])
 def approveReq():
     selected_request_ids = request.form.getlist('selected_requests[]')
+    
     resultAttributes = []  # Store the result attributes here
     resultChange = []
 
@@ -531,47 +532,47 @@ def approveReq():
             get_change = "SELECT newData FROM request WHERE requestId=%s"
             cursor.execute(get_change, (request_id,))
             change_result = cursor.fetchone()  # Fetch the result for this request_id
+
+            get_studentId = "SELECT studentId FROM request WHERE requestId=%s"
+            cursor.execute(get_studentId, (request_id,))
+            studentId_result = cursor.fetchone()  # Fetch the result for this request_id
             
             if attribute_result:
                 resultAttributes.append(attribute_result[0])  # Append the attribute value to the list
 
             if change_result:
                 resultChange.append(change_result[0])  # Append the change value to the list
+
+            if attribute_result == 'studentName' :
+                update_sql = "UPDATE student SET studentName = %s WHERE studentId=%s"
+                cursor = db_conn.cursor()    
+                cursor.execute(update_sql, (change_result, studentId_result))
+                db_conn.commit()        
+
+            if attribute_result == 'IC' :
+                update_sql = "UPDATE student SET IC = %s WHERE studentId=%s"
+                cursor = db_conn.cursor()    
+                cursor.execute(update_sql, (change_result, studentId_result))
+                db_conn.commit()    
+
+            if attribute_result == 'mobileNumber' :
+                update_sql = "UPDATE student SET mobileNumber = %s WHERE studentId=%s"
+                cursor = db_conn.cursor()    
+                cursor.execute(update_sql, (change_result, studentId_result))
+                db_conn.commit()     
+
+            if attribute_result == 'address' :
+                update_sql = "UPDATE student SET address = %s WHERE studentId=%s"
+                cursor = db_conn.cursor()    
+                cursor.execute(update_sql, (change_result, studentId_result))
+                db_conn.commit() 
                 
         db_conn.commit()
         
     finally:
         cursor.close()
-
-    #update the student details 
+ 
     
-    selected_studentId = request.form.getlist('selected_studentId[]')
-    selected_change = request.form.getlist('selected_change[]')
-
-    
-    try:
-        for i in range(len(resultAttributes)):
-            student_id = selected_studentId[i]
-            change = selected_change[i]
-            attribute = resultAttributes[i]
-
-            # Convert the list of single characters to a string
-            attribute = ''.join(attribute)
-
-            # Create a new cursor for each iteration
-            cursor = db_conn.cursor()
-
-            # Update the corresponding student record
-            update_sql = "UPDATE student SET {} = %s WHERE studentId=%s".format(attribute)
-            cursor.execute(update_sql, (change, student_id))
-            db_conn.commit()
-
-            # Close the cursor within the loop
-            cursor.close()
-
-    finally:
-        # Ensure that the cursor is closed even if an exception occurs
-        cursor.close()
 
     #update the status of the request        
     try:       
@@ -584,7 +585,7 @@ def approveReq():
     finally:
         cursor.close()
         
-    return render_template('requestOutput.html', resultAttributes=attribute)
+    return render_template('requestOutput.html', resultAttributes=resultAttributes)
 
 @app.route("/filterRequest" ,methods=['GET','POST'])
 def FilterRequest():

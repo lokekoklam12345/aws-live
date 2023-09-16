@@ -211,19 +211,8 @@ def GetStudent():
             level = student[7]
             programme = student[8]
             cohort = student[10]
-
-            # Fetch the S3 image URL based on student_id
-            stu_image_file_name_in_s3 = "stu-id-" + str(student_id) + "_image_file"
-            s3 = boto3.client('s3')
-            bucket_name = custombucket
-
-            try:
-                response = s3.generate_presigned_url('get_object',
-                                                     Params={'Bucket': bucket_name,
-                                                             'Key': stu_image_file_name_in_s3},
-                                                     ExpiresIn=1000)  # Adjust the expiration time as needed
-
-                # Create a dictionary for each student with their details and image URL
+            
+            try:            
                 student_data = {
                     "student_id": student_id,
                     "name": name,

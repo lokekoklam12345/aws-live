@@ -64,7 +64,7 @@
 				</table>                          
             
                 <title>Student Picked Up Output</title>
-                    <form action="/displayStudent" autocomplete="on" method="GET">
+                    <form action="/displayStudent" autocomplete="on" method="POST">
 						<input  type="hidden" name="lec_id" value="lec001" >
 						<input  type="hidden" name="action" value="pickUp" >			
                         <br><button type="submit" name="action" value="pickUp" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GO BACK</button><br><br>
@@ -72,7 +72,7 @@
             {% else %} 
                 <h1>Please select at least one student</h1><br>                              
                 <title>None selected student</title>
-                    <form action="/displayStudent" autocomplete="on" method="GET">
+                    <form action="/displayStudent" autocomplete="on" method="POST">
 						<input  type="hidden" name="lec_id" value="lec001" >
 						<input  type="hidden" name="action" value="pickUp" >				
                         <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GO BACK</button><br><br>

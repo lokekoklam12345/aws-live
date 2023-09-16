@@ -307,7 +307,8 @@ def PickStudent():
                         
 
                     except Exception as e:
-                        return str(e)    
+                        return str(e)  
+            
                  
             update_sql = "UPDATE student SET supervisor=%s WHERE studentId=%s"
             cursor = db_conn.cursor()    
@@ -315,7 +316,8 @@ def PickStudent():
             db_conn.commit()                    
 
         cursorStudent.close()
-        
+        return student_list
+
     finally:
         cursor.close()
      

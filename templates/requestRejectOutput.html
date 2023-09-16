@@ -32,37 +32,34 @@
 <center>
 	<font color="grey" size="5" style="font-family: avenir">
 		<body bgcolor="lightgrey">
-            {% if resultAttributes %}
-                <h1>Approve Success</h1><br>
-                <h2>Following request has been approved</h2><br>
+            {% if request_list %}
+                <h1>Reject Success</h1><br>
+                <h2>Following request has been rejected</h2><br>
                 
                 <table>
                     <thead>
-                        <tr>
+                        <tr>                      
+                        <td>Request ID</td>
+                        <td>Attribue</td>
+                        <td>Change</td>
+                        <td>Reason</td>
                         <td>Student ID</td>
-                        <td>Edit Attribute</td>
-                        <td>Old Data</td>
-                        <td>New Data</td> 
                         </tr>
                     </thead>
-                    <tbody>        
-                        {% for student_id in resultStudentId %}
-                        {% set index = resultStudentId.index(student_id) %}
-                        {% set attribute = resultAttributes[index] if index < resultAttributes|length else '' %}
-                        {% set ori = resultOri[index] if resultOri is defined and index < resultOri|length else '' %}
-                        {% set change = resultChange[index] if resultChange is defined and index < resultChange|length else '' %}
-                            <tr>
-                                
-                                <td>{{ student_id }}</td>
-                                <td>{{ attribute }}</td>
-                                <td>{{ ori }}</td>
-                                <td>{{ change }}</td>                                                                            
+                    <tbody>            
+                        {% for request in request_list %}
+                            <tr>                                                              
+                                <td>{{ request.id }}</td>
+                                <td>{{ request.attribute }}</td>                               
+                                <td>{{ request.change }}</td>                              
+                                <td>{{ request.reason }}</td>
+                                <td>{{ request.studentId }}</td>                                
                             </tr>
-                            {% endfor %}
+                            {% endfor %}                               
                     </tbody>
-                </table>                                      
+                </table>                                  
             
-                <title>Request Approve Output</title>
+                <title>Request Reject Output</title>
                     <form action="/displayRequest" autocomplete="on" method="GET">
                         <br><button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GO BACK</button><br><br>
                     </form>

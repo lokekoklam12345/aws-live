@@ -517,71 +517,125 @@ def displayRequest():
 @app.route("/approveReq", methods=['GET','POST'])
 def approveReq():
     selected_request_ids = request.form.getlist('selected_requests[]')
-    
+    action= request.form['action']
+
     resultAttributes = []  # Store the result attributes here
     resultChange = []
     resultStudentId=[]
     resultOri=[]
 
-    try:
-        cursor = db_conn.cursor()
-        
-        for request_id in selected_request_ids:
-            get_attribute = "SELECT attribute FROM request WHERE requestId=%s"
-            cursor.execute(get_attribute, (request_id,))
-            attribute_result = cursor.fetchone()  # Fetch the result for this request_id
-
-            get_change = "SELECT newData FROM request WHERE requestId=%s"
-            cursor.execute(get_change, (request_id,))
-            change_result = cursor.fetchone()  # Fetch the result for this request_id
-
-            get_studentId = "SELECT studentId FROM request WHERE requestId=%s"
-            cursor.execute(get_studentId, (request_id,))
-            studentId_result = cursor.fetchone()  # Fetch the result for this request_id
+    if action =='approve':
+        try:
+            cursor = db_conn.cursor()
             
-            if attribute_result:
-                resultAttributes.append(attribute_result[0])  # Append the attribute value to the list
+            for request_id in selected_request_ids:
+                get_attribute = "SELECT attribute FROM request WHERE requestId=%s"
+                cursor.execute(get_attribute, (request_id,))
+                attribute_result = cursor.fetchone()  # Fetch the result for this request_id
 
-            if change_result:
-                resultChange.append(change_result[0])  # Append the change value to the list
+                get_change = "SELECT newData FROM request WHERE requestId=%s"
+                cursor.execute(get_change, (request_id,))
+                change_result = cursor.fetchone()  # Fetch the result for this request_id
 
-            if studentId_result:
-                resultStudentId.append(studentId_result[0])  # Append the change value to the list
-
-            #get ori data
-            get_ori = f"SELECT `{attribute_result[0]}` FROM student WHERE studentId=%s"
-            cursor.execute(get_ori, (studentId_result,))
-            ori_result = cursor.fetchone()  # Fetch the result for this request_id
-            
-            if ori_result:
-                resultOri.append(ori_result[0])  # Append the change value to the list
-
-            # Use string formatting to create the SQL query
-            update_sql = f"UPDATE student SET `{attribute_result[0]}` = %s WHERE studentId=%s"
-            cursor.execute(update_sql, (change_result[0], studentId_result[0]))
-            db_conn.commit()
+                get_studentId = "SELECT studentId FROM request WHERE requestId=%s"
+                cursor.execute(get_studentId, (request_id,))
+                studentId_result = cursor.fetchone()  # Fetch the result for this request_id
                 
-        db_conn.commit()
+                if attribute_result:
+                    resultAttributes.append(attribute_result[0])  # Append the attribute value to the list
+
+                if change_result:
+                    resultChange.append(change_result[0])  # Append the change value to the list
+
+                if studentId_result:
+                    resultStudentId.append(studentId_result[0])  # Append the change value to the list
+
+                #get ori data
+                get_ori = f"SELECT `{attribute_result[0]}` FROM student WHERE studentId=%s"
+                cursor.execute(get_ori, (studentId_result,))
+                ori_result = cursor.fetchone()  # Fetch the result for this request_id
+                
+                if ori_result:
+                    resultOri.append(ori_result[0])  # Append the change value to the list
+
+                # Use string formatting to create the SQL query
+                update_sql = f"UPDATE student SET `{attribute_result[0]}` = %s WHERE studentId=%s"
+                cursor.execute(update_sql, (change_result[0], studentId_result[0]))
+                db_conn.commit()
+                    
+            db_conn.commit()
+            
+        finally:
+            cursor.close()
+
+        #update the status of the request        
+        try:       
+            for request_id in selected_request_ids:
+                update_sql = "UPDATE request SET status = 'approved' WHERE requestId=%s"
+                cursor = db_conn.cursor()    
+                cursor.execute(update_sql, (request_id,))
+                db_conn.commit()                    
+
+        finally:
+            cursor.close()
+            
+        return render_template('requestOutput.html', resultAttributes=resultAttributes
+                            ,resultChange=resultChange
+                            ,resultStudentId=resultStudentId
+                            ,resultOri=resultOri)
+
+    if action=='reject':
+        try:       
+            for request_id in selected_request_ids:
+                update_sql = "UPDATE request SET status = 'rejected' WHERE requestId=%s"
+                cursor = db_conn.cursor()    
+                cursor.execute(update_sql, (request_id,))
+                db_conn.commit()                    
+
+        finally:
+            cursor.close()
+
+        select_sql = "SELECT * FROM request WHERE status ='rejected'"
+        cursor = db_conn.cursor()
+
+        try:
+            cursor.execute(select_sql)
+            requests = cursor.fetchall()  # Fetch all request
+                
+            request_list = []
+
+            for requestEdit in requests:
+                req_id = requestEdit[0]
+                req_attribute = requestEdit[1]
+                req_change = requestEdit[2]
+                req_reason = requestEdit[4]
+                req_studentId = requestEdit[5]
+
+                try:                
+                    request_data = {
+                        "id": req_id,
+                        "attribute": req_attribute,
+                        "change": req_change,
+                        "reason": req_reason,
+                        "studentId": req_studentId,
+                    }
+
+                    # Append the student's dictionary to the student_list
+                    request_list.append(request_data)
+                    
+
+                except Exception as e:
+                    return str(e)               
+
         
-    finally:
-        cursor.close()
+        except Exception as e:
+            return str(e)
 
-    #update the status of the request        
-    try:       
-        for request_id in selected_request_ids:
-            update_sql = "UPDATE request SET status = 'approved' WHERE requestId=%s"
-            cursor = db_conn.cursor()    
-            cursor.execute(update_sql, (request_id,))
-            db_conn.commit()                    
+        finally:
+            cursor.close()
 
-    finally:
-        cursor.close()
+        return render_template('reqestRejectOutput.html',request_list=request_list)
         
-    return render_template('requestOutput.html', resultAttributes=resultAttributes
-                           ,resultChange=resultChange
-                           ,resultStudentId=resultStudentId
-                           ,resultOri=resultOri)
-
 
 @app.route("/filterRequest" ,methods=['GET','POST'])
 def FilterRequest():

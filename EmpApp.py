@@ -905,12 +905,13 @@ def approveCompany():
     
     cursorApprove = db_conn.cursor()
     cursorName = db_conn.cursor()
-    cursorReject = db_conn.cursor()    
+    cursorReject = db_conn.cursor()   
+    name_list = [] 
 
     if action == 'approve':
         try:
             
-            name_list = []
+            
             for conpanyId in selected_selected_companys:
                 update_sql = "UPDATE company SET status ='activeted' WHERE companyId=%s"
                 cursorApprove.execute(update_sql, (conpanyId))

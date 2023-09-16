@@ -262,14 +262,12 @@ def PickStudent():
     student_list = []   
     cursor = db_conn.cursor()
     cursorUpdate = db_conn.cursor()
-    
+
     try:
         
         select_sql = "SELECT * FROM student WHERE supervisor=%s AND studentId=%s"        
         cursor.execute(select_sql, (lec_id, student_id))
-        students = cursor.fetchall()  # Fetch all students
-               
-        student_list = []
+        students = cursor.fetchall()  # Fetch all students               
 
         for student_id in selected_student_ids:
             for student in students:

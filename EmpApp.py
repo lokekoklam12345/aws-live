@@ -271,9 +271,44 @@ def PickStudent():
     update_sql = "UPDATE student SET supervisor=%s WHERE studentId=%s"
     cursor = db_conn.cursor()    
 
+    student_list=[]
+
     try:
         # Check if the employee exists
         for student_id in selected_student_ids:
+            select_sql = f"SELECT * FROM student WHERE supervisor=%s WHERE studentId=%s"
+            cursorStudent = db_conn.cursor()
+            cursorStudent.execute(select_sql, (lec_id,student_id))
+            students = cursor.fetchall()  # Fetch all students
+            
+            for student in students:
+                    student_id = student[0]
+                    name = student[1]
+                    gender = student[4]
+                    email = student[6]
+                    level = student[7]
+                    programme = student[8]
+                    cohort = student[10]
+                  
+
+                    try:
+                        student_data = {
+                            "student_id": student_id,
+                            "name": name,
+                            "gender": gender,
+                            "email": email,
+                            "level": level,
+                            "programme": programme,
+                            "cohort": cohort,
+                        }
+
+                        # Append the student's dictionary to the student_list
+                        student_list.append(student_data)
+                        
+
+                    except Exception as e:
+                        return str(e)    
+                 
             update_sql = "UPDATE student SET supervisor=%s WHERE studentId=%s"
             cursor = db_conn.cursor()    
             cursor.execute(update_sql, (lec_id,student_id))
@@ -282,7 +317,7 @@ def PickStudent():
     finally:
         cursor.close()
     
-    return render_template('PickedUpOutput.html', student_list=selected_student_ids)
+    return render_template('PickedUpOutput.html', student_list=student_list)
 
 @app.route("/drop" ,methods=['GET','POST'])
 def DropStudent():
@@ -981,7 +1016,7 @@ def approveCompany():
 
         return render_template('companyOutput.html', company_list=name_list)
 
-    else:
+    if action == 'reject':
         try:
             for conpanyId in selected_selected_companys:
                 update_sql = "UPDATE company SET status ='rejected' WHERE companyId=%s"                

@@ -38,8 +38,7 @@
                 
                 <table>
                     <thead>
-                        <tr>                      
-                        <td>Request ID</td>
+                        <tr>                                             
                         <td>Attribue</td>
                         <td>Change</td>
                         <td>Reason</td>
@@ -49,7 +48,6 @@
                     <tbody>            
                         {% for request in request_list %}
                             <tr>                                                              
-                                <td>{{ request.id }}</td>
                                 <td>{{ request.attribute }}</td>                               
                                 <td>{{ request.change }}</td>                              
                                 <td>{{ request.reason }}</td>

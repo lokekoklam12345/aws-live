@@ -9,8 +9,8 @@
                 <h2>Following company has been approved</h2><br>
                 {% for company in company_list %}
                    
-                    <h5>{{ company.name }}</h5><br>
-                    {% if not loop.first %}, {% endif %}
+                    <h5>{{ company.name }}</h5>
+                    {% if not loop.first && not loop.last %}, {% endif %}
                 {% endfor %}
                 
                 <title>Company Approve Output</title>

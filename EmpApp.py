@@ -288,7 +288,7 @@ def PickStudent():
     
     
     cursor = db_conn.cursor()
-    students=[]
+    student_list = []
 
     try:
         
@@ -296,8 +296,7 @@ def PickStudent():
             select_sql ="SELECT * FROM student WHERE supervisor= %s and studentId = %s "
             cursor.execute(select_sql,(lec_id,student_id))
             students = cursor.fetchall()  # Fetch all students
-               
-        student_list = []
+                       
 
         for student in students:
             student_id = student[0]
@@ -327,7 +326,7 @@ def PickStudent():
                
     except Exception as e:
         return str(e)
-    return render_template('PickedUpOutput.html', student_list=student_list)
+    return selected_student_ids
 
 @app.route("/drop" ,methods=['GET','POST'])
 def DropStudent():

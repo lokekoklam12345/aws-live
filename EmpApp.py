@@ -298,35 +298,35 @@ def PickStudent():
             students = cursor.fetchall()  # Fetch all students
                        
 
-        for student in students:
-            student_id = student[0]
-            name = student[1]
-            gender = student[4]
-            email = student[6]
-            level = student[7]
-            programme = student[8]
-            cohort = student[10]           
-            try:               
-                student_data = {
-                    "student_id": student_id,
-                    "name": name,
-                    "gender": gender,
-                    "email": email,
-                    "level": level,
-                    "programme": programme,
-                    "cohort": cohort,
-                }
+            for student in students:
+                student_id = student[0]
+                name = student[1]
+                gender = student[4]
+                email = student[6]
+                level = student[7]
+                programme = student[8]
+                cohort = student[10]           
+                try:               
+                    student_data = {
+                        "student_id": student_id,
+                        "name": name,
+                        "gender": gender,
+                        "email": email,
+                        "level": level,
+                        "programme": programme,
+                        "cohort": cohort,
+                    }
 
-                # Append the student's dictionary to the student_list
-                student_list.append(student_data)
+                    # Append the student's dictionary to the student_list
+                    student_list.append(student_data)
+                    
+
+                except Exception as e:
+                    return str(e)       
                 
-
-            except Exception as e:
-                return str(e)       
-               
     except Exception as e:
         return str(e)
-    return selected_student_ids
+    return render_template('PickedUpOutput.html', student_list=student_list)
 
 @app.route("/drop" ,methods=['GET','POST'])
 def DropStudent():

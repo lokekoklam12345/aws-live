@@ -11,16 +11,16 @@
                    
                     <h5>
 
-{% set index = 0 %}
-{% for student_id in studentId_result %}
-    {% set attribute = resultAttributes[index] if index < resultAttributes|length else '' %}
-    {% set ori = resultOri[index] if resultOri is defined and index < resultOri|length else '' %}
-    {% set change = resultChange[index] if resultChange is defined and index < resultChange|length else '' %}
-    
-    <!-- Your code here using index, student_id, attribute, ori, and change -->
-    {{ student_id[index] }} ({{ resultAttributes[index] }}) : old {{ resultOri[index] }} to new: {{ resultChange[index]}}<br>
-    {% set index = index + 1 %}
-{% endfor %}
+                        {% for student_id in resultStudentId %}
+                        {% set index = resultStudentId.index(student_id) %}
+                        {% set attribute = resultAttributes[index] if index < resultAttributes|length else '' %}
+                        {% set ori = resultOri[index] if resultOri is defined and index < resultOri|length else '' %}
+                        {% set change = resultChange[index] if resultChange is defined and index < resultChange|length else '' %}
+                        
+                        <!-- Your code here using student_id, attribute, ori, and change -->
+                        {{ student_id }} ({{ attribute }}) : old {{ ori }} to new: {{ change }}<br>
+                    {% endfor %}
+                    
  
                     </h5>
                    
